@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:untitled/model/category.dart';
@@ -48,16 +47,22 @@ class FeaturedCategoryWidget extends StatelessWidget {
     if (_category.image != '') {
       return CachedNetworkImage(
         imageUrl: _category.image,
+        fit: BoxFit.cover,
         placeholder: (context, url) => Shimmer(
-            duration: Duration(seconds: 1),
-            enabled: true,
-            direction: ShimmerDirection.fromLTRB(),
-            child: Container(color: Colors.white10)
+          duration: Duration(seconds: 1),
+          enabled: true,
+          direction: ShimmerDirection.fromLTRB(),
+          child: Container(color: Colors.white10),
         ),
         errorWidget: (context, url, error) => Icon(Icons.error),
       );
-    } else {
-      return Container(width: 100, height: 100, child: Center(child: Icon(Icons.error)));
     }
+    return Container(
+      width: 100,
+      height: 100,
+      child: Center(
+        child: Icon(Icons.error),
+      ),
+    );
   }
 }
