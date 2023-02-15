@@ -11,6 +11,15 @@ import 'package:wooapp/database/user.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/screens/splash/splash.dart';
 
+/// WooApp
+/// Flutter WooCommerce online mobile application for customers.
+///
+/// Commercial usage of this app is not allowed without author official permission.
+///
+/// Copyright © 2020 - 2023 Dmitriy Moroz (ShiftHackZ)
+/// All rights reserved
+/// https://dmitriy.moroz.cc
+///
 void main() async {
   await dotenv.load(fileName: ".env");
   WidgetsFlutterBinding.ensureInitialized();
