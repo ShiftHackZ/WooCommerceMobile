@@ -9,8 +9,12 @@ class ProductActionsWidget extends StatefulWidget {
   static const double iconRadius = 20;
   static const double faRadius = 18;
   final Product product;
+  final Function() addToWishList;
 
-  ProductActionsWidget(this.product);
+  ProductActionsWidget({
+    required this.product,
+    required this.addToWishList,
+  });
 
   @override
   State<StatefulWidget> createState() => _ProductActionsWidgetState();
@@ -19,43 +23,48 @@ class ProductActionsWidget extends StatefulWidget {
 class _ProductActionsWidgetState extends State<ProductActionsWidget> {
   @override
   Widget build(BuildContext context) => Row(
-    children: [
-      ProductStockWidget(widget.product),
-      Spacer(),
-      _buildIcon(
-          FaIcon(FontAwesomeIcons.heart, color: Colors.white),
-          () { }
-      ),
-      SizedBox(width: 8),
-      _buildIcon(
-          FaIcon(FontAwesomeIcons.comment, color: Colors.white),
-          () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => ReviewsScreen(widget.product.id)))
-      ),
-      SizedBox(width: 8),
-      _buildIcon(
-          FaIcon(FontAwesomeIcons.share, color: Colors.white),
-          () => Share.share(
-              'Check out: ${widget.product.name}\n${widget.product.permalink}',
-              subject: 'Share ${widget.product.name}'
+        children: [
+          ProductStockWidget(widget.product),
+          Spacer(),
+          _buildIcon(
+            FaIcon(FontAwesomeIcons.heart, color: Colors.white),
+            widget.addToWishList,
           ),
-      ),
-    ],
-  );
+          SizedBox(width: 8),
+          _buildIcon(
+            FaIcon(FontAwesomeIcons.comment, color: Colors.white),
+            () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => ReviewsScreen(widget.product.id),
+              ),
+            ),
+          ),
+          SizedBox(width: 8),
+          _buildIcon(
+            FaIcon(FontAwesomeIcons.share, color: Colors.white),
+            () => Share.share(
+              'Check out: ${widget.product.name}\n${widget.product.permalink}',
+              subject: 'Share ${widget.product.name}',
+            ),
+          ),
+        ],
+      );
 
   Widget _buildIcon(
-      Widget icon,
-      VoidCallback action, {
-        Color backgroundColor = Colors.grey,
-  }) => CircleAvatar(
-    backgroundColor: backgroundColor,
-    radius: ProductActionsWidget.iconRadius,
-    child: GestureDetector(
-      onTap: action,
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(ProductActionsWidget.iconRadius)),
-        child: icon,
-      ),
-    ),
-  );
+    Widget icon,
+    VoidCallback action, {
+    Color backgroundColor = Colors.grey,
+  }) =>
+      CircleAvatar(
+        backgroundColor: backgroundColor,
+        radius: ProductActionsWidget.iconRadius,
+        child: GestureDetector(
+          onTap: action,
+          child: ClipRRect(
+            borderRadius: BorderRadius.all(
+                Radius.circular(ProductActionsWidget.iconRadius)),
+            child: icon,
+          ),
+        ),
+      );
 }

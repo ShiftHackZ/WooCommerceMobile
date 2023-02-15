@@ -96,7 +96,10 @@ class ProductView extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ),
-                ProductActionsWidget(product),
+                ProductActionsWidget(
+                  product: product,
+                  addToWishList: () => context.read<ProductCubit>().addToWishList(),
+                ),
                 Divider(),
                 Padding(
                   padding: EdgeInsets.only(top: 8.0),

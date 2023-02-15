@@ -5,7 +5,6 @@ import 'package:wooapp/locator.dart';
 import 'package:wooapp/screens/profile/profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
-
   final CustomerProfileDataSource _ds = locator<CustomerProfileDataSource>();
   final AppDb _db = locator<AppDb>();
 

@@ -4,7 +4,6 @@ import 'package:wooapp/screens/profile/profile_cubit.dart';
 import 'package:wooapp/screens/profile/profile_view.dart';
 
 class ProfileScreen extends StatelessWidget {
-
   ProfileScreen();
 
   @override
