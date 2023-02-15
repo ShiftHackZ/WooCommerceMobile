@@ -174,9 +174,14 @@ class CartView extends StatelessWidget {
                                 Navigator.of(context)
                                     .push(MaterialPageRoute(builder: (_) => ProductScreen(item.id )));
                               },
-                              child: Text(
-                                '${item.name}',
-                                style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width - 180,
+                                child: Text(
+                                  '${item.name}',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+                                ),
                               ),
                             ),
                             Spacer(),

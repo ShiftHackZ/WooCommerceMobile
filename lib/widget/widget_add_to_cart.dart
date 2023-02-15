@@ -10,6 +10,7 @@ import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/orders/create/create_order_screen.dart';
 import 'package:wooapp/widget/widget_product_stock.dart';
+import 'package:wooapp/widget/widget_product_variations.dart';
 
 import 'widget_diaolg.dart';
 
@@ -176,6 +177,7 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
 
   Widget _buildAddButton() => ElevatedButton(
         onPressed: () {
+          // _processSimpleProduct();return;
           if (widget.product.isVariable) {
             _processVariableProduct();
           } else {
@@ -217,22 +219,38 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
       );
 
   void _processSimpleProduct() {
-    widget._ds.addItem(widget.product.id, getCount());
-    setState(() {
-      _inCart = true;
+    widget._ds.addItem(widget.product.id, getCount()).then((response) {
+      setState(() {
+        _inCart = true;
+      });
     });
   }
 
   void _processVariableProduct() {
+    var key = GlobalKey<ProductVariationSelectionWidgetState>();
     showDialog(
       context: context,
       builder: (ctx) => WooDialog(
         type: WooDialogType.widget,
         title: 'Select product properties',
-        content: Text('varareara'),
+        content: ProductVariationSelectionWidget(
+          key: key,
+          product: widget.product,
+        ),
         buttonPositiveText: 'Add',
         onPositiveButton: () {
-
+          var variations = key.currentState?.getVariations();
+          if (variations != null) {
+            widget._ds.addVariableItem(
+              widget.product.id,
+              getCount(),
+              variations,
+            ).then((response) {
+              setState(() {
+                _inCart = true;
+              });
+            });
+          }
         },
       ),
     );

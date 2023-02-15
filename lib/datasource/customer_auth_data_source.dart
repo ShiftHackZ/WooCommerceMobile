@@ -23,7 +23,8 @@ class CustomerAuthDataSourceImpl extends CustomerAuthDataSource {
   @override
   Future<UserData> login(String login, String password) => _apiCoCart
       .withHeaders({
-        'Authorization': 'Basic ${base64Encode(utf8.encode('$login:$password'))}'
+        'Authorization': 'Basic ${base64Encode(utf8.encode('$login:$password'))}',
+        'Content-Type': 'application/json; charset=UTF-8',
       })
       .post('login')
       .then((response) => UserData.fromJson(response.data))
