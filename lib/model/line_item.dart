@@ -1,4 +1,4 @@
-import 'package:untitled/model/tax.dart';
+import 'package:wooapp/model/tax.dart';
 
 class LineItem {
   int id;

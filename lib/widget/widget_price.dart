@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:untitled/constants/colors.dart';
-import 'package:untitled/constants/config.dart';
-import 'package:untitled/model/product.dart';
+import 'package:wooapp/constants/colors.dart';
+import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/model/product.dart';
 
 class PriceWidget extends StatelessWidget {
 

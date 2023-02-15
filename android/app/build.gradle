@@ -34,7 +34,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.untitled"
+        applicationId "com.shifthackz.wooapp"
         minSdkVersion 20
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()

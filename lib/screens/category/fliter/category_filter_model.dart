@@ -1,4 +1,4 @@
-import 'package:untitled/model/attribute.dart';
+import 'package:wooapp/model/attribute.dart';
 
 class CategoryFilterModel {
   Attribute attribute;

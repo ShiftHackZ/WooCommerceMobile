@@ -1,5 +1,5 @@
-import 'package:untitled/database/filter.dart';
-import 'package:untitled/model/attribute.dart';
+import 'package:wooapp/database/filter.dart';
+import 'package:wooapp/model/attribute.dart';
 
 import 'category_filter_model.dart';
 

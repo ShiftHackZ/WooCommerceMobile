@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:untitled/api/interceptor_logger.dart';
+import 'package:wooapp/api/interceptor_logger.dart';
 
 class WpApiClient {
   final Dio dio = Dio();

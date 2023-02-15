@@ -7,20 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:untitled/model/customer_profile.dart';
-import 'package:untitled/screens/auth/login.dart';
-import 'package:untitled/screens/auth/no_auth_screen.dart';
-import 'package:untitled/screens/gallery/gallery.dart';
-import 'package:untitled/screens/help/help_screen.dart';
-import 'package:untitled/screens/map/shop_map_screen.dart';
-import 'package:untitled/screens/orders/orders_screen.dart';
-import 'package:untitled/screens/profile/edit/profile_edit_screen.dart';
-import 'package:untitled/screens/profile/profile_cubit.dart';
-import 'package:untitled/screens/profile/profile_state.dart';
-import 'package:untitled/screens/profile/shipping/shipping_edit_screen.dart';
-import 'package:untitled/screens/settings/settings.dart';
-import 'package:untitled/widget/shimmer.dart';
-import 'package:untitled/widget/stateful_wrapper.dart';
+import 'package:wooapp/model/customer_profile.dart';
+import 'package:wooapp/screens/auth/login.dart';
+import 'package:wooapp/screens/auth/no_auth_screen.dart';
+import 'package:wooapp/screens/gallery/gallery.dart';
+import 'package:wooapp/screens/help/help_screen.dart';
+import 'package:wooapp/screens/map/shop_map_screen.dart';
+import 'package:wooapp/screens/orders/orders_screen.dart';
+import 'package:wooapp/screens/profile/edit/profile_edit_screen.dart';
+import 'package:wooapp/screens/profile/profile_cubit.dart';
+import 'package:wooapp/screens/profile/profile_state.dart';
+import 'package:wooapp/screens/profile/shipping/shipping_edit_screen.dart';
+import 'package:wooapp/screens/settings/settings.dart';
+import 'package:wooapp/widget/shimmer.dart';
+import 'package:wooapp/widget/stateful_wrapper.dart';
 
 class ProfileView extends StatelessWidget {
 

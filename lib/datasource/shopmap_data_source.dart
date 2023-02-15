@@ -1,6 +1,6 @@
-import 'package:untitled/api/wp_api_client.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/woo_shop.dart';
+import 'package:wooapp/api/wp_api_client.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/woo_shop.dart';
 
 class ShopMapDataSourceImpl extends ShopMapDataSource {
   final WpApiClient _api = locator<WpApiClient>();

@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:untitled/constants/config.dart';
-import 'package:untitled/screens/featured/featured_filter.dart';
+import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/screens/featured/featured_filter.dart';
 
 class FeaturedFilterWidget extends StatefulWidget {
   final FeaturedFilter initialFilter;

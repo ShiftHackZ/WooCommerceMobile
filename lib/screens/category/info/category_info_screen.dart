@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:untitled/extensions/extensions_product.dart';
+import 'package:wooapp/extensions/extensions_product.dart';
 
 class CategoryInfoScreen extends StatelessWidget {
 

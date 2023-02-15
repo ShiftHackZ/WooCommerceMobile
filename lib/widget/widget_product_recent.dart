@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:untitled/database/product.dart';
-import 'package:untitled/extensions/extensions_context.dart';
-import 'package:untitled/screens/product/product_screen.dart';
-import 'package:untitled/widget/widget_price.dart';
+import 'package:wooapp/database/product.dart';
+import 'package:wooapp/extensions/extensions_context.dart';
+import 'package:wooapp/screens/product/product_screen.dart';
+import 'package:wooapp/widget/widget_price.dart';
 
 class RecentProductItem extends StatelessWidget {
 

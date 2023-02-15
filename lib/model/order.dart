@@ -1,5 +1,5 @@
-import 'package:untitled/model/customer_profile.dart';
-import 'package:untitled/model/line_item.dart';
+import 'package:wooapp/model/customer_profile.dart';
+import 'package:wooapp/model/line_item.dart';
 
 class Order {
   int id;

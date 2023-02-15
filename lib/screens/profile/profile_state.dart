@@ -1,4 +1,4 @@
-import 'package:untitled/model/customer_profile.dart';
+import 'package:wooapp/model/customer_profile.dart';
 
 abstract class ProfileState {}
 

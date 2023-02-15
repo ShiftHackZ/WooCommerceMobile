@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:untitled/extensions/extensions_product.dart';
-import 'package:untitled/model/product_rewiew.dart';
+import 'package:wooapp/extensions/extensions_product.dart';
+import 'package:wooapp/model/product_rewiew.dart';
 
 class ReviewItemWidget extends StatelessWidget {
   static const double avatarSize = 26;

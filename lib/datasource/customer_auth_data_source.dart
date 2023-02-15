@@ -2,16 +2,16 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'package:untitled/api/api_response.dart';
-import 'package:untitled/api/cocart_api_client.dart';
-import 'package:untitled/api/woo_api_client.dart';
-import 'package:untitled/api/wp_api_client.dart';
-import 'package:untitled/database/database.dart';
-import 'package:untitled/database/user.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/auth_register_response.dart';
-import 'package:untitled/model/customer_profile.dart';
-import 'package:untitled/model/user_data.dart';
+import 'package:wooapp/api/api_response.dart';
+import 'package:wooapp/api/cocart_api_client.dart';
+import 'package:wooapp/api/woo_api_client.dart';
+import 'package:wooapp/api/wp_api_client.dart';
+import 'package:wooapp/database/database.dart';
+import 'package:wooapp/database/user.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/auth_register_response.dart';
+import 'package:wooapp/model/customer_profile.dart';
+import 'package:wooapp/model/user_data.dart';
 
 class CustomerAuthDataSourceImpl extends CustomerAuthDataSource {
   final AppDb _db = locator<AppDb>();

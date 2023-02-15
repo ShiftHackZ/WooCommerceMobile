@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:untitled/database/database.dart';
-import 'package:untitled/datasource/category_attribute_data_source.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/screens/home/home.dart';
+import 'package:wooapp/database/database.dart';
+import 'package:wooapp/datasource/category_attribute_data_source.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/screens/home/home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

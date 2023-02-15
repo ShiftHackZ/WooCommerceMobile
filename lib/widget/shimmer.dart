@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:untitled/extensions/extensions_widget.dart';
+import 'package:wooapp/extensions/extensions_widget.dart';
 
 class ProductScreenShimmer extends StatelessWidget {
   @override

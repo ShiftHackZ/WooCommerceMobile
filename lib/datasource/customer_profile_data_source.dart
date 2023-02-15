@@ -1,7 +1,7 @@
-import 'package:untitled/api/woo_api_client.dart';
-import 'package:untitled/database/database.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/customer_profile.dart';
+import 'package:wooapp/api/woo_api_client.dart';
+import 'package:wooapp/database/database.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/customer_profile.dart';
 
 class CustomerProfileDataSourceImpl extends CustomerProfileDataSource {
   final WooApiClient _api = locator<WooApiClient>();

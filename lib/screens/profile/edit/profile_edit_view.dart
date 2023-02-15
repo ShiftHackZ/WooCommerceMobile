@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled/extensions/extensions_context.dart';
-import 'package:untitled/model/customer_profile.dart';
-import 'package:untitled/screens/profile/profile_cubit.dart';
-import 'package:untitled/screens/profile/profile_state.dart';
-import 'package:untitled/widget/stateful_wrapper.dart';
+import 'package:wooapp/extensions/extensions_context.dart';
+import 'package:wooapp/model/customer_profile.dart';
+import 'package:wooapp/screens/profile/profile_cubit.dart';
+import 'package:wooapp/screens/profile/profile_state.dart';
+import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:validators/validators.dart';
 
 class ProfileEditView extends StatelessWidget {

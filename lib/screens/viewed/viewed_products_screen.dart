@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled/database/product.dart';
-import 'package:untitled/screens/viewed/viewed_products_cubit.dart';
-import 'package:untitled/screens/viewed/viewed_products_state.dart';
-import 'package:untitled/widget/stateful_wrapper.dart';
-import 'package:untitled/widget/widget_product_recent.dart';
+import 'package:wooapp/database/product.dart';
+import 'package:wooapp/screens/viewed/viewed_products_cubit.dart';
+import 'package:wooapp/screens/viewed/viewed_products_state.dart';
+import 'package:wooapp/widget/stateful_wrapper.dart';
+import 'package:wooapp/widget/widget_product_recent.dart';
 
 class ViewedProductsScreen extends StatelessWidget {
   final VoidCallback refreshCallback;

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:untitled/model/category.dart';
-import 'package:untitled/screens/category/category_screen.dart';
+import 'package:wooapp/model/category.dart';
+import 'package:wooapp/screens/category/category_screen.dart';
 
 class FeaturedCategoryWidget extends StatelessWidget {
 

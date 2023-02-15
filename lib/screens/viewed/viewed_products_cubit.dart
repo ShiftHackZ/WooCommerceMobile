@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled/database/database.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/screens/viewed/viewed_products_state.dart';
+import 'package:wooapp/database/database.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/screens/viewed/viewed_products_state.dart';
 
 class ViewedProductsCubit extends Cubit<ViewedProductsState> {
   final AppDb _db = locator<AppDb>();

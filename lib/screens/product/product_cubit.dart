@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled/database/database.dart';
-import 'package:untitled/datasource/product_data_source.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/screens/product/product_state.dart';
+import 'package:wooapp/database/database.dart';
+import 'package:wooapp/datasource/product_data_source.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/screens/product/product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
   final ProductDataSource _ds = locator<ProductDataSource>();

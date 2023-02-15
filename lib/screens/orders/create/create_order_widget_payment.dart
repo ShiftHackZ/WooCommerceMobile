@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/model/payment_method.dart';
+import 'package:wooapp/model/payment_method.dart';
 
 class CreateOrderPaymentWidget extends StatelessWidget {
   final int selectionIndex;

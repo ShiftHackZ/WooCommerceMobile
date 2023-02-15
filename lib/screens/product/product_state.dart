@@ -1,4 +1,4 @@
-import 'package:untitled/model/product.dart';
+import 'package:wooapp/model/product.dart';
 
 abstract class ProductState {}
 

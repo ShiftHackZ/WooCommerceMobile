@@ -1,8 +1,8 @@
-import 'package:untitled/api/woo_api_client.dart';
-import 'package:untitled/constants/config.dart';
-import 'package:untitled/database/database.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/product_rewiew.dart';
+import 'package:wooapp/api/woo_api_client.dart';
+import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/database/database.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/product_rewiew.dart';
 
 class ProductReviewDataSourceImpl extends ProductReviewDataSource {
   final AppDb _db = locator<AppDb>();

@@ -1,6 +1,6 @@
-import 'package:untitled/api/woo_api_client.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/shipping_method.dart';
+import 'package:wooapp/api/woo_api_client.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/shipping_method.dart';
 
 class ShippingMethodDataSourceImpl extends ShippingMethodDataSource {
 

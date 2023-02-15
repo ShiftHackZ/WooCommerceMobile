@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:untitled/model/cart_response.dart';
-import 'package:untitled/screens/auth/no_auth_screen.dart';
-import 'package:untitled/screens/cart/cart_cubit.dart';
-import 'package:untitled/screens/cart/cart_state.dart';
-import 'package:untitled/screens/orders/create/create_order_screen.dart';
-import 'package:untitled/screens/product/product_screen.dart';
-import 'package:untitled/screens/viewed/viewed_products_screen.dart';
-import 'package:untitled/widget/shimmer.dart';
-import 'package:untitled/widget/stateful_wrapper.dart';
-import 'package:untitled/widget/widget_cart_empty.dart';
-import 'package:untitled/widget/widget_cart_total.dart';
-import 'package:untitled/widget/widget_retry.dart';
+import 'package:wooapp/model/cart_response.dart';
+import 'package:wooapp/screens/auth/no_auth_screen.dart';
+import 'package:wooapp/screens/cart/cart_cubit.dart';
+import 'package:wooapp/screens/cart/cart_state.dart';
+import 'package:wooapp/screens/orders/create/create_order_screen.dart';
+import 'package:wooapp/screens/product/product_screen.dart';
+import 'package:wooapp/screens/viewed/viewed_products_screen.dart';
+import 'package:wooapp/widget/shimmer.dart';
+import 'package:wooapp/widget/stateful_wrapper.dart';
+import 'package:wooapp/widget/widget_cart_empty.dart';
+import 'package:wooapp/widget/widget_cart_total.dart';
+import 'package:wooapp/widget/widget_retry.dart';
 
 class CartView extends StatelessWidget {
 

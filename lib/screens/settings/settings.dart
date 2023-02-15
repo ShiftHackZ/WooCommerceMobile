@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:untitled/extensions/extensions_context.dart';
-import 'package:untitled/widget/widget_settings_language.dart';
+import 'package:wooapp/extensions/extensions_context.dart';
+import 'package:wooapp/widget/widget_settings_language.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:untitled/constants/config.dart';
-import 'package:untitled/datasource/cart_data_source.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/cart_response.dart';
-import 'package:untitled/widget/widget_cart_quantity.dart';
+import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/datasource/cart_data_source.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/cart_response.dart';
+import 'package:wooapp/widget/widget_cart_quantity.dart';
 
 class CartTotalItem extends StatefulWidget {
   final CartDataSource _ds = locator<CartDataSource>();

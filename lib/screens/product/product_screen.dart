@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled/screens/product/product_cubit.dart';
-import 'package:untitled/screens/product/product_view.dart';
+import 'package:wooapp/screens/product/product_cubit.dart';
+import 'package:wooapp/screens/product/product_view.dart';
 
 class ProductScreen extends StatelessWidget {
   final int id;

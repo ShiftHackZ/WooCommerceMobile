@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/constants/config.dart';
-import 'package:untitled/model/product.dart';
+import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/model/product.dart';
 
 class ProductInfoWidget extends StatelessWidget {
   final Product product;

@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled/database/database.dart';
-import 'package:untitled/datasource/cart_data_source.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/screens/cart/cart_state.dart';
+import 'package:wooapp/database/database.dart';
+import 'package:wooapp/datasource/cart_data_source.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/screens/cart/cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
 

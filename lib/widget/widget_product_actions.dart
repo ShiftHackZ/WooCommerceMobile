@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
-import 'package:untitled/model/product.dart';
-import 'package:untitled/screens/reviews/reviews.dart';
-import 'package:untitled/widget/widget_product_stock.dart';
+import 'package:wooapp/model/product.dart';
+import 'package:wooapp/screens/reviews/reviews.dart';
+import 'package:wooapp/widget/widget_product_stock.dart';
 
 class ProductActionsWidget extends StatefulWidget {
   static const double iconRadius = 20;

@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:untitled/datasource/product_review_data_source.dart';
-import 'package:untitled/extensions/extensions_context.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/widget/widget_diaolg.dart';
+import 'package:wooapp/datasource/product_review_data_source.dart';
+import 'package:wooapp/extensions/extensions_context.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/widget/widget_diaolg.dart';
 
 class AddReviewScreen extends StatefulWidget {
   final int productId;

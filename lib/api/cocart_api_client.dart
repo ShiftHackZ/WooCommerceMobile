@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:untitled/api/interceptor_cocart_auth.dart';
+import 'package:wooapp/api/interceptor_cocart_auth.dart';
 
 import 'interceptor_logger.dart';
 

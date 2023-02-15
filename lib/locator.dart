@@ -1,21 +1,21 @@
 import 'package:get_it/get_it.dart';
-import 'package:untitled/api/cocart_api_client.dart';
-import 'package:untitled/api/woo_api_client.dart';
-import 'package:untitled/api/wp_api_client.dart';
-import 'package:untitled/database/database.dart';
-import 'package:untitled/datasource/cart_data_source.dart';
-import 'package:untitled/datasource/category_attribute_data_source.dart';
-import 'package:untitled/datasource/customer_auth_data_source.dart';
-import 'package:untitled/datasource/customer_profile_data_source.dart';
-import 'package:untitled/datasource/orders_create_data_source.dart';
-import 'package:untitled/datasource/orders_data_source.dart';
-import 'package:untitled/datasource/payment_methods_data_source.dart';
-import 'package:untitled/datasource/product_data_source.dart';
-import 'package:untitled/datasource/product_review_data_source.dart';
-import 'package:untitled/datasource/products_home_data_source.dart';
-import 'package:untitled/datasource/catalog_data_source.dart';
-import 'package:untitled/datasource/shipping_method_data_source.dart';
-import 'package:untitled/datasource/shopmap_data_source.dart';
+import 'package:wooapp/api/cocart_api_client.dart';
+import 'package:wooapp/api/woo_api_client.dart';
+import 'package:wooapp/api/wp_api_client.dart';
+import 'package:wooapp/database/database.dart';
+import 'package:wooapp/datasource/cart_data_source.dart';
+import 'package:wooapp/datasource/category_attribute_data_source.dart';
+import 'package:wooapp/datasource/customer_auth_data_source.dart';
+import 'package:wooapp/datasource/customer_profile_data_source.dart';
+import 'package:wooapp/datasource/orders_create_data_source.dart';
+import 'package:wooapp/datasource/orders_data_source.dart';
+import 'package:wooapp/datasource/payment_methods_data_source.dart';
+import 'package:wooapp/datasource/product_data_source.dart';
+import 'package:wooapp/datasource/product_review_data_source.dart';
+import 'package:wooapp/datasource/products_home_data_source.dart';
+import 'package:wooapp/datasource/catalog_data_source.dart';
+import 'package:wooapp/datasource/shipping_method_data_source.dart';
+import 'package:wooapp/datasource/shopmap_data_source.dart';
 
 final GetIt locator = GetIt.instance;
 

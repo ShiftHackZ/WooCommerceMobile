@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:fluster/fluster.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:untitled/datasource/shopmap_data_source.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/woo_shop.dart';
-import 'package:untitled/screens/map/map_helper.dart';
-import 'package:untitled/screens/map/shop_marker.dart';
+import 'package:wooapp/datasource/shopmap_data_source.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/woo_shop.dart';
+import 'package:wooapp/screens/map/map_helper.dart';
+import 'package:wooapp/screens/map/shop_marker.dart';
 
 class ShopMap extends StatefulWidget {
   @override

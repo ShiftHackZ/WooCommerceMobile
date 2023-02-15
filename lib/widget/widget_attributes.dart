@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/model/attribute.dart';
+import 'package:wooapp/model/attribute.dart';
 
 class AttributesWidget extends StatelessWidget {
   final List<ProductAttribute> attrs;

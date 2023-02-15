@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:untitled/screens/cart/cart_cubit.dart';
-import 'package:untitled/screens/cart/cart_view.dart';
+import 'package:wooapp/screens/cart/cart_cubit.dart';
+import 'package:wooapp/screens/cart/cart_view.dart';
 
 class CartScreen extends StatelessWidget {
   final CartCubit cubit = CartCubit();

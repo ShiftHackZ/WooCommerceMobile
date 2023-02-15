@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:untitled/model/shipping_method.dart';
+import 'package:wooapp/model/shipping_method.dart';
 
 class CreateOrderShippingWidget extends StatelessWidget {
   final int selectionIndex;

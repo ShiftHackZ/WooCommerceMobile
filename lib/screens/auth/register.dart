@@ -2,11 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/datasource/customer_auth_data_source.dart';
-import 'package:untitled/extensions/extensions_context.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/auth_register_response.dart';
-import 'package:untitled/widget/widget_diaolg.dart';
+import 'package:wooapp/datasource/customer_auth_data_source.dart';
+import 'package:wooapp/extensions/extensions_context.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/auth_register_response.dart';
+import 'package:wooapp/widget/widget_diaolg.dart';
 import 'package:validators/validators.dart';
 
 class RegisterScreen extends StatefulWidget {

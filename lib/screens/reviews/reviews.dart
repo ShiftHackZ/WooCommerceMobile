@@ -2,12 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:untitled/constants/config.dart';
-import 'package:untitled/datasource/product_review_data_source.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/product_rewiew.dart';
-import 'package:untitled/screens/reviews/review_add.dart';
-import 'package:untitled/widget/widget_review_item.dart';
+import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/datasource/product_review_data_source.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/product_rewiew.dart';
+import 'package:wooapp/screens/reviews/review_add.dart';
+import 'package:wooapp/widget/widget_review_item.dart';
 
 class ReviewsScreen extends StatefulWidget {
   final int productId;

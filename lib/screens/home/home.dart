@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:untitled/constants/colors.dart';
-import 'package:untitled/screens/cart/cart_screen.dart';
-import 'package:untitled/screens/catalog/catalog_screen.dart';
-import 'package:untitled/screens/featured/featured.dart';
-import 'package:untitled/screens/profile/profile_screen.dart';
+import 'package:wooapp/constants/colors.dart';
+import 'package:wooapp/screens/cart/cart_screen.dart';
+import 'package:wooapp/screens/catalog/catalog_screen.dart';
+import 'package:wooapp/screens/featured/featured.dart';
+import 'package:wooapp/screens/profile/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

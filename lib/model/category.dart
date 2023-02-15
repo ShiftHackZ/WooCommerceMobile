@@ -1,4 +1,4 @@
-import 'package:untitled/model/woo_image.dart';
+import 'package:wooapp/model/woo_image.dart';
 
 class Category {
   int id;

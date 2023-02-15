@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:untitled/datasource/catalog_data_source.dart';
-import 'package:untitled/extensions/extensions_context.dart';
-import 'package:untitled/locator.dart';
-import 'package:untitled/model/product.dart';
-import 'package:untitled/screens/product/product_screen.dart';
-import 'package:untitled/widget/stateful_wrapper.dart';
-import 'package:untitled/widget/widget_price.dart';
-import 'package:untitled/widget/widget_product_grid.dart';
-import 'package:untitled/widget/widget_product_recent.dart';
+import 'package:wooapp/datasource/catalog_data_source.dart';
+import 'package:wooapp/extensions/extensions_context.dart';
+import 'package:wooapp/locator.dart';
+import 'package:wooapp/model/product.dart';
+import 'package:wooapp/screens/product/product_screen.dart';
+import 'package:wooapp/widget/stateful_wrapper.dart';
+import 'package:wooapp/widget/widget_price.dart';
+import 'package:wooapp/widget/widget_product_grid.dart';
+import 'package:wooapp/widget/widget_product_recent.dart';
 
 abstract class CatalogProductState {}
 

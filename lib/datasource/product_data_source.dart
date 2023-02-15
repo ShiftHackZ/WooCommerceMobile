@@ -1,5 +1,5 @@
-import 'package:untitled/api/woo_api_client.dart';
-import 'package:untitled/model/product.dart';
+import 'package:wooapp/api/woo_api_client.dart';
+import 'package:wooapp/model/product.dart';
 
 import '../locator.dart';
 

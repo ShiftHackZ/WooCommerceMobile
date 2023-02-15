@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:untitled/api/interceptor_woo_auth.dart';
-import 'package:untitled/api/interceptor_logger.dart';
+import 'package:wooapp/api/interceptor_woo_auth.dart';
+import 'package:wooapp/api/interceptor_logger.dart';
 
 class WooApiClient {
   final Dio dio = Dio();

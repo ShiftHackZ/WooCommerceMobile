@@ -1,6 +1,6 @@
-import 'package:untitled/model/attribute.dart';
-import 'package:untitled/model/dimensions.dart';
-import 'package:untitled/model/woo_image.dart';
+import 'package:wooapp/model/attribute.dart';
+import 'package:wooapp/model/dimensions.dart';
+import 'package:wooapp/model/woo_image.dart';
 
 class Product {
   int id;

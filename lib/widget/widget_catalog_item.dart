@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:invert_colors/invert_colors.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:untitled/extensions/extensions_image.dart';
-import 'package:untitled/model/category.dart';
-import 'package:untitled/screens/category/category_screen.dart';
-import 'package:untitled/widget/widget_catalog_products.dart';
+import 'package:wooapp/extensions/extensions_image.dart';
+import 'package:wooapp/model/category.dart';
+import 'package:wooapp/screens/category/category_screen.dart';
+import 'package:wooapp/widget/widget_catalog_products.dart';
 
 
 class CatalogItemWidget extends StatefulWidget {
