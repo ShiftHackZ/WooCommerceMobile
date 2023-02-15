@@ -9,7 +9,5 @@
 - [ ] I have added automated tests that cover the new behavior and removed obsolete tests and code;
 
 ### Tested on
-- [ ] DEV: iOS
-- [ ] DEV: Android
-- [ ] PROD: iOS
-- [ ] PROD: Android
+- [ ] iOS
+- [ ] Android
