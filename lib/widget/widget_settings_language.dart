@@ -20,8 +20,9 @@ class LanguageWidget extends StatefulWidget {
 }
 
 class _LanguageWidgetState extends State<LanguageWidget> {
-  final List<Lang> langs = [
+  final List<Lang> _languages = [
     Lang('en', 'English'),
+    Lang('uk', 'Українська'),
     Lang('ru', 'Русский'),
   ];
 
@@ -30,8 +31,8 @@ class _LanguageWidgetState extends State<LanguageWidget> {
     padding: EdgeInsets.only(bottom: 8),
     child: ListView.builder(
       shrinkWrap: true,
-      itemCount: 2,
-      itemBuilder: (context, index) => _langItem(langs[index]),
+      itemCount: _languages.length,
+      itemBuilder: (context, index) => _langItem(_languages[index]),
     ),
   );
 
