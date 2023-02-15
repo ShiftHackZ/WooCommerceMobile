@@ -10,8 +10,8 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-    create: (_) => ProductCubit(),
-    child: ProductView(id),
+    create: (_) => ProductCubit(id),
+    child: ProductView(),
   );
 
 }

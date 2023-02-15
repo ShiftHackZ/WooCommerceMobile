@@ -22,6 +22,8 @@ class Product {
   List<WooImage> images;
   List<ProductAttribute> attributes;
 
+  bool get isVariable => type == 'variable';
+
   Product.fromJson(Map<String, dynamic> json)
     : id = json['id'],
       name = json['name'],

@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 
-const _httpTag = 'HTTP';
-
 class PrinterInterceptor extends Interceptor {
 
   @override

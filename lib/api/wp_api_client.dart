@@ -7,7 +7,6 @@ class WpApiClient {
 
   WpApiClient() {
     dio.options.baseUrl = dotenv.env['WP_BASE_URL'].toString();
-    //dio.interceptors.add(CoCartAuthInterceptor());
     dio.interceptors.add(PrinterInterceptor());
   }
 }

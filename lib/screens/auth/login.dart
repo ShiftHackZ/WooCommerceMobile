@@ -225,9 +225,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void showResult(String title, String desc) {
     showDialog(
       context: context,
-      builder: (ctx) => CustomDialogBox(
+      builder: (ctx) => WooDialog(
         title: title,
-        descriptions: desc,
+        text: desc,
       ),
     );
   }

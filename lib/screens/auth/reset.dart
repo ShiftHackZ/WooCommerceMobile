@@ -153,9 +153,9 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   void showResult(String title, String desc) {
     showDialog(
       context: context,
-      builder: (ctx) => CustomDialogBox(
+      builder: (ctx) => WooDialog(
         title: title,
-        descriptions: desc,
+        text: desc,
       ),
     );
   }

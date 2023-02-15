@@ -22,7 +22,6 @@ class CartDataSourceImpl extends CartDataSource {
         if (response.data is List<dynamic>) {
           return CartResponse.empty();
         }
-        response.data;
         var data = CartResponse.fromJson(response.data);
         for (var cartItem in data.items) _db.addToCart(cartItem.id);
         return data;
@@ -32,8 +31,28 @@ class CartDataSourceImpl extends CartDataSource {
   Future<Response> addItem(int id, int count) => _sendUserRequest()
       .then((dio) => dio.post('cart/add-item', data: {
         'id': id,
-        'quantity': count
+        'quantity': count,
       })).then((response) {
+        if (response.statusCode == 200) _db.addToCart(id);
+        return response;
+      });
+
+  @override
+  Future<Response> addVariableItem(
+    int id,
+    int count,
+    Map<String, dynamic> variation,
+  ) =>
+      _sendUserRequest().then(
+        (dio) => dio.post(
+          'cart/add-item',
+          data: {
+            'id': id,
+            'quantity': count,
+            'variation': variation,
+          },
+        ),
+      ).then((response) {
         if (response.statusCode == 200) _db.addToCart(id);
         return response;
       });
@@ -71,6 +90,8 @@ abstract class CartDataSource {
   Future<CartResponse> getCart();
 
   Future<Response> addItem(int id, int count);
+
+  Future<Response> addVariableItem(int id, int count, Map<String, dynamic> variation);
 
   Future<Response> updateQuantity(String itemKey, int count);
 

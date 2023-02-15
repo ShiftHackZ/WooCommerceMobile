@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
@@ -14,11 +12,9 @@ import 'package:wooapp/screens/gallery/gallery.dart';
 import 'package:wooapp/screens/product/product_cubit.dart';
 import 'package:wooapp/screens/product/product_state.dart';
 import 'package:wooapp/widget/shimmer.dart';
-import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wooapp/widget/widget_add_to_cart.dart';
 import 'package:wooapp/widget/widget_attributes.dart';
-import 'package:wooapp/widget/widget_bottom_sheet_builder.dart';
 import 'package:wooapp/widget/widget_price_product.dart';
 import 'package:wooapp/widget/widget_product_actions.dart';
 import 'package:wooapp/widget/widget_product_info.dart';
@@ -26,25 +22,16 @@ import 'package:wooapp/widget/widget_section.dart';
 import 'package:wooapp/widget/widget_text_expanded.dart';
 
 class ProductView extends StatelessWidget {
-  final int id;
   final _sliderController = PageController();
   final _sliderNotifier = ValueNotifier<int>(0);
 
-  ProductView(this.id);
+  ProductView();
 
   @override
-  Widget build(BuildContext context) => StatefulWrapper(
-      onInit: () {
-        context.read<ProductCubit>().getProduct(id);
-      },
-      child: Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.white,
         body: BlocListener<ProductCubit, ProductState>(
-          listener: (context, state) {
-            switch (state.runtimeType) {
-              //ToDo ...
-            }
-          },
+          listener: (context, state) {},
           child: BlocBuilder<ProductCubit, ProductState>(
             builder: (context, state) {
               switch (state.runtimeType) {
@@ -53,7 +40,10 @@ class ProductView extends StatelessWidget {
                 case LoadingProductState:
                   return _loadingState();
                 case ContentProductState:
-                  return _contentState(context, (state as ContentProductState).product);
+                  return _contentState(
+                    context,
+                    (state as ContentProductState).product,
+                  );
                 case ErrorProductState:
                   return _errorState();
                 default:
@@ -62,8 +52,7 @@ class ProductView extends StatelessWidget {
             },
           ),
         ),
-      )
-  );
+      );
 
   Widget _loadingState() => ProductScreenShimmer();
 
@@ -169,27 +158,27 @@ class ProductView extends StatelessWidget {
   );
 
   Widget _imageSingle(String url) => CachedNetworkImage(
-    imageUrl: url,
-    imageBuilder: (context, imageProvider) => Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: imageProvider,
-          fit: BoxFit.cover,
+        imageUrl: url,
+        imageBuilder: (context, imageProvider) => Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
-      ),
-    ),
-    placeholder: (context, url) => Shimmer(
-        duration: Duration(seconds: 1),
-        enabled: true,
-        direction: ShimmerDirection.fromLTRB(),
-        child: Container(color: Colors.white10)
-    ),
-    errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
-  );
+        placeholder: (context, url) => Shimmer(
+          duration: Duration(seconds: 1),
+          enabled: true,
+          direction: ShimmerDirection.fromLTRB(),
+          child: Container(color: Colors.white10),
+        ),
+        errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
+      );
 
   Widget _errorState() => Center(
-    child: Text("Error"),
-  );
+        child: Text("Error"),
+      );
 
   void _showAttributes(BuildContext context, Product product) {
     showBottomOptions(context, AttributesWidget(product.attributes));

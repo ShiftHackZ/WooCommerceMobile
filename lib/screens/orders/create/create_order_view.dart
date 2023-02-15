@@ -68,9 +68,9 @@ class CreateOrderView extends StatelessWidget {
   void _displayCheckoutSuccess(BuildContext context, Order order) {
     showDialog(
       context: context,
-      builder: (ctx) => CustomDialogBox(
+      builder: (ctx) => WooDialog(
         title: 'Success',
-        descriptions: 'Order #${order.id} created successfully',
+        text: 'Order #${order.id} created successfully',
       ),
     );
   }
@@ -81,9 +81,9 @@ class CreateOrderView extends StatelessWidget {
 
     showDialog(
       context: context,
-      builder: (ctx) => CustomDialogBox(
+      builder: (ctx) => WooDialog(
         title: 'Validation errors',
-        descriptions: errorsString,
+        text: errorsString,
       ),
     );
     context.read<CreateOrderCubit>().invalidate();

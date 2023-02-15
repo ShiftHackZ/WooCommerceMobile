@@ -1,15 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:wooapp/api/interceptor_cocart_auth.dart';
-
-import 'interceptor_logger.dart';
+import 'package:wooapp/api/interceptor_logger.dart';
 
 class CoCartApiClient {
   final Dio dio = Dio();
 
   CoCartApiClient() {
     dio.options.baseUrl = dotenv.env['CO_CART_BASE_URL'].toString();
-    // dio.interceptors.add(CoCartAuthInterceptor());
     dio.interceptors.add(PrinterInterceptor());
   }
 

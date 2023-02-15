@@ -11,6 +11,8 @@ import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/orders/create/create_order_screen.dart';
 import 'package:wooapp/widget/widget_product_stock.dart';
 
+import 'widget_diaolg.dart';
+
 class AddToCartBottomBar extends StatefulWidget {
   final CartDataSource _ds = locator<CartDataSource>();
   final AppDb _db = locator<AppDb>();
@@ -173,43 +175,66 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
   );
 
   Widget _buildAddButton() => ElevatedButton(
-    onPressed: () {
-      widget._ds.addItem(widget.product.id, getCount());
-      setState(() {
-        _inCart = true;
-      });
-    },
-    child: Container(
-        alignment: Alignment.center,
-        child: Row(
-          children: [
-            FaIcon(FontAwesomeIcons.cartPlus),
-            SizedBox(width: 8),
-            Text(
-              'cart_add',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ).tr(),
-          ],
-        )
-    ),
-    style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(36.0),
-            side: BorderSide(color: Colors.blue)
+        onPressed: () {
+          if (widget.product.isVariable) {
+            _processVariableProduct();
+          } else {
+            _processSimpleProduct();
+          }
+        },
+        child: Container(
+          alignment: Alignment.center,
+          child: Row(
+            children: [
+              FaIcon(FontAwesomeIcons.cartPlus),
+              SizedBox(width: 8),
+              Text(
+                'cart_add',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ).tr(),
+            ],
+          ),
         ),
-      ),
-    ),
-  );
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(36.0),
+              side: BorderSide(color: Colors.blue),
+            ),
+          ),
+        ),
+      );
 
   InputDecoration _decorate() => InputDecoration(
-      enabledBorder: InputBorder.none,
-      focusedBorder: InputBorder.none,
-      errorBorder: InputBorder.none,
-      focusedErrorBorder: InputBorder.none,
-  );
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        errorBorder: InputBorder.none,
+        focusedErrorBorder: InputBorder.none,
+      );
+
+  void _processSimpleProduct() {
+    widget._ds.addItem(widget.product.id, getCount());
+    setState(() {
+      _inCart = true;
+    });
+  }
+
+  void _processVariableProduct() {
+    showDialog(
+      context: context,
+      builder: (ctx) => WooDialog(
+        type: WooDialogType.widget,
+        title: 'Select product properties',
+        content: Text('varareara'),
+        buttonPositiveText: 'Add',
+        onPositiveButton: () {
+
+        },
+      ),
+    );
+  }
 }

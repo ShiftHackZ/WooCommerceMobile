@@ -5,14 +5,18 @@ import 'package:wooapp/locator.dart';
 import 'package:wooapp/screens/product/product_state.dart';
 
 class ProductCubit extends Cubit<ProductState> {
+  final int _productId;
+  
   final ProductDataSource _ds = locator<ProductDataSource>();
   final AppDb _db = locator<AppDb>();
   
-  ProductCubit() : super(InitialProductState());
+  ProductCubit(this._productId) : super(InitialProductState()) {
+    _getProduct();
+  }
 
-  void getProduct(int id) {
+  void _getProduct() {
     emit(LoadingProductState());
-    _ds.getProducts(id).then((product) {
+    _ds.getProduct(_productId).then((product) {
       _db.saveProductView(product);
       emit(ContentProductState(product));
     }).catchError((error) {

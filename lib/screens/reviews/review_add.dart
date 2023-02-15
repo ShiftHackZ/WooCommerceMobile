@@ -132,17 +132,17 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           Navigator.of(context)..pop()..pop();
           showDialog(
             context: context,
-            builder: (ctx) => CustomDialogBox(
+            builder: (ctx) => WooDialog(
               title: 'Thank you!',
-              descriptions: 'Your review posted successfully.',
+              text: 'Your review posted successfully.',
             ),
           );
         }).catchError((error) {
           showDialog(
             context: context,
-              builder: (ctx) => CustomDialogBox(
+              builder: (ctx) => WooDialog(
                 title: 'Oops...',
-                descriptions: 'There was some issue while posting your review. Please, try again.',
+                text: 'There was some issue while posting your review. Please, try again.',
               ),
           );
         });

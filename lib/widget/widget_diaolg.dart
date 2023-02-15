@@ -1,19 +1,36 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CustomDialogBox extends StatefulWidget {
-  final String title, descriptions, text;
-
-  const CustomDialogBox({this.title = '', this.descriptions = '', this.text = 'OK'});
-
-  @override
-  _CustomDialogBoxState createState() => _CustomDialogBoxState();
+enum WooDialogType {
+  text,
+  widget;
 }
 
-class _CustomDialogBoxState extends State<CustomDialogBox> {
+class WooDialog extends StatefulWidget {
+  final WooDialogType type;
+  final String title;
+  final String text;
+  final String buttonPositiveText;
+  //final String buttonNegativeText;
+  final Widget? content;
+  final Function? onPositiveButton;
+
+  const WooDialog({
+    this.type = WooDialogType.text,
+    this.title = '',
+    this.text = '',
+    this.buttonPositiveText = 'OK',
+    //this.buttonNegativeText = '',
+    this.content,
+    this.onPositiveButton,
+  });
+
+  @override
+  _WooDialogState createState() => _WooDialogState();
+}
+
+class _WooDialogState extends State<WooDialog> {
   final double indentAvatar = 45;
-  final double indentPadding = 20;
+  final double indentPadding = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -23,41 +40,65 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: contentBox(context),
+      child: _contentBox(context),
     );
   }
-  contentBox(context){
+  
+  Widget _contentBox(context) {
     return Stack(
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(left: indentPadding ,top: indentAvatar
-              + indentPadding, right: indentPadding ,bottom: indentPadding
+          padding: EdgeInsets.only(
+            left: indentPadding,
+            top: indentAvatar + indentPadding, 
+            right: indentPadding,
+            bottom: indentPadding,
           ),
           margin: EdgeInsets.only(top: indentAvatar),
           decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(color: Colors.black,offset: Offset(0, indentPadding),
-                    blurRadius: 10
-                ),
-              ]
+            shape: BoxShape.rectangle,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x4D000000),
+                offset: Offset(0, indentPadding),
+                blurRadius: 20,
+              ),
+            ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(widget.title,style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600),),
+              Text(
+                widget.title,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
               SizedBox(height: 15,),
-              Text(widget.descriptions,style: TextStyle(fontSize: 14),textAlign: TextAlign.center,),
-              SizedBox(height: 22,),
+              if (widget.type == WooDialogType.text) Text(
+                widget.text,
+                style: TextStyle(fontSize: 14),
+                textAlign: TextAlign.center,
+              ),
+              if (widget.type == WooDialogType.widget) widget.content ?? Container(),
+              SizedBox(height: 22),
               Align(
                 alignment: Alignment.bottomRight,
                 child: TextButton(
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(widget.text.toUpperCase(), style: TextStyle(fontSize: 18),)),
+                  onPressed: () {
+                    if (widget.onPositiveButton != null) {
+                      widget.onPositiveButton!();
+                    }
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(
+                    widget.buttonPositiveText.toUpperCase(),
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
               ),
             ],
           ),
@@ -69,8 +110,8 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
             backgroundColor: Colors.blue,
             radius: indentAvatar,
             child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(indentAvatar)),
-                child: Icon(Icons.error, size: 40)
+              borderRadius: BorderRadius.all(Radius.circular(indentAvatar)),
+              child: Icon(Icons.error, size: 40),
             ),
           ),
         ),
