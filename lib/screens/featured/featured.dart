@@ -202,7 +202,7 @@ class _FeaturedListState extends State<FeaturedListView> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: MediaQuery.of(context).size.width / ((MediaQuery.of(context).size.height / 2) + 10),
                 crossAxisCount: 2,
-              )
+              ),
           ),
         ],
       ),

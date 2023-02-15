@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wooapp/screens/wishlist/wishlist_cubit.dart';
 import 'package:wooapp/screens/wishlist/wishlist_state.dart';
+import 'package:wooapp/widget/widget_product_grid.dart';
 
 class WishListView extends StatelessWidget {
   @override
@@ -26,12 +27,23 @@ class WishListView extends StatelessWidget {
                 //   return _errorState();
                 // case NoAuthProfileState:
                 //   return _noAuth(context);
+                case ContentWishListState:
+                  return _contentState(context, state as ContentWishListState);
                 default:
                   return _loadingState(context);
               }
             },
           ),
         ),
+      );
+
+  Widget _contentState(BuildContext context, ContentWishListState state) =>
+      GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+        ),
+        itemCount: state.wishlist.length,
+        itemBuilder: (ctx, i) => ProductGridItem(state.wishlist[i].second),
       );
 
   Widget _loadingState(BuildContext context) => Center(

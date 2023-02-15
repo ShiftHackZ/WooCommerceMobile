@@ -14,6 +14,7 @@ class WishListCubit extends Cubit<WishListState> {
     emit(LoadingWishListState());
     _ds.getWishListWithProducts().then((value) {
       print('DBG0: $value');
+      emit(ContentWishListState(value));
     });
   }
 }
