@@ -1,6 +1,5 @@
 import 'package:wooapp/api/woo_api_client.dart';
 import 'package:wooapp/database/database.dart';
-import 'package:wooapp/datasource/cart_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/cart_response.dart';
 import 'package:wooapp/model/order.dart';
