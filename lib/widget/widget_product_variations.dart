@@ -80,8 +80,8 @@ class ProductVariationSelectionWidgetState
 
   void _genVariations() {
     for (var attr in widget.product.attributes) {
-      if (!attr.variation) continue;
-      if (!attr.visible) continue;
+      if (attr.variation == null || attr.variation == false) continue;
+      if (attr.visible == null || attr.visible == false) continue;
       _variableAttrs.add(attr);
     }
     for (var attr in _variableAttrs) {

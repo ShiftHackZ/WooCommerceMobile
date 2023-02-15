@@ -91,9 +91,14 @@ class CreateOrderProduct extends StatelessWidget {
         children: [
           _buildItemImage(context, item.id, item.featuredImage),
           SizedBox(width: 8),
-          Text(
-            item.name,
-            style: TextStyle(fontSize: 16),
+          SizedBox(
+            width: MediaQuery.of(context).size.width - 176,
+            child: Text(
+              item.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: 16),
+            ),
           ),
           DotSpacer(),
           Text('${item.quantity.value} x '),

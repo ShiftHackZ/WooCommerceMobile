@@ -1,9 +1,9 @@
 class ProductAttribute {
   int id;
   String name;
-  int position;
-  bool visible;
-  bool variation;
+  int? position;
+  bool? visible;
+  bool? variation;
   List<String> options;
 
   ProductAttribute.fromJson(Map<String, dynamic> json)
@@ -12,9 +12,9 @@ class ProductAttribute {
         position = json['position'],
         visible = json['visible'],
         variation = json['variation'],
-        options = (json['options'] as List)
-            .map((option) => option.toString())
-            .toList();
+        options = (json['options'] as List?)
+            ?.map((option) => option.toString())
+            .toList() ?? [];
 }
 
 class Attribute {

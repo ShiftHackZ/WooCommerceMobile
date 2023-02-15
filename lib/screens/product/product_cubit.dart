@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wooapp/database/database.dart';
 import 'package:wooapp/datasource/product_data_source.dart';
@@ -19,7 +21,8 @@ class ProductCubit extends Cubit<ProductState> {
     _ds.getProduct(_productId).then((product) {
       _db.saveProductView(product);
       emit(ContentProductState(product));
-    }).catchError((error) {
+    }).catchError((error, stacktrace) {
+      Completer().completeError(error, stacktrace);
       emit(ErrorProductState());
     });
   }
