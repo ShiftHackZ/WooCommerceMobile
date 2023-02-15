@@ -9,13 +9,13 @@ class ProfileCubit extends Cubit<ProfileState> {
   final CustomerProfileDataSource _ds = locator<CustomerProfileDataSource>();
   final AppDb _db = locator<AppDb>();
 
-  ProfileCubit() : super(InitialProfileState());
+  ProfileCubit() : super(InitialProfileState()) {
+    getProfile();
+  }
 
   void logout() async {
     emit(LoadingProfileState());
-    _db.clear().then((_) {
-       getProfile();
-    });
+    _db.clear().then((_) => getProfile());
   }
 
   void getProfile() async {

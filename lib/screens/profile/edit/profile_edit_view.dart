@@ -21,7 +21,7 @@ class ProfileEditView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => StatefulWrapper(
       onInit: () {
-        context.read<ProfileCubit>().getProfile();
+        //context.read<ProfileCubit>().getProfile();
       },
       child: Scaffold(
         backgroundColor: Colors.white,

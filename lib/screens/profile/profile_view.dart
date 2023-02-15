@@ -41,9 +41,9 @@ class ProfileView extends StatelessWidget {
             builder: (context, state) {
               switch (state.runtimeType) {
                 case InitialProfileState:
-                  return _loadingState();
+                  return _loadingState(context);
                 case LoadingProfileState:
-                  return _loadingState();
+                  return _loadingState(context);
                 case ContentProfileState:
                   return _contentState(context, (state as ContentProfileState).profile);
                 case ErrorProfileState:
@@ -51,7 +51,7 @@ class ProfileView extends StatelessWidget {
                 case NoAuthProfileState:
                   return _noAuth(context);
                 default:
-                  return _loadingState();
+                  return _loadingState(context);
               }
             },
           ),
@@ -65,7 +65,10 @@ class ProfileView extends StatelessWidget {
     });
   });
 
-  Widget _contentState(BuildContext context, CustomerProfile profile) => Scaffold(
+  Widget _contentState(
+      BuildContext context,
+      CustomerProfile profile,
+  ) => Scaffold(
     appBar: AppBar(
       title: Text('tab_profile').tr(),
       elevation: 0,
@@ -75,9 +78,9 @@ class ProfileView extends StatelessWidget {
             Navigator
               .push(context, MaterialPageRoute(builder: (_) => ProfileEditScreen()))
               .then((value) {
-                Future.delayed(Duration(milliseconds: 200), () {
+                if (value) {
                   context.read<ProfileCubit>().getProfile();
-                });
+                }
                 print('back, context = $context');
               });
           },
@@ -105,31 +108,30 @@ class ProfileView extends StatelessWidget {
                           backgroundColor: Colors.blueGrey,
                           radius: 40,
                           child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular(40)),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .push(MaterialPageRoute(builder: (_) => GalleryScreen([profile.avatar])));
-                                },
-                                child: CachedNetworkImage(
-                                  imageUrl: profile.avatar,
-                                  imageBuilder: (context, imageProvider) => Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover,
-                                      ),
+                            borderRadius: BorderRadius.all(Radius.circular(40)),
+                            child: InkWell(
+                              onTap: () => Navigator
+                                  .of(context)
+                                  .push(MaterialPageRoute(builder: (_) => GalleryScreen([profile.avatar]))),
+                              child: CachedNetworkImage(
+                                imageUrl: profile.avatar,
+                                imageBuilder: (context, imageProvider) => Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  placeholder: (context, url) => Shimmer(
-                                      duration: Duration(seconds: 1),
-                                      enabled: true,
-                                      direction: ShimmerDirection.fromLTRB(),
-                                      child: Container(color: Colors.white10)
-                                  ),
-                                  errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
                                 ),
+                                placeholder: (context, url) => Shimmer(
+                                    duration: Duration(seconds: 1),
+                                    enabled: true,
+                                    direction: ShimmerDirection.fromLTRB(),
+                                    child: Container(color: Colors.white10)
+                                ),
+                                errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
                               ),
+                            ),
                           ),
                         ),
                       ),
@@ -149,94 +151,7 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 8),
-              _profileSection(
-                FaIcon(FontAwesomeIcons.mapMarkerAlt),
-                tr('shipping'),
-                () => Navigator
-                  .push(context, MaterialPageRoute(builder: (_) => ShippingEditScreen()))
-                  .then((value) {
-                    Future.delayed(Duration(milliseconds: 200), () {
-                      context.read<ProfileCubit>().getProfile();
-                    });
-                    print('back, context = $context');
-                  })
-              ),
-              _profileSection(
-                FaIcon(FontAwesomeIcons.cog),
-                tr('settings'),
-                () => Navigator
-                    .push(context, MaterialPageRoute(builder: (_) => SettingsScreen()))
-                    .then((value) {
-                  Future.delayed(Duration(milliseconds: 200), () {
-                    context.read<ProfileCubit>().getProfile();
-                  });
-                  print('back, context = $context');
-                })
-              ),
-              SizedBox(height: 8),
-              _profileSection(
-                FaIcon(FontAwesomeIcons.heart),
-                tr('wish_list'),
-                () {}
-              ),
-              _profileSection(
-                FaIcon(FontAwesomeIcons.shoppingBag),
-                tr('orders'),
-                () => Navigator
-                    .push(context, MaterialPageRoute(builder: (_) => OrdersScreen()))
-                //     .then((value) {
-                //   Future.delayed(Duration(milliseconds: 200), () {
-                //     context.read<ProfileCubit>().getProfile();
-                //   });
-                //   print('back, context = $context');
-                // })
-              )
-              ,_profileSection(
-                FaIcon(FontAwesomeIcons.ticketAlt),
-                tr('coupons'),
-                () {}
-              ),
-              SizedBox(height: 8),
-              _profileSection(
-                FaIcon(FontAwesomeIcons.map),
-                tr('shops'),
-                () => Navigator.push(context, MaterialPageRoute(builder: (_) => ShopMap()))
-              ),
-              _profileSection(
-                FaIcon(FontAwesomeIcons.questionCircle),
-                tr('help'),
-                () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => HelpScreen()))
-              ),
-              SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: () {
-                  context.read<ProfileCubit>().logout();
-                },
-                child: Container(
-                  width: 90,
-                  alignment: Alignment.center,
-                  child: Text(
-                    'logout',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ).tr(),
-                ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Color(0xFFF56E6E)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(36.0),
-                        side: BorderSide(color: Colors.redAccent)
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 4),
-              Text('Version: 0.1 Alpha', style: TextStyle(color: Colors.grey),),
-              SizedBox(height: 16),
+              ..._profileSections(context),
             ],
           ),
         ),
@@ -244,7 +159,9 @@ class ProfileView extends StatelessWidget {
     )
   );
 
-  Widget _loadingState() => ProfileShimmer();
+  Widget _loadingState(BuildContext context) => ProfileShimmer(
+      _profileSections(context)
+  );
 
   Widget _errorState() => Center(
     child: Text("Error"),
@@ -286,4 +203,94 @@ class ProfileView extends StatelessWidget {
       ),
     ),
   );
+
+  List<Widget> _profileSections(BuildContext context) => [
+        SizedBox(height: 8),
+        _profileSection(
+          FaIcon(FontAwesomeIcons.mapMarkerAlt),
+          tr('shipping'),
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => ShippingEditScreen()),
+          ).then((value) {
+            if (value) {
+              context.read<ProfileCubit>().getProfile();
+            }
+            print('back, context = $context');
+          }),
+        ),
+        _profileSection(
+          FaIcon(FontAwesomeIcons.cog),
+          tr('settings'),
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => SettingsScreen()),
+          ).then((value) {
+            print('back, context = $context');
+          }),
+        ),
+        SizedBox(height: 8),
+        _profileSection(FaIcon(FontAwesomeIcons.heart), tr('wish_list'), () {}),
+        _profileSection(
+          FaIcon(FontAwesomeIcons.shoppingBag),
+          tr('orders'),
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => OrdersScreen()),
+          ),
+        ),
+        _profileSection(
+          FaIcon(FontAwesomeIcons.ticketAlt),
+          tr('coupons'),
+          () {},
+        ),
+        SizedBox(height: 8),
+        _profileSection(
+          FaIcon(FontAwesomeIcons.map),
+          tr('shops'),
+          () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => ShopMap()),
+          ),
+        ),
+        _profileSection(
+          FaIcon(FontAwesomeIcons.questionCircle),
+          tr('help'),
+          () => Navigator
+              .of(context)
+              .push(MaterialPageRoute(builder: (_) => HelpScreen())),
+        ),
+        SizedBox(height: 8),
+        ElevatedButton(
+          onPressed: () {
+            context.read<ProfileCubit>().logout();
+          },
+          child: Container(
+            width: 90,
+            alignment: Alignment.center,
+            child: Text(
+              'logout',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ).tr(),
+          ),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Color(0xFFF56E6E)),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(36.0),
+                side: BorderSide(color: Colors.redAccent),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          'Version: 0.1 Alpha',
+          style: TextStyle(color: Colors.grey),
+        ),
+        SizedBox(height: 16),
+      ];
 }

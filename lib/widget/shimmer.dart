@@ -387,6 +387,10 @@ class FeaturedShimmer extends StatelessWidget {
 }
 
 class ProfileShimmer extends StatelessWidget {
+  final List<Widget> sections;
+
+  ProfileShimmer(this.sections);
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
@@ -446,16 +450,7 @@ class ProfileShimmer extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 8),
-                _shimmerSection(),
-                _shimmerSection(),
-                SizedBox(height: 8),
-                _shimmerSection(),
-                _shimmerSection(),
-                _shimmerSection(),
-                SizedBox(height: 8),
-                _shimmerSection(),
-                _shimmerSection(),
+                ...sections,
               ],
             ),
           ),
