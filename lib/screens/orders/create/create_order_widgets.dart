@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/extensions/extensions_widget.dart';
 import 'package:wooapp/model/cart_response.dart';
 import 'package:wooapp/widget/widget_custom_spacer.dart';
@@ -102,7 +102,7 @@ class CreateOrderProduct extends StatelessWidget {
           ),
           DotSpacer(),
           Text('${item.quantity.value} x '),
-          Text('${item.price}${AppConfig.currency}'),
+          Text('${item.price}${WooAppConfig.currency}'),
           SizedBox(width: 8),
         ],
       ),

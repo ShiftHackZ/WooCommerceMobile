@@ -19,8 +19,12 @@ import 'package:wooapp/widget/widget_retry.dart';
 
 class CartView extends StatelessWidget {
   final VoidCallback shoppingCallback;
+  final VoidCallback authCompleteCallback;
 
-  CartView(this.shoppingCallback);
+  CartView({
+    required this.shoppingCallback,
+    required this.authCompleteCallback,
+  });
 
   @override
   Widget build(BuildContext context) => StatefulWrapper(
@@ -54,6 +58,7 @@ class CartView extends StatelessWidget {
   );
 
   Widget _noAuth(BuildContext context) => NoAuthScreen(tr('tab_cart'), () {
+    authCompleteCallback();
     Future.delayed(Duration(milliseconds: 200), () {
       context.read<CartCubit>().getCart();
     });

@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/model/product.dart';
 
 class ProductInfoWidget extends StatelessWidget {
@@ -22,7 +22,7 @@ class ProductInfoWidget extends StatelessWidget {
 
     result.add(_buildRow(tr('product_property_id'), product.id.toString(), true));
     result.add(_buildRow(tr('product_property_name'), product.name, false));
-    result.add(_buildRow(tr('product_property_price'), '${product.price}${AppConfig.currency}', true));
+    result.add(_buildRow(tr('product_property_price'), '${product.price}${WooAppConfig.currency}', true));
     result.add(_buildRow(tr('product_property_created'), product.dateCreated, false));
     result.add(_buildRow(tr('product_property_modified'), product.dateModified, true));
     result.add(_buildRow(tr('product_property_type'), product.type, false));

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/orders_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/order.dart';
@@ -55,7 +55,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       final items = await _ds.getOrders(page).catchError((error, stackTrace) {
         print(error.toString());
       });
-      final isLast = items.length < AppConfig.paginationLimit;
+      final isLast = items.length < WooAppConfig.paginationLimit;
       if (isLast) {
         _pagingController.appendLastPage(items);
       } else {

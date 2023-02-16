@@ -4,19 +4,26 @@ import 'package:wooapp/screens/cart/cart_cubit.dart';
 import 'package:wooapp/screens/cart/cart_view.dart';
 
 class CartScreen extends StatelessWidget {
-  final CartCubit cubit = CartCubit();
+  final CartCubit _cubit = CartCubit();
   final VoidCallback shoppingCallback;
+  final VoidCallback authCompleteCallback;
 
-  CartScreen(this.shoppingCallback);
+  CartScreen({
+    required this.shoppingCallback,
+    required this.authCompleteCallback,
+  });
 
   void refresh() {
-    cubit.getCart();
+    _cubit.getCart();
   }
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-    create: (_) => cubit,
-    child: CartView(shoppingCallback),
+    create: (_) => _cubit,
+    child: CartView(
+      shoppingCallback: shoppingCallback,
+      authCompleteCallback: authCompleteCallback,
+    ),
   );
 
 }

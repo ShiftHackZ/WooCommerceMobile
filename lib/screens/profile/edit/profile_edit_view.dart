@@ -24,6 +24,9 @@ class ProfileEditView extends StatelessWidget {
         //context.read<ProfileCubit>().getProfile();
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('edit_profile').tr(),
+        ),
         backgroundColor: Colors.white,
         body: BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
@@ -62,9 +65,6 @@ class ProfileEditView extends StatelessWidget {
   );
 
   Widget _contentState(BuildContext context, CustomerProfile profile) => Scaffold(
-    appBar: AppBar(
-      title: Text('edit_profile').tr(),
-    ),
     bottomNavigationBar: Container(
       height: 60,
       child: Padding(

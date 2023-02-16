@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/screens/featured/featured_filter.dart';
 
 class FeaturedFilterWidget extends StatefulWidget {
@@ -101,7 +101,7 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
               ).tr(),
               Spacer(),
               Text(
-                '${_currentRangeValues.start.round()}${AppConfig.currency} — ${_currentRangeValues.end.round()}${AppConfig.currency}',
+                '${_currentRangeValues.start.round()}${WooAppConfig.currency} — ${_currentRangeValues.end.round()}${WooAppConfig.currency}',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600

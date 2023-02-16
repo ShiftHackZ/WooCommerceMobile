@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:wooapp/constants/translations.dart';
+import 'package:wooapp/config/translations.dart';
 import 'package:wooapp/database/entity/filter.dart';
 import 'package:wooapp/database/entity/filter_value.dart';
 import 'package:wooapp/database/entity/filter_active.dart';

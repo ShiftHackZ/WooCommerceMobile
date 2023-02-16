@@ -1,6 +1,6 @@
 import 'package:wooapp/api/woo_api_client.dart';
 import 'package:wooapp/api/wp_api_client.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/database/database.dart';
 import 'package:wooapp/database/entity/filter_active.dart';
 import 'package:wooapp/locator.dart';
@@ -25,7 +25,7 @@ class CategoryAttributeDateSourceImpl extends CategoryAttributeDateSource {
   @override
   Future<List<CategoryProduct>> getProducts(String categorySlug, int page) => _db.getActiveFilters()
       .then((active) => _parseActiveFilters(active))
-      .then((query) => _wp.dio.get('wp/v3/filter/products/?per_page=${AppConfig.paginationLimit}&offset=$page&category=$categorySlug$query'))
+      .then((query) => _wp.dio.get('wp/v3/filter/products/?per_page=${WooAppConfig.paginationLimit}&offset=$page&category=$categorySlug$query'))
       .then((response) => (response.data as List).map((item) => CategoryProduct.fromJson(item)).toList());
 
   String _parseActiveFilters(List<ActiveFilter> filters) {
