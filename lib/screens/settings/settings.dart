@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/widget/widget_settings_language.dart';
 
@@ -14,7 +15,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text('settings').tr(),
+          backgroundColor: WooAppTheme.colorCommonToolbar,
         ),
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(

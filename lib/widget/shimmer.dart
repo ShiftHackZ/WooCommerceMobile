@@ -1,12 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/extensions/extensions_widget.dart';
 
 class ProductScreenShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(),
+    appBar: AppBar(
+      backgroundColor: WooAppTheme.colorCommonToolbar,
+    ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: Container(
       height: 60,
       width: MediaQuery.of(context).size.width,
@@ -396,6 +400,7 @@ class ProfileShimmer extends StatelessWidget {
       appBar: AppBar(
         title: Text('tab_profile').tr(),
         elevation: 0,
+        backgroundColor: WooAppTheme.colorCommonToolbar,
       ),
       body: SafeArea(
         child: Container(

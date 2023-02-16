@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/model/customer_profile.dart';
 import 'package:wooapp/screens/profile/profile_state.dart';
@@ -25,9 +26,10 @@ class ShippingEditView extends StatelessWidget {
         context.read<ProfileCubit>().getProfile();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         appBar: AppBar(
           title: Text('shipping').tr(),
+          backgroundColor: WooAppTheme.colorCommonToolbar,
         ),
         body: BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
@@ -68,6 +70,7 @@ class ShippingEditView extends StatelessWidget {
   );
 
   Widget _contentState(BuildContext context, CustomerProfile profile) => Scaffold(
+    backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: Container(
       height: 60,
       child: Padding(

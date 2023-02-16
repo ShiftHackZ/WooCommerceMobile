@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/products_home_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
@@ -78,6 +79,7 @@ class _FeaturedListState extends State<FeaturedListView> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
+      backgroundColor: WooAppTheme.colorCommonToolbar,
       title: Container(
         padding: EdgeInsets.only(left: 8, top: 0),
         decoration: BoxDecoration(
@@ -165,6 +167,7 @@ class _FeaturedListState extends State<FeaturedListView> {
         ),
       ],
     ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     body: RefreshIndicator(
       onRefresh: () => Future.sync(() {
         _categoryRefreshEvent();

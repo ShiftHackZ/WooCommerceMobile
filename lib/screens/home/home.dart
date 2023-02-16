@@ -74,8 +74,8 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        unselectedItemColor: WooTheme.bottomBarIconUnselected,
-        selectedItemColor: WooTheme.bottomBarIconSelected,
+        unselectedItemColor: WooAppTheme.colorBottomBarIconActive,
+        selectedItemColor: WooAppTheme.colorBottomBarIconNonActive,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         onTap: (index) {

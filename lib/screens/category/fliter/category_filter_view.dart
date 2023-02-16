@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/database/entity/filter.dart';
 import 'package:wooapp/model/attribute.dart';
 import 'package:wooapp/screens/category/fliter/category_filter_cubit.dart';
@@ -23,6 +24,7 @@ class CategoryFilterView extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           leading: SizedBox(),
+          backgroundColor: WooAppTheme.colorCommonToolbar,
           // title: Text('Filters'),
         ),
         body: BlocListener<CategoryFilterCubit, CategoryFilterState>(

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/wishlist/wishlist_cubit.dart';
 import 'package:wooapp/screens/wishlist/wishlist_state.dart';
@@ -12,8 +13,9 @@ class WishListView extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text('wish_list').tr(),
+          backgroundColor: WooAppTheme.colorCommonToolbar,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: BlocListener<WishListCubit, WishListState>(
           listener: (context, state) {},
           child: BlocBuilder<WishListCubit, WishListState>(

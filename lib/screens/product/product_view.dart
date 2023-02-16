@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/product.dart';
@@ -38,7 +39,7 @@ class ProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WillPopScope(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: BlocListener<ProductCubit, ProductState>(
           listener: (context, state) {},
           child: BlocBuilder<ProductCubit, ProductState>(
@@ -71,7 +72,11 @@ class ProductView extends StatelessWidget {
   Widget _loadingState() => ProductScreenShimmer();
 
   Widget _contentState(BuildContext context, Product product) => Scaffold(
-    appBar: AppBar(title: Text('${product.name}')),
+    appBar: AppBar(
+      title: Text('${product.name}'),
+      backgroundColor: WooAppTheme.colorCommonToolbar,
+    ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: AddToCartBottomBar(product),
     body: SingleChildScrollView(
       child: Column(

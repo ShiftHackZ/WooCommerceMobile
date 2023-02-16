@@ -29,7 +29,7 @@ class PriceWidget extends StatelessWidget {
             style: TextStyle(
               decoration: TextDecoration.lineThrough,
               fontSize: 13,
-              color: WooTheme.priceSale,
+              color: WooAppTheme.colorPriceSale,
               fontWeight: FontWeight.w800
             ),
           ),

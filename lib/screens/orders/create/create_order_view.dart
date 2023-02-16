@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/screens/home/home.dart';
@@ -27,42 +28,48 @@ class CreateOrderView extends StatelessWidget {
         context.read<CreateOrderCubit>().getItems();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
-        body: BlocListener<CreateOrderCubit, CreateOrderState>(
-          listener: (context, state) {
-            switch (state.runtimeType) {
-              case CompleteCreateOrderState:
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()), (route) => false);
-                _displayCheckoutSuccess(context, (state as CompleteCreateOrderState).order);
-                break;
-              case InvalidCreateOrderState:
-                _displayValidationErrors(context, (state as InvalidCreateOrderState).errors);
-                break;
-            }
-          },
-          child: BlocBuilder<CreateOrderCubit, CreateOrderState>(
-            builder: (context, state) {
+        backgroundColor: WooAppTheme.colorCommonBackground,
+        appBar: AppBar(
+          title: Text('create_order_title').tr(),
+          backgroundColor: WooAppTheme.colorCommonToolbar,
+        ),
+        body: SafeArea(
+          child: BlocListener<CreateOrderCubit, CreateOrderState>(
+            listener: (context, state) {
               switch (state.runtimeType) {
-                case InitialCreateOrderState:
-                  return _loadingState();
-                case LoadingCreateOrderState:
-                  return _loadingState();
-                case ErrorCreateOrderState:
-                  return _errorState(context);
-                case ContentCreateOrderState:
-                  return _contentState(
+                case CompleteCreateOrderState:
+                  Navigator.pushAndRemoveUntil(
                       context,
-                      (state as ContentCreateOrderState),
-                  );
-                default:
-                  return _loadingState();
+                      MaterialPageRoute(builder: (context) => HomeScreen()), (route) => false);
+                  _displayCheckoutSuccess(context, (state as CompleteCreateOrderState).order);
+                  break;
+                case InvalidCreateOrderState:
+                  _displayValidationErrors(context, (state as InvalidCreateOrderState).errors);
+                  break;
               }
             },
+            child: BlocBuilder<CreateOrderCubit, CreateOrderState>(
+              builder: (context, state) {
+                switch (state.runtimeType) {
+                  case InitialCreateOrderState:
+                    return _loadingState();
+                  case LoadingCreateOrderState:
+                    return _loadingState();
+                  case ErrorCreateOrderState:
+                    return _errorState(context);
+                  case ContentCreateOrderState:
+                    return _contentState(
+                      context,
+                      (state as ContentCreateOrderState),
+                    );
+                  default:
+                    return _loadingState();
+                }
+              },
+            ),
           ),
         ),
-      )
+      ),
   );
 
   void _displayCheckoutSuccess(BuildContext context, Order order) {
@@ -100,33 +107,18 @@ class CreateOrderView extends StatelessWidget {
     }
   }
 
-  Widget _loadingState() => Scaffold(
-    appBar: AppBar(
-      title: Text('create_order_title').tr(),
-    ),
-    body: Center(
-      child: Lottie.asset('assets/checkout_loader.json'),
-    ),
+  Widget _loadingState() => Center(
+    child: Lottie.asset('assets/checkout_loader.json'),
   );
 
-  Widget _errorState(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text('create_order_title').tr(),
-    ),
-    body: Container(
-      child: ErrorRetryWidget(() => context.read<CreateOrderCubit>().getItems()),
-    ),
+  Widget _errorState(BuildContext context) => Container(
+    child: ErrorRetryWidget(() => context.read<CreateOrderCubit>().getItems()),
   );
 
   Widget _contentState(
       BuildContext context,
       ContentCreateOrderState state
-  ) => Scaffold(
-    appBar: AppBar(
-      title: Text('create_order_title').tr(),
-    ),
-    body: SafeArea(
-      child: Container(
+  ) => Container(
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -336,7 +328,5 @@ class CreateOrderView extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    ),
   );
 }

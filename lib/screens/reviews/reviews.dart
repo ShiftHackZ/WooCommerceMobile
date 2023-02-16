@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/product_review_data_source.dart';
 import 'package:wooapp/locator.dart';
@@ -28,7 +29,9 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text('reviews').tr(),
+      backgroundColor: WooAppTheme.colorCommonToolbar,
     ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: _bottomBar(),
     body: SafeArea(
       child: Container(

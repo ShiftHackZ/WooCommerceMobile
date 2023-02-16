@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/orders_data_source.dart';
 import 'package:wooapp/locator.dart';
@@ -24,7 +25,9 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text('orders').tr(),
+      backgroundColor: WooAppTheme.colorCommonToolbar,
     ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(
       child: Container(
         child: PagedListView(

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/model/customer_profile.dart';
 import 'package:wooapp/screens/auth/login.dart';
 import 'package:wooapp/screens/auth/no_auth_screen.dart';
@@ -30,7 +31,7 @@ class ProfileView extends StatelessWidget {
         context.read<ProfileCubit>().getProfile();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
             switch (state.runtimeType) {
@@ -71,6 +72,7 @@ class ProfileView extends StatelessWidget {
   ) => Scaffold(
     appBar: AppBar(
       title: Text('tab_profile').tr(),
+      backgroundColor: WooAppTheme.colorCommonToolbar,
       elevation: 0,
       actions: [
         IconButton(
@@ -91,6 +93,7 @@ class ProfileView extends StatelessWidget {
         ),
       ],
     ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(
       child: Container(
         child: SingleChildScrollView(
@@ -98,7 +101,7 @@ class ProfileView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                color: Colors.blue,
+                color: WooAppTheme.colorCommonToolbar,
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 16),
                   child: Column(

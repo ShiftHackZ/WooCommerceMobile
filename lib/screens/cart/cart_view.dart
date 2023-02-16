@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/model/cart_response.dart';
 import 'package:wooapp/screens/auth/no_auth_screen.dart';
 import 'package:wooapp/screens/cart/cart_cubit.dart';
@@ -30,31 +31,34 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) => StatefulWrapper(
       onInit: () => context.read<CartCubit>().getCart(),
       child: Scaffold(
-        backgroundColor: Colors.white,
-        body: BlocListener<CartCubit, CartState>(
-          listener: (context, state) {},
-          child: BlocBuilder<CartCubit, CartState>(
-            builder: (context, state) {
-              switch (state.runtimeType) {
-                case InitialCartState:
-                  return _loadingState();
-                case LoadingCartState:
-                  return _loadingState();
-                case EmptyCartState:
-                  return _emptyState(context);
-                case ContentCartState:
-                  return _contentState(context, (state as ContentCartState).cart);
-                case ErrorCartState:
-                  return _errorState(context);
-                case NoAuthCartState:
-                  return _noAuth(context);
-                default:
-                  return _loadingState();
-              }
-            },
+        backgroundColor: WooAppTheme.colorCommonBackground,
+        appBar: _appBar(),
+        body: SafeArea(
+          child: BlocListener<CartCubit, CartState>(
+            listener: (context, state) {},
+            child: BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) {
+                switch (state.runtimeType) {
+                  case InitialCartState:
+                    return _loadingState();
+                  case LoadingCartState:
+                    return _loadingState();
+                  case EmptyCartState:
+                    return _emptyState(context);
+                  case ContentCartState:
+                    return _contentState(context, (state as ContentCartState).cart);
+                  case ErrorCartState:
+                    return _errorState(context);
+                  case NoAuthCartState:
+                    return _noAuth(context);
+                  default:
+                    return _loadingState();
+                }
+              },
+            ),
           ),
         ),
-      )
+      ),
   );
 
   Widget _noAuth(BuildContext context) => NoAuthScreen(tr('tab_cart'), () {
@@ -64,24 +68,18 @@ class CartView extends StatelessWidget {
     });
   });
 
-  Widget _emptyState(BuildContext context) => Scaffold(
-    appBar: _appBar(),
-    // body: ViewedProductsScreen(),
-    body: SafeArea(
-      child: SingleChildScrollView(
-          child: Column(
-            children: [
-              EmptyCartWidget(shoppingCallback),
-              SizedBox(height: 50),
-              ViewedProductsScreen(() => context.read<CartCubit>().getCart()),
-            ],
-          ),
-      ),
-    ),
+  Widget _emptyState(BuildContext context) => SingleChildScrollView(
+        child: Column(
+          children: [
+            EmptyCartWidget(shoppingCallback),
+            SizedBox(height: 50),
+            ViewedProductsScreen(() => context.read<CartCubit>().getCart()),
+          ],
+        ),
   );
 
   Widget _contentState(BuildContext context, CartResponse cart) => Scaffold(
-    appBar: _appBar(),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: Container(
       height: 60,
       child: Padding(
@@ -240,17 +238,9 @@ class CartView extends StatelessWidget {
     ),
   );
 
-  Widget _loadingState() => Scaffold(
-    appBar: _appBar(),
-    body: SafeArea(
-      child: CartListShimmer(),
-    ),
-  );
+  Widget _loadingState() => CartListShimmer();
 
-  Widget _errorState(BuildContext context) => Scaffold(
-    appBar: _appBar(),
-    body: SafeArea(
-      child: SingleChildScrollView(
+  Widget _errorState(BuildContext context) => SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -259,12 +249,11 @@ class CartView extends StatelessWidget {
             ErrorRetryWidget(() => context.read<CartCubit>().getCart()),
           ]
         ),
-      ),
-    ),
   );
 
   AppBar _appBar() => AppBar(
     leading: Icon(Icons.shopping_cart),
     title: Text('tab_cart').tr(),
+    backgroundColor: WooAppTheme.colorCommonToolbar,
   );
 }

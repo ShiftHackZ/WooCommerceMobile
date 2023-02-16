@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/datasource/product_review_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
@@ -28,7 +29,9 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text('review_add').tr(),
+      backgroundColor: WooAppTheme.colorCommonToolbar,
     ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(
       child: Center(
         child: SingleChildScrollView(
