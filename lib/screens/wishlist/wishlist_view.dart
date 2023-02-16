@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/wishlist/wishlist_cubit.dart';
 import 'package:wooapp/screens/wishlist/wishlist_state.dart';
+import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/widget_product_grid.dart';
 
 class WishListView extends StatelessWidget {
@@ -43,12 +45,48 @@ class WishListView extends StatelessWidget {
           crossAxisCount: 2,
         ),
         itemCount: state.wishlist.length,
-        itemBuilder: (ctx, i) => ProductGridItem(state.wishlist[i].second),
-      );
-
-  Widget _loadingState(BuildContext context) => Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 1,
+        itemBuilder: (ctx, i) => _buildProductItem(
+          context,
+          i,
+          state.wishlist[i].second,
         ),
       );
+
+  Widget _buildProductItem(
+    BuildContext context,
+    int index,
+    Product product,
+  ) =>
+      Stack(
+        alignment: Alignment.topRight,
+        children: [
+          ProductGridItem(
+            product: product,
+            detailRouteCallback: (result) {
+              if (result == true) {
+                context.read<WishListCubit>().initialLoad();
+              }
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: 8,
+              right: 8,
+            ),
+            child: InkWell(
+              onTap: () => context.read<WishListCubit>().removeItem(index),
+              child: CircleAvatar(
+                backgroundColor: Colors.redAccent,
+                radius: 16,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  child: Icon(Icons.delete_outline, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
+  Widget _loadingState(BuildContext context) => FeaturedShimmer(true);
 }

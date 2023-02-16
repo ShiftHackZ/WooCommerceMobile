@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-class Lang {
-  String code;
-  String title;
-
-  Lang(this.code, this.title);
-}
+import 'package:wooapp/constants/translations.dart';
 
 class LanguageWidget extends StatefulWidget {
   final Locale locale;
-  final ValueSetter<Lang> callback;
+  final ValueSetter<Language> callback;
 
   LanguageWidget(this.locale, this.callback);
 
@@ -20,23 +14,17 @@ class LanguageWidget extends StatefulWidget {
 }
 
 class _LanguageWidgetState extends State<LanguageWidget> {
-  final List<Lang> _languages = [
-    Lang('en', 'English'),
-    Lang('uk', 'Українська'),
-    Lang('ru', 'Русский'),
-  ];
-
   @override
   Widget build(BuildContext context) => Container(
     padding: EdgeInsets.only(bottom: 8),
     child: ListView.builder(
       shrinkWrap: true,
-      itemCount: _languages.length,
-      itemBuilder: (context, index) => _langItem(_languages[index]),
+      itemCount: Translations.languages.length,
+      itemBuilder: (_, index) => _langItem(Translations.languages[index]),
     ),
   );
 
-  Widget _langItem(Lang lang) => GestureDetector(
+  Widget _langItem(Language lang) => GestureDetector(
     onTap: () {
       widget.callback(lang);
       Navigator.of(context).pop();
@@ -65,12 +53,13 @@ class _LanguageWidgetState extends State<LanguageWidget> {
             Text(
               '${lang.title}',
               style: TextStyle(
-                  fontSize: widget.locale.languageCode.contains(lang.code) ? 18 : 17,
-                  fontWeight: widget.locale.languageCode.contains(lang.code) ? FontWeight.w800 : FontWeight.w400
+                fontSize: widget.locale.languageCode.contains(lang.locale.languageCode) ? 18 : 17,
+                fontWeight: widget.locale.languageCode.contains(lang.locale.languageCode) ? FontWeight.w800 : FontWeight.w400
               ),
             ),
             Spacer(),
-            if (widget.locale.languageCode.contains(lang.code)) Icon(Icons.check),
+            if (widget.locale.languageCode.contains(lang.locale.languageCode))
+              Icon(Icons.check),
           ],
         ),
       ),

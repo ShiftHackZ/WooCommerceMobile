@@ -37,11 +37,14 @@ class WishListDataSourceImpl extends WishListDataSource {
                       .map((item) => Product.fromJson(item))
                       .toList(),
                 );
-        return mapWishEntriesToProducts(entries, products);
+        var data =
+            await _mapWishEntriesToProducts(entries, products);
+
+        return data;
       });
 
   @override
-  Future addProduct(int id) => _db
+  Future addProduct(int productId) => _db
       .getUserId()
       .then((userId) => _woo.dio.get('wishlist/get_by_user/$userId'))
       .then((response) => (response.data as List)[0]['share_key'])
@@ -49,26 +52,54 @@ class WishListDataSourceImpl extends WishListDataSource {
         (shareKey) => _woo.dio.post(
           'wishlist/$shareKey/add_product',
           data: {
-            'product_id': '$id',
+            'product_id': '$productId',
           },
         ),
-      );
+      )
+      .then((response) => (response.data as List)[0]['item_id'].toString())
+      .then((itemId) => _db.addToWishList(itemId, productId));
+
+  @override
+  Future removeProductByItemId(itemId) => _woo.dio
+      .get('wishlist/remove_product/$itemId')
+      .then((_) => _db.deleteFromWishList(itemId));
+
+  @override
+  Future removeProductByProductId(int productId) => _db
+      .getWishListItemIdByProductId(productId)
+      .then((itemId) => removeProductByItemId(itemId));
+
+  List<Pair<WishListEntry, Product>> _mapWishEntriesToProducts(
+    List<WishListEntry> entries,
+    List<Product> products,
+  ) {
+    var result = <Pair<WishListEntry, Product>>[];
+    var raw = <Pair<String, int>>[];
+    for (var entry in entries) {
+      var product = products.firstWhere((p) => p.id == entry.productId, orElse: null);
+      result.add(Pair(entry, product));
+      raw.add(Pair(entry.itemId.toString(), product.id));
+      _db.addToWishList(entry.itemId.toString(), entry.productId);
+    }
+    // await _db.insertWishList(raw);
+    return result;
+  }
+
+  @override
+  Future<bool> isInWishList(String itemId) =>
+      _db.isInWishList(itemId);
+
+  @override
+  Future<bool> isInWishListByProductId(int productId) =>
+      _db.isInWishListByProductId(productId);
 }
 
 abstract class WishListDataSource {
   Future<List<WishListEntry>> getWishListEntries();
   Future<List<Pair<WishListEntry, Product>>> getWishListWithProducts();
-  Future addProduct(int id);
-}
-
-List<Pair<WishListEntry, Product>> mapWishEntriesToProducts(
-  List<WishListEntry> entries,
-  List<Product> products,
-) {
-  var result = <Pair<WishListEntry, Product>>[];
-  for (var entry in entries) {
-    var product = products.firstWhere((p) => p.id == entry.productId, orElse: null);
-    result.add(Pair(entry, product));
-  }
-  return result;
+  Future addProduct(int productId);
+  Future removeProductByItemId(String itemId);
+  Future removeProductByProductId(int productId);
+  Future<bool> isInWishList(String itemId);
+  Future<bool> isInWishListByProductId(int productId);
 }

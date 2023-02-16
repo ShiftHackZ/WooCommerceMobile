@@ -7,13 +7,24 @@ class WishListCubit extends Cubit<WishListState> {
   final WishListDataSource _ds = locator<WishListDataSource>();
 
   WishListCubit() : super(InitialWishListState()) {
+    initialLoad();
+  }
+
+  void removeItem(int index) {
+    if (state is! ContentWishListState) return;
+    var entry = (state as ContentWishListState).wishlist[index];
+    var newList = (state as ContentWishListState).wishlist..removeAt(index);
+    emit(ContentWishListState(newList));
+    _ds.removeProductByItemId(entry.first.itemId.toString());
+  }
+
+  void initialLoad() {
+    emit(LoadingWishListState());
     _load();
   }
 
   void _load() {
-    emit(LoadingWishListState());
     _ds.getWishListWithProducts().then((value) {
-      print('DBG0: $value');
       emit(ContentWishListState(value));
     });
   }

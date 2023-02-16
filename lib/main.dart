@@ -2,22 +2,26 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:wooapp/database/cart_cache_item.dart';
-import 'package:wooapp/database/filter.dart';
-import 'package:wooapp/database/filter_value.dart';
-import 'package:wooapp/database/filter_active.dart';
-import 'package:wooapp/database/product.dart';
-import 'package:wooapp/database/user.dart';
+import 'package:wooapp/constants/translations.dart';
+import 'package:wooapp/database/entity/filter.dart';
+import 'package:wooapp/database/entity/filter_value.dart';
+import 'package:wooapp/database/entity/filter_active.dart';
+import 'package:wooapp/database/entity/product.dart';
+import 'package:wooapp/database/entity/user.dart';
+import 'package:wooapp/database/entity/wish_list_cache_item.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/screens/splash/splash.dart';
+import 'package:wooapp/database/entity/cart_cache_item.dart';
 
 /// WooApp
 /// Flutter WooCommerce online mobile application for customers.
 ///
 /// Commercial usage of this app is not allowed without author official permission.
 ///
-/// Copyright © 2020 - 2023 Dmitriy Moroz (ShiftHackZ)
+/// Copyright © 2020 - 2023
 /// All rights reserved
+/// Author: Dmitriy Moroz (ShiftHackZ)
+/// dmitriy@moroz.cc
 /// https://dmitriy.moroz.cc
 ///
 void main() async {
@@ -26,16 +30,12 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-      supportedLocales: [
-        Locale('en'),
-        Locale('uk'),
-        Locale('ru'),
-      ],
+      supportedLocales: Translations.languages.map((l) => l.locale).toList(),
+      fallbackLocale: Translations.languages[0].locale,
       path: 'assets/translations',
-      fallbackLocale: Locale('en'),
       saveLocale: true,
       child: WooShopApp(),
-    )
+    ),
   );
 }
 
@@ -67,14 +67,13 @@ class _WooShopAppState extends State<WooShopApp> {
     ),
   );
 
-  void initHive() async {
-    Hive
-      ..initFlutter()
-      ..registerAdapter(CartCacheItemAdapter())
-      ..registerAdapter(FilterValueAdapter())
-      ..registerAdapter(ActiveFilterAdapter())
-      ..registerAdapter(FilterAdapter())
-      ..registerAdapter(ViewedProductAdapter())
-      ..registerAdapter(UserAdapter());
-  }
+  void initHive() => Hive
+    ..initFlutter()
+    ..registerAdapter(CartCacheItemAdapter())
+    ..registerAdapter(WishListCacheItemAdapter())
+    ..registerAdapter(FilterValueAdapter())
+    ..registerAdapter(ActiveFilterAdapter())
+    ..registerAdapter(FilterAdapter())
+    ..registerAdapter(ViewedProductAdapter())
+    ..registerAdapter(UserAdapter());
 }

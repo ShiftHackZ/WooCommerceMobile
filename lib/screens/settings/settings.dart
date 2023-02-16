@@ -12,70 +12,79 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text('settings').tr(),
-    ),
-    body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 8),
-            _section(
-              FaIcon(FontAwesomeIcons.globe),
-              Text('lang').tr(),
-              tr('settings_language'),
-              () => showBottomOptions(context, LanguageWidget(context.locale, (lang) {
-                context.setLocale(Locale(lang.code));
-              }))
-            ),
-            _section(
-              FaIcon(FontAwesomeIcons.key),
-              SizedBox.shrink(),
-              tr('settings_password'),
-              () {}
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('settings').tr(),
         ),
-      ),
-    ),
-  );
-
-  Widget _section(Widget icon, Widget endChild, String text, VoidCallback action, {Color iconBackground = Colors.transparent}) => Padding(
-    padding: EdgeInsets.only(left: 8, right: 8),
-    child: Card(
-      color: Colors.white70,
-      child: InkWell(
-        onTap: action,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-          child: Row(
-            children: [
-              SizedBox(width: 8),
-              Container(
-                decoration: BoxDecoration(
-                  color: iconBackground,
-                  border: Border.all(
-                      color: iconBackground
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 8),
+                _section(
+                  FaIcon(FontAwesomeIcons.globe),
+                  Text('lang').tr(),
+                  tr('settings_language'),
+                  () => showBottomOptions(
+                    context,
+                    LanguageWidget(
+                      context.locale,
+                      (lang) => context.setLocale(lang.locale),
+                    ),
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
                 ),
-                width: 34,
-                height: 34,
-                child: Padding(
-                  padding: EdgeInsets.all(4),
-                  child: Center(child: icon),
+                _section(
+                  FaIcon(FontAwesomeIcons.key),
+                  SizedBox.shrink(),
+                  tr('settings_password'),
+                  () {},
                 ),
-              ),
-              SizedBox(width: 12),
-              Text(text, style: TextStyle(fontSize: 17)),
-              Spacer(),
-              endChild,
-              SizedBox(width: 8),
-              Icon(Icons.arrow_forward_ios),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    ),
-  );
+      );
+
+  Widget _section(
+    Widget icon,
+    Widget endChild,
+    String text,
+    VoidCallback action, {
+    Color iconBackground = Colors.transparent,
+  }) =>
+      Padding(
+        padding: EdgeInsets.only(left: 8, right: 8),
+        child: Card(
+          color: Colors.white70,
+          child: InkWell(
+            onTap: action,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+              child: Row(
+                children: [
+                  SizedBox(width: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: iconBackground,
+                      border: Border.all(color: iconBackground),
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                    ),
+                    width: 34,
+                    height: 34,
+                    child: Padding(
+                      padding: EdgeInsets.all(4),
+                      child: Center(child: icon),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Text(text, style: TextStyle(fontSize: 17)),
+                  Spacer(),
+                  endChild,
+                  SizedBox(width: 8),
+                  Icon(Icons.arrow_forward_ios),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
 }

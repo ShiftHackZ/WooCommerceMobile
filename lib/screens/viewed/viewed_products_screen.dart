@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wooapp/database/product.dart';
+import 'package:wooapp/database/entity/product.dart';
 import 'package:wooapp/screens/viewed/viewed_products_cubit.dart';
 import 'package:wooapp/screens/viewed/viewed_products_state.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';

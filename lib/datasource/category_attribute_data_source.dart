@@ -2,7 +2,7 @@ import 'package:wooapp/api/woo_api_client.dart';
 import 'package:wooapp/api/wp_api_client.dart';
 import 'package:wooapp/constants/config.dart';
 import 'package:wooapp/database/database.dart';
-import 'package:wooapp/database/filter_active.dart';
+import 'package:wooapp/database/entity/filter_active.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/attribute.dart';
 import 'package:wooapp/model/product.dart';

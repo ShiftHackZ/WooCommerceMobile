@@ -190,7 +190,10 @@ class _FeaturedListState extends State<FeaturedListView> {
               showNewPageErrorIndicatorAsGridChild: false,
               showNoMoreItemsIndicatorAsGridChild: false,
               builderDelegate: PagedChildBuilderDelegate<Product>(
-                  itemBuilder: (context, item, index) => ProductGridItem(item),
+                  itemBuilder: (context, item, index) => ProductGridItem(
+                    product: item,
+                    detailRouteCallback: (_) {},
+                  ),
                   firstPageProgressIndicatorBuilder: (_) => FeaturedShimmer(true),
                   newPageProgressIndicatorBuilder: (_) => FeaturedShimmer(false),
                   firstPageErrorIndicatorBuilder: (_) => ErrorRetryWidget(() {
