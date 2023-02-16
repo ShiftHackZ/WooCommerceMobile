@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:wooapp/database/product.dart';
+import 'package:wooapp/database/entity/product.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/screens/product/product_screen.dart';
 import 'package:wooapp/widget/widget_price.dart';

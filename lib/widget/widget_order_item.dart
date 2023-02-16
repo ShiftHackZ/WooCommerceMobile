@@ -21,7 +21,7 @@ class OrderItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         _buildHeader(context),
-        _buildLineItems(),
+        _buildLineItems(context),
         SizedBox(height: 8),
         Divider(thickness: 1.4),
       ],
@@ -47,35 +47,55 @@ class OrderItem extends StatelessWidget {
     ),
   );
 
-  Widget _buildLineItems() => Container(
+  Widget _buildLineItems(BuildContext context) => Container(
     margin: EdgeInsets.only(right: 16, left: 16, top: 16),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (var lineItem in order.lineItems) _buildLineItem(lineItem),
+        for (var lineItem in order.lineItems) _buildLineItem(context, lineItem),
         _buildOrderTotal()
       ],
     ),
   );
 
-  Widget _buildLineItem(LineItem item) => Container(
-    margin: EdgeInsets.only(top: 4),
-    child: Row(
-      children: [
-        Text(
-          '${item.name}',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-        ),
-        // Spacer(),
-        DotSpacer(),
-        Text(
-          '${item.quantity} x ${item.price}${AppConfig.currency}',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-        ),
-      ],
-    ),
-  );
+  Widget _buildLineItem(BuildContext context, LineItem item) => Container(
+      margin: EdgeInsets.only(top: 4),
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: EdgeInsets.only(bottom: 8),
+            child: DotSpacer(),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                flex: 1,
+                fit: FlexFit.loose,
+                child: Container(
+                  color: Colors.white,
+                  child: Text(
+                    '${item.name}',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+              Container(
+                color: Colors.white,
+                child: Text(
+                  '${item.quantity} x ${item.price}${AppConfig.currency}',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ));
 
   Widget _buildOrderTotal() => Container(
     margin: EdgeInsets.only(top: 6),

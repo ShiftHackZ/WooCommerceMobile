@@ -48,7 +48,7 @@ class ProductInfoWidget extends StatelessWidget {
             key,
             textAlign: TextAlign.start,
             style: TextStyle(
-                fontSize: 3.9
+              fontSize: 3.9,
             ),
           ),
         ),
@@ -60,12 +60,12 @@ class ProductInfoWidget extends StatelessWidget {
           alignment: Alignment.centerLeft,
           width: 50.0,
           child: Text(
-              value,
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                  fontSize: 4.4,
-                  fontWeight: FontWeight.w600
-              )
+            value,
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontSize: 4.4,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),

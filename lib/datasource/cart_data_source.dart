@@ -116,7 +116,6 @@ abstract class CartDataSource {
 
 Map<String, String> mapVariations(List<Variation> variations, Map<String, String> input) {
   Map<String, String> result = {};
-  print('DBG0 - $input');
   for (var key in input.keys) {
     Variation? variation = variations.firstWhere((v) => v.name == key, orElse: null);
     if (variation == null) continue;

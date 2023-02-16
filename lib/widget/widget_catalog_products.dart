@@ -10,8 +10,6 @@ import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/product/product_screen.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:wooapp/widget/widget_price.dart';
-import 'package:wooapp/widget/widget_product_grid.dart';
-import 'package:wooapp/widget/widget_product_recent.dart';
 
 abstract class CatalogProductState {}
 

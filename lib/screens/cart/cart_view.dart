@@ -18,24 +18,17 @@ import 'package:wooapp/widget/widget_cart_total.dart';
 import 'package:wooapp/widget/widget_retry.dart';
 
 class CartView extends StatelessWidget {
-
   final VoidCallback shoppingCallback;
 
   CartView(this.shoppingCallback);
 
   @override
   Widget build(BuildContext context) => StatefulWrapper(
-      onInit: () {
-        context.read<CartCubit>().getCart();
-      },
+      onInit: () => context.read<CartCubit>().getCart(),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: BlocListener<CartCubit, CartState>(
-          listener: (context, state) {
-            switch (state.runtimeType) {
-              //ToDo ...
-            }
-          },
+          listener: (context, state) {},
           child: BlocBuilder<CartCubit, CartState>(
             builder: (context, state) {
               switch (state.runtimeType) {
@@ -67,9 +60,7 @@ class CartView extends StatelessWidget {
   });
 
   Widget _emptyState(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text('tab_cart').tr(),
-    ),
+    appBar: _appBar(),
     // body: ViewedProductsScreen(),
     body: SafeArea(
       child: SingleChildScrollView(
@@ -85,9 +76,7 @@ class CartView extends StatelessWidget {
   );
 
   Widget _contentState(BuildContext context, CartResponse cart) => Scaffold(
-    appBar: AppBar(
-      title: Text('tab_cart').tr(),
-    ),
+    appBar: _appBar(),
     bottomNavigationBar: Container(
       height: 60,
       child: Padding(
@@ -247,19 +236,14 @@ class CartView extends StatelessWidget {
   );
 
   Widget _loadingState() => Scaffold(
-    appBar: AppBar(
-      title: Text('tab_cart').tr(),
-    ),
+    appBar: _appBar(),
     body: SafeArea(
       child: CartListShimmer(),
     ),
   );
 
   Widget _errorState(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      // leading: Icon(Icons.shopping_cart),
-      title: Text('tab_cart').tr(),
-    ),
+    appBar: _appBar(),
     body: SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -272,5 +256,10 @@ class CartView extends StatelessWidget {
         ),
       ),
     ),
+  );
+
+  AppBar _appBar() => AppBar(
+    leading: Icon(Icons.shopping_cart),
+    title: Text('tab_cart').tr(),
   );
 }

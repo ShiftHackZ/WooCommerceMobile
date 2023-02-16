@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:wooapp/database/filter_value.dart';
+import 'package:wooapp/database/entity/filter_value.dart';
 
 part 'filter.g.dart';
 

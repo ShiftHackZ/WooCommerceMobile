@@ -21,14 +21,23 @@ import 'package:wooapp/widget/widget_product_info.dart';
 import 'package:wooapp/widget/widget_section.dart';
 import 'package:wooapp/widget/widget_text_expanded.dart';
 
+class ProductViewWillPopController {
+  bool value;
+  
+  ProductViewWillPopController(this.value);
+}
+
 class ProductView extends StatelessWidget {
   final _sliderController = PageController();
   final _sliderNotifier = ValueNotifier<int>(0);
+  
+  final _willPopController = ProductViewWillPopController(false);
 
   ProductView();
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => WillPopScope(
+      child: Scaffold(
         backgroundColor: Colors.white,
         body: BlocListener<ProductCubit, ProductState>(
           listener: (context, state) {},
@@ -52,7 +61,12 @@ class ProductView extends StatelessWidget {
             },
           ),
         ),
-      );
+      ),
+      onWillPop: () {
+        Navigator.pop(context, _willPopController.value);
+        return Future(() => false);
+      },
+  );
 
   Widget _loadingState() => ProductScreenShimmer();
 
@@ -96,7 +110,12 @@ class ProductView extends StatelessWidget {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ),
-                ProductActionsWidget(product),
+                ProductActionsWidget(
+                  product: product, 
+                  changeCallback: () {
+                    _willPopController.value = true;
+                  },
+                ),
                 Divider(),
                 Padding(
                   padding: EdgeInsets.only(top: 8.0),

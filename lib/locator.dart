@@ -16,6 +16,7 @@ import 'package:wooapp/datasource/products_home_data_source.dart';
 import 'package:wooapp/datasource/catalog_data_source.dart';
 import 'package:wooapp/datasource/shipping_method_data_source.dart';
 import 'package:wooapp/datasource/shopmap_data_source.dart';
+import 'package:wooapp/datasource/wish_list_data_source.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -26,6 +27,7 @@ Future setupDependencies() async {
 
 void registerDataSources() async {
   locator
+    ..registerLazySingleton<WishListDataSource>(() => WishListDataSourceImpl())
     ..registerLazySingleton<CustomerAuthDataSource>(() => CustomerAuthDataSourceImpl())
     ..registerLazySingleton<CustomerProfileDataSource>(() => CustomerProfileDataSourceImpl())
     ..registerLazySingleton<OrdersDataSource>(() => OrdersDataSourceImpl())

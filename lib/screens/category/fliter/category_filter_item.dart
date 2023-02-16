@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wooapp/database/database.dart';
-import 'package:wooapp/database/filter.dart';
-import 'package:wooapp/database/filter_value.dart';
+import 'package:wooapp/database/entity/filter.dart';
+import 'package:wooapp/database/entity/filter_value.dart';
 import 'package:wooapp/locator.dart';
 
 class CategoryFilterItem extends StatelessWidget {

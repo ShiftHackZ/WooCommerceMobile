@@ -7,7 +7,7 @@ import 'package:wooapp/api/cocart_api_client.dart';
 import 'package:wooapp/api/woo_api_client.dart';
 import 'package:wooapp/api/wp_api_client.dart';
 import 'package:wooapp/database/database.dart';
-import 'package:wooapp/database/user.dart';
+import 'package:wooapp/database/entity/user.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/auth_register_response.dart';
 import 'package:wooapp/model/customer_profile.dart';

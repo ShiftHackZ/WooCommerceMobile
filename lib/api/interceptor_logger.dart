@@ -7,7 +7,7 @@ class PrinterInterceptor extends Interceptor {
     print('''------------------- START REQUEST
 Method: ${options.method}
 Headers: ${options.headers}
-Path: ${options.path}
+Path: ${options.baseUrl}${options.path}
 Query parameters: ${options.queryParameters}
 Data: ${options.data}
 Content type: ${options.contentType}
@@ -20,6 +20,7 @@ Content type: ${options.contentType}
     print('''------------------- START RESPONSE
 Status code: ${response.statusCode}
 Response data: ${response.data}
+Path: ${response.realUri}
 ------------------- END RESPONSE''');
     super.onResponse(response, handler);//Headers: ${response.headers}
   }
@@ -30,6 +31,7 @@ Response data: ${response.data}
 Response: ${err.response}
 Error type: ${err.type}
 Error message: ${err.message}
+Path: ${err.response?.realUri}
 ------------------- END ERROR''');
     super.onError(err, handler);
   }

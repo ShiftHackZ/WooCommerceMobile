@@ -9,18 +9,25 @@ import 'package:wooapp/screens/product/product_screen.dart';
 import 'package:wooapp/widget/widget_price.dart';
 
 class ProductGridItem extends StatelessWidget {
-  final Product _product;
+  final Product product;
+  final Function(dynamic) detailRouteCallback;
 
-  const ProductGridItem(this._product);
+  const ProductGridItem({
+    required this.product,
+    required this.detailRouteCallback,
+  });
 
   @override
   Widget build(BuildContext context) => InkWell(
-    onTap: () {
+    onTap: () async {
       hideKeyboardForce(context);
-      Navigator.push(
+      var result = await Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ProductScreen(_product.id))
+        MaterialPageRoute(builder: (context) => ProductScreen(product.id))
       );
+      if (result != null) {
+        detailRouteCallback(result);
+      }
     },
     child: Card(
       shape: RoundedRectangleBorder(
@@ -33,7 +40,7 @@ class ProductGridItem extends StatelessWidget {
           Container(
             height: (MediaQuery.of(context).size.height / 6),
             child: CachedNetworkImage(
-              imageUrl: _product.images.length != 0 ? _product.images[0].src : '',
+              imageUrl: product.images.length != 0 ? product.images[0].src : '',
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
                   image: DecorationImage(
@@ -54,7 +61,7 @@ class ProductGridItem extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 10, left: 8, right: 4),
             child: Text(
-              _product.name,
+              product.name,
               maxLines: 1,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
             ),
@@ -63,10 +70,10 @@ class ProductGridItem extends StatelessWidget {
             padding: EdgeInsets.only(top: 4, left: 8, right: 4),
             child: Row(
               children: [
-                PriceWidget.withProduct(_product),
+                PriceWidget.withProduct(product),
                 Spacer(),
                 RatingBarIndicator(
-                  rating: _product.rating,
+                  rating: product.rating,
                   itemBuilder: (context, index) => Icon(
                     Icons.star,
                     color: Colors.amber,
@@ -75,7 +82,7 @@ class ProductGridItem extends StatelessWidget {
                   itemSize: 12,
                   direction: Axis.horizontal,
                 ),
-                Text(' ${_product.rating.toString()}')
+                Text(' ${product.rating.toString()}')
               ],
             ),
           ),
