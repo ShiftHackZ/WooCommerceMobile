@@ -1,5 +1,5 @@
 import 'package:wooapp/api/woo_api_client.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/database/database.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/product_rewiew.dart';
@@ -10,7 +10,7 @@ class ProductReviewDataSourceImpl extends ProductReviewDataSource {
 
   @override
   Future<List<ProductReview>> getReviews(int productId, int page) => _api.dio
-      .get('products/reviews?per_page=${AppConfig.paginationLimit}&product=$productId&page=$page')
+      .get('products/reviews?per_page=${WooAppConfig.paginationLimit}&product=$productId&page=$page')
       .then((response) => (response.data as List).map((item) => ProductReview.fromJson(item)).toList());
 
   @override

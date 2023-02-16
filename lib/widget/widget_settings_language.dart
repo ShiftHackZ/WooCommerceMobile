@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wooapp/constants/translations.dart';
+import 'package:wooapp/config/translations.dart';
 
 class LanguageWidget extends StatefulWidget {
   final Locale locale;

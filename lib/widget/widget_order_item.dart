@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/model/line_item.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/widget/widget_custom_spacer.dart';
@@ -88,7 +88,7 @@ class OrderItem extends StatelessWidget {
               Container(
                 color: Colors.white,
                 child: Text(
-                  '${item.quantity} x ${item.price}${AppConfig.currency}',
+                  '${item.quantity} x ${item.price}${WooAppConfig.currency}',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
               ),
@@ -107,7 +107,7 @@ class OrderItem extends StatelessWidget {
         ).tr(),
         DotSpacer(),
         Text(
-          '${order.total}${AppConfig.currency}',
+          '${order.total}${WooAppConfig.currency}',
           style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
         )
       ],

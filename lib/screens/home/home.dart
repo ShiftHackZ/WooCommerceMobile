@@ -1,11 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wooapp/constants/colors.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/screens/cart/cart_screen.dart';
 import 'package:wooapp/screens/catalog/catalog_screen.dart';
 import 'package:wooapp/screens/featured/featured.dart';
 import 'package:wooapp/screens/profile/profile_screen.dart';
+import 'package:wooapp/widget/stateful_wrapper.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   int _currentTab = 0;
-
+  bool _forceRefreshProfile = false;
   late List<Widget> _tabs;
 
   List<BottomNavigationBarItem> _bottomItems = [
@@ -53,7 +54,12 @@ class HomeScreenState extends State<HomeScreen> {
     _tabs = [
       FeaturedScreen(),
       CatalogScreen(),
-      CartScreen(() => _openStore()),
+      CartScreen(
+        shoppingCallback: () => _openStore(),
+        authCompleteCallback: () {
+          _forceRefreshProfile = true;
+        },
+      ),
       ProfileScreen(),
     ];
   }
@@ -68,8 +74,8 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        unselectedItemColor: AppColor.bottomBarIconUnselected,
-        selectedItemColor: AppColor.bottomBarIconSelected,
+        unselectedItemColor: WooTheme.bottomBarIconUnselected,
+        selectedItemColor: WooTheme.bottomBarIconSelected,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         onTap: (index) {
@@ -77,6 +83,10 @@ class HomeScreenState extends State<HomeScreen> {
             _currentTab = index;
             if (index == 2) {
               (_tabs[2] as CartScreen).refresh();
+            }
+            if (index == 3 && _forceRefreshProfile) {
+              (_tabs[3] as ProfileScreen).refresh();
+              _forceRefreshProfile = false;
             }
           });
         },

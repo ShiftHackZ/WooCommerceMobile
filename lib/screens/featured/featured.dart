@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/products_home_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
@@ -24,7 +23,6 @@ import 'featured_sort.dart';
 class FeaturedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => FeaturedListView();
-
 }
 
 class FeaturedCategoriesView extends StatefulWidget implements PreferredSizeWidget {
@@ -185,27 +183,28 @@ class _FeaturedListState extends State<FeaturedListView> {
             ),
           ),
           PagedSliverGrid(
-              pagingController: _pagingController,
-              showNewPageProgressIndicatorAsGridChild: false,
-              showNewPageErrorIndicatorAsGridChild: false,
-              showNoMoreItemsIndicatorAsGridChild: false,
-              builderDelegate: PagedChildBuilderDelegate<Product>(
-                  itemBuilder: (context, item, index) => ProductGridItem(
-                    product: item,
-                    detailRouteCallback: (_) {},
-                  ),
-                  firstPageProgressIndicatorBuilder: (_) => FeaturedShimmer(true),
-                  newPageProgressIndicatorBuilder: (_) => FeaturedShimmer(false),
-                  firstPageErrorIndicatorBuilder: (_) => ErrorRetryWidget(() {
-                    _categoryRefreshEvent();
-                    _pagingController.refresh();
-                  }),
-                  newPageErrorIndicatorBuilder: (_) => CircularProgressIndicator()
+            pagingController: _pagingController,
+            showNewPageProgressIndicatorAsGridChild: false,
+            showNewPageErrorIndicatorAsGridChild: false,
+            showNoMoreItemsIndicatorAsGridChild: false,
+            builderDelegate: PagedChildBuilderDelegate<Product>(
+              itemBuilder: (context, item, index) => ProductGridItem(
+                product: item,
+                detailRouteCallback: (_) {},
               ),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: MediaQuery.of(context).size.width / ((MediaQuery.of(context).size.height / 2) + 10),
-                crossAxisCount: 2,
-              ),
+              firstPageProgressIndicatorBuilder: (_) => FeaturedShimmer(true),
+              newPageProgressIndicatorBuilder: (_) => FeaturedShimmer(false),
+              firstPageErrorIndicatorBuilder: (_) => ErrorRetryWidget(() {
+                _categoryRefreshEvent();
+                _pagingController.refresh();
+              }),
+              newPageErrorIndicatorBuilder: (_) => CircularProgressIndicator()
+            ),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              childAspectRatio: MediaQuery.of(context).size.width /
+                  ((MediaQuery.of(context).size.height / 2) + 10),
+              crossAxisCount: 2,
+            ),
           ),
         ],
       ),
@@ -217,7 +216,7 @@ class _FeaturedListState extends State<FeaturedListView> {
       final items = await _ds.getProducts(page, _sort, _filter).catchError((error, stackTrace) {
         print(error.toString());
       });
-      final isLast = items.length < AppConfig.paginationLimit;
+      final isLast = items.length < WooAppConfig.paginationLimit;
       if (isLast) {
         _pagingController.appendLastPage(items);
       } else {
@@ -271,7 +270,7 @@ class _FeaturedCategoriesViewState extends State<FeaturedCategoriesView> {
       final items = await _ds.getCategories(page).catchError((error, stackTrace) {
         print(error.toString());
       });
-      final isLast = items.length < AppConfig.paginationLimit;
+      final isLast = items.length < WooAppConfig.paginationLimit;
       if (isLast) {
         _pagingController.appendLastPage(items);
       } else {

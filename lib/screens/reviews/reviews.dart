@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/product_review_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/product_rewiew.dart';
@@ -60,7 +60,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
       final items = await _ds.getReviews(widget.productId, page).catchError((error, stackTrace) {
         print(error.toString());
       });
-      final isLast = items.length < AppConfig.paginationLimit;
+      final isLast = items.length < WooAppConfig.paginationLimit;
       if (isLast) {
         _pagingController.appendLastPage(items);
       } else {

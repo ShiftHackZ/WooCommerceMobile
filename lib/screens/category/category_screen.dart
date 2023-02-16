@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/category_attribute_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/product.dart';
@@ -109,7 +109,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       final items = await _ds.getProducts(widget.categorySlug, page).catchError((error, stackTrace) {
         print(error.toString());
       });
-      final isLast = items.length < AppConfig.paginationLimit;
+      final isLast = items.length < WooAppConfig.paginationLimit;
       if (isLast) {
         _pagingController.appendLastPage(items);
       } else {

@@ -1,5 +1,5 @@
 import 'package:wooapp/api/woo_api_client.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/category.dart';
 import 'package:wooapp/model/product.dart';
@@ -11,7 +11,7 @@ class CatalogDataSourceImpl extends CatalogDataSource {
 
   @override
   Future<List<Category>> getCategories(int page, Sort sort) => _api.dio
-      .get('products/categories?hide_empty=true&parent=0&per_page=${AppConfig.paginationLimit}&page=$page&$sort')
+      .get('products/categories?hide_empty=true&parent=0&per_page=${WooAppConfig.paginationLimit}&page=$page&$sort')
       .then((response) => (response.data as List).map((item) => Category.fromJson(item)).toList());
 
   @override

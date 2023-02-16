@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:wooapp/constants/config.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/screens/home/home.dart';
 import 'package:wooapp/screens/orders/create/create_order_cubit.dart';
@@ -146,7 +146,7 @@ class CreateOrderView extends StatelessWidget {
                     ).tr(),
                     DotSpacer(),
                     Text(
-                      '${state.cart.totals.total}${AppConfig.currency}',
+                      '${state.cart.totals.total}${WooAppConfig.currency}',
                       style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                     )
                   ],

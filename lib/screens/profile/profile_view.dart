@@ -24,7 +24,6 @@ import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 
 class ProfileView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) => StatefulWrapper(
       onInit: () {

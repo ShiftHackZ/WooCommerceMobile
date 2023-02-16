@@ -6,8 +6,7 @@ import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/model/customer_profile.dart';
 import 'package:wooapp/screens/profile/profile_state.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
-
-import '../profile_cubit.dart';
+import 'package:wooapp/screens/profile/profile_cubit.dart';
 
 class ShippingEditView extends StatelessWidget {
 
@@ -27,6 +26,9 @@ class ShippingEditView extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text('shipping').tr(),
+        ),
         body: BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
             switch (state.runtimeType) {
@@ -66,9 +68,6 @@ class ShippingEditView extends StatelessWidget {
   );
 
   Widget _contentState(BuildContext context, CustomerProfile profile) => Scaffold(
-    appBar: AppBar(
-      title: Text('shipping').tr(),
-    ),
     bottomNavigationBar: Container(
       height: 60,
       child: Padding(
@@ -229,7 +228,6 @@ class ShippingEditView extends StatelessWidget {
 
   Widget _loadingState() => Center(
     child: CircularProgressIndicator(
-      // backgroundColor: Colors.white,
       strokeWidth: 1,
     ),
   );

@@ -12,7 +12,7 @@ class ProductGridItem extends StatelessWidget {
   final Product product;
   final Function(dynamic) detailRouteCallback;
 
-  const ProductGridItem({
+  ProductGridItem({
     required this.product,
     required this.detailRouteCallback,
   });
