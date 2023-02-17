@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/datasource/wish_list_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/product.dart';

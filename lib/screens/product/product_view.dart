@@ -5,7 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/product.dart';
@@ -114,7 +114,12 @@ class ProductView extends StatelessWidget {
                       itemSize: 12,
                       direction: Axis.horizontal,
                     ),
-                    Text(' ${product.rating.toString()}')
+                    Text(
+                      ' ${product.rating.toString()}',
+                      style: TextStyle(
+                        color: WooAppTheme.colorRatingText,
+                      ),
+                    )
                   ],
                 ),
                 Padding(
@@ -204,7 +209,10 @@ class ProductView extends StatelessWidget {
           duration: Duration(seconds: 1),
           enabled: true,
           direction: ShimmerDirection.fromLTRB(),
-          child: Container(color: Colors.white10),
+          color: WooAppTheme.colorShimmerForeground,
+          child: Container(
+            color: WooAppTheme.colorShimmerBackground,
+          ),
         ),
         errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
       );

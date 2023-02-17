@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/datasource/catalog_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
@@ -114,10 +114,13 @@ class CatalogProductsWidgetView extends StatelessWidget {
           Container(
             height: 100,
             child: Shimmer(
-                duration: Duration(seconds: 1),
-                enabled: true,
-                direction: ShimmerDirection.fromLTRB(),
-                child: Container(color: Color(0x11000000))
+              duration: Duration(seconds: 1),
+              enabled: true,
+              direction: ShimmerDirection.fromLTRB(),
+              color: WooAppTheme.colorShimmerForeground,
+              child: Container(
+                color: WooAppTheme.colorShimmerBackground,
+              ),
             ),
           ),
           Padding(
@@ -126,10 +129,13 @@ class CatalogProductsWidgetView extends StatelessWidget {
               width: 200,
               height: 14,
               child: Shimmer(
-                  duration: Duration(seconds: 1),
-                  enabled: true,
-                  direction: ShimmerDirection.fromLTRB(),
-                  child: Container(color: Color(0x11000000))
+                duration: Duration(seconds: 1),
+                enabled: true,
+                direction: ShimmerDirection.fromLTRB(),
+                color: WooAppTheme.colorShimmerForeground,
+                child: Container(
+                  color: WooAppTheme.colorShimmerBackground,
+                ),
               ),
             ),
           ),
@@ -142,7 +148,10 @@ class CatalogProductsWidgetView extends StatelessWidget {
                 duration: Duration(seconds: 1),
                 enabled: true,
                 direction: ShimmerDirection.fromLTRB(),
-                child: Container(color: Color(0x11000000)),
+                color: WooAppTheme.colorShimmerForeground,
+                child: Container(
+                  color: WooAppTheme.colorShimmerBackground,
+                ),
               ),
             ),
           ),
@@ -187,7 +196,10 @@ class CatalogProductsWidgetView extends StatelessWidget {
                   duration: Duration(seconds: 1),
                   enabled: true,
                   direction: ShimmerDirection.fromLTRB(),
-                  child: Container(color: Colors.white10),
+                  color: WooAppTheme.colorShimmerForeground,
+                  child: Container(
+                    color: WooAppTheme.colorShimmerBackground,
+                  ),
                 ),
                 errorWidget: (context, url, error) => Center(
                   child: Icon(Icons.error),
@@ -223,7 +235,11 @@ class CatalogProductsWidgetView extends StatelessWidget {
                     itemSize: 12,
                     direction: Axis.horizontal,
                   ),
-                  Text(' ${product.rating.toString()}')
+                  Text(' ${product.rating.toString()}',
+                    style: TextStyle(
+                      color: WooAppTheme.colorRatingText,
+                    ),
+                  ),
                 ],
               ),
             ),

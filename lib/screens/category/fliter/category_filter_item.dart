@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/database/database.dart';
 import 'package:wooapp/database/entity/filter.dart';
 import 'package:wooapp/database/entity/filter_value.dart';

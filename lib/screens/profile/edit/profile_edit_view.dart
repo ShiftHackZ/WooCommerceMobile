@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/model/customer_profile.dart';
 import 'package:wooapp/screens/profile/profile_cubit.dart';

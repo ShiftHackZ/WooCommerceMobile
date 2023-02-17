@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 
 class BottomSheetBuilder extends StatelessWidget {
   final Widget content;

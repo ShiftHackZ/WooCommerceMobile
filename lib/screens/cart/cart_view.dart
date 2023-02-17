@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/cart_response.dart';
 import 'package:wooapp/screens/auth/no_auth_screen.dart';
 import 'package:wooapp/screens/cart/cart_cubit.dart';
@@ -259,7 +259,10 @@ class CartView extends StatelessWidget {
               duration: Duration(seconds: 1),
               enabled: true,
               direction: ShimmerDirection.fromLTRB(),
-              child: Container(color: Colors.white10),
+              color: WooAppTheme.colorShimmerForeground,
+              child: Container(
+                color: WooAppTheme.colorShimmerBackground,
+              ),
             ),
             errorWidget: (context, url, error) => Center(
               child: Icon(Icons.error),

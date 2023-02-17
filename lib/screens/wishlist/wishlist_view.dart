@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/wishlist/wishlist_cubit.dart';
 import 'package:wooapp/screens/wishlist/wishlist_state.dart';

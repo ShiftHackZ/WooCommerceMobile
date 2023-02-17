@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:invert_colors/invert_colors.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/extensions/extensions_image.dart';
 import 'package:wooapp/model/category.dart';
 import 'package:wooapp/screens/category/category_screen.dart';
@@ -157,7 +157,10 @@ class _CatalogItemWidgetState extends State<CatalogItemWidget> {
             duration: Duration(seconds: 1),
             enabled: true,
             direction: ShimmerDirection.fromLTRB(),
-            child: Container(color: Colors.white10),
+            color: WooAppTheme.colorShimmerForeground,
+            child: Container(
+              color: WooAppTheme.colorShimmerBackground,
+            ),
           ),
           errorWidget: (context, url, error) => Center(
             child: Icon(Icons.error),

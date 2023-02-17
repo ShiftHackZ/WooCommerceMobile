@@ -5,7 +5,6 @@ import 'package:wooapp/locator.dart';
 import 'package:wooapp/screens/cart/cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
-
   final CartDataSource _ds = locator<CartDataSource>();
   final AppDb _db = locator<AppDb>();
 

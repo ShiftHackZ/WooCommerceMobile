@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/database/entity/product.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/screens/product/product_screen.dart';
@@ -52,10 +53,13 @@ class RecentProductItem extends StatelessWidget {
                 ),
               ),
               placeholder: (context, url) => Shimmer(
-                  duration: Duration(seconds: 1),
-                  enabled: true,
-                  direction: ShimmerDirection.fromLTRB(),
-                  child: Container(color: Colors.white10)
+                duration: Duration(seconds: 1),
+                enabled: true,
+                direction: ShimmerDirection.fromLTRB(),
+                color: WooAppTheme.colorShimmerForeground,
+                child: Container(
+                  color: WooAppTheme.colorShimmerBackground,
+                ),
               ),
               errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
             ),

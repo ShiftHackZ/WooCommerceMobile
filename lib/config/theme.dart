@@ -2,8 +2,13 @@ import 'package:flutter/cupertino.dart';
 
 class WooAppTheme {
   static const Color colorCommonBackground = Color(0xFF448844);
+  static const Color colorCommonText = Color(0xFF00A6FF);
+
   static const Color colorCommonSectionBackground = Color(0xFF696969);
   static const Color colorCommonSectionForeground = Color(0xFF723AC7);
+
+  static const Color colorShimmerBackground = Color(0x59FFFFFF);
+  static const Color colorShimmerForeground = Color(0xFF000000);
 
   static const Color colorToolbarBackground = Color(0xFF00223F);
   static const Color colorToolbarForeground = Color(0xFFEE8215);
@@ -26,6 +31,7 @@ class WooAppTheme {
 
   static const Color colorRatingActive = Color(0xFFFFA807);
   static const Color colorRatingNonActive = Color(0xFF525252);
+  static const Color colorRatingText = Color(0xFF0000FF);
 
   static const Color colorCardProductBackground = Color(0xFFFF0000);
   static const Color colorCardProductText = Color(0xfffffb00);

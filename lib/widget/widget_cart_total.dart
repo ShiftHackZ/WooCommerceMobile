@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/cart_data_source.dart';
 import 'package:wooapp/locator.dart';
@@ -57,7 +57,10 @@ class _CartTotalItemState extends State<CartTotalItem> {
                 duration: Duration(seconds: 1),
                 enabled: true,
                 direction: ShimmerDirection.fromLTRB(),
-                child: Container(color: Colors.white70)
+                color: WooAppTheme.colorShimmerForeground,
+                child: Container(
+                  color: WooAppTheme.colorShimmerBackground,
+                ),
               ),
           ),
       Spacer(),

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/category.dart';
 import 'package:wooapp/screens/category/category_screen.dart';
 
@@ -39,7 +39,12 @@ class FeaturedCategoryWidget extends StatelessWidget {
             ),
           ),
         ),
-        Text(_category.name),
+        Text(
+          _category.name,
+          style: TextStyle(
+            color: WooAppTheme.colorCommonText,
+          ),
+        ),
       ],
     ),
   );
@@ -53,7 +58,10 @@ class FeaturedCategoryWidget extends StatelessWidget {
           duration: Duration(seconds: 1),
           enabled: true,
           direction: ShimmerDirection.fromLTRB(),
-          child: Container(color: Colors.white10),
+          color: WooAppTheme.colorShimmerForeground,
+          child: Container(
+            color: WooAppTheme.colorShimmerBackground,
+          ),
         ),
         errorWidget: (context, url, error) => Icon(Icons.error),
       );

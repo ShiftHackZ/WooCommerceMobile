@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/model/product.dart';
 

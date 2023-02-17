@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/extensions/extensions_widget.dart';
 
 class ProductScreenShimmer extends StatelessWidget {
@@ -21,7 +21,7 @@ class ProductScreenShimmer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
-              backgroundColor: Colors.white,
+              backgroundColor: WooAppTheme.colorShimmerBackground,
               radius: 22,
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(22)),
@@ -36,7 +36,7 @@ class ProductScreenShimmer extends StatelessWidget {
             ),
             SizedBox(width: 10),
             CircleAvatar(
-              backgroundColor: Colors.white,
+              backgroundColor: WooAppTheme.colorShimmerBackground,
               radius: 22,
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(22)),
@@ -98,6 +98,7 @@ class ProductScreenShimmer extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
+                          color: WooAppTheme.colorShimmerBackground,
                           margin: EdgeInsets.zero,
                           clipBehavior: Clip.antiAlias,
                           child: Container(
@@ -108,7 +109,7 @@ class ProductScreenShimmer extends StatelessWidget {
                         ),
                         Spacer(),
                         CircleAvatar(
-                          backgroundColor: Colors.white,
+                          backgroundColor: WooAppTheme.colorShimmerBackground,
                           radius: 20,
                           child: ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -117,7 +118,7 @@ class ProductScreenShimmer extends StatelessWidget {
                         ),
                         SizedBox(width: 8),
                         CircleAvatar(
-                          backgroundColor: Colors.white,
+                          backgroundColor: WooAppTheme.colorShimmerBackground,
                           radius: 20,
                           child: ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -126,7 +127,7 @@ class ProductScreenShimmer extends StatelessWidget {
                         ),
                         SizedBox(width: 8),
                         CircleAvatar(
-                          backgroundColor: Colors.white,
+                          backgroundColor: WooAppTheme.colorShimmerBackground,
                           radius: 20,
                           child: ClipRRect(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -203,10 +204,13 @@ class CartListShimmer extends StatelessWidget {
                   width: 100,
                   height: 100,
                   child: Shimmer(
-                      duration: Duration(seconds: 1),
-                      enabled: true,
-                      direction: ShimmerDirection.fromLTRB(),
-                      child: Container(color: Color(0x11000000))
+                    duration: Duration(seconds: 1),
+                    enabled: true,
+                    direction: ShimmerDirection.fromLTRB(),
+                    color: WooAppTheme.colorShimmerForeground,
+                    child: Container(
+                      color: WooAppTheme.colorShimmerBackground,
+                    ),
                   ),
                 ),
                 Expanded(
@@ -221,10 +225,13 @@ class CartListShimmer extends StatelessWidget {
                               width: 200,
                               height: 16,
                               child: Shimmer(
-                                  duration: Duration(seconds: 1),
-                                  enabled: true,
-                                  direction: ShimmerDirection.fromLTRB(),
-                                  child: Container(color: Color(0x11000000))
+                                duration: Duration(seconds: 1),
+                                enabled: true,
+                                direction: ShimmerDirection.fromLTRB(),
+                                color: WooAppTheme.colorShimmerForeground,
+                                child: Container(
+                                  color: WooAppTheme.colorShimmerBackground,
+                                ),
                               ),
                             ),
                           ],
@@ -236,10 +243,13 @@ class CartListShimmer extends StatelessWidget {
                         height: 17,
                         padding: EdgeInsets.only(left: 8, right: 6),
                         child: Shimmer(
-                            duration: Duration(seconds: 1),
-                            enabled: true,
-                            direction: ShimmerDirection.fromLTRB(),
-                            child: Container(color: Color(0x11000000))
+                          duration: Duration(seconds: 1),
+                          enabled: true,
+                          direction: ShimmerDirection.fromLTRB(),
+                          color: WooAppTheme.colorShimmerForeground,
+                          child: Container(
+                            color: WooAppTheme.colorShimmerBackground,
+                          ),
                         ),
                       ),
                       SizedBox(height: 12),
@@ -248,10 +258,13 @@ class CartListShimmer extends StatelessWidget {
                         height: 17,
                         padding: EdgeInsets.only(left: 8, right: 6),
                         child: Shimmer(
-                            duration: Duration(seconds: 1),
-                            enabled: true,
-                            direction: ShimmerDirection.fromLTRB(),
-                            child: Container(color: Color(0x11000000))
+                          duration: Duration(seconds: 1),
+                          enabled: true,
+                          direction: ShimmerDirection.fromLTRB(),
+                          color: WooAppTheme.colorShimmerForeground,
+                          child: Container(
+                            color: WooAppTheme.colorShimmerBackground,
+                          )
                         ),
                       ),
                     ],
@@ -291,10 +304,13 @@ class FeaturedCategoriesShimmer extends StatelessWidget {
             color: WooAppTheme.colorCardProductBackground,
             clipBehavior: Clip.antiAlias,
             child: Shimmer(
-                duration: Duration(seconds: 1),
-                enabled: true,
-                direction: ShimmerDirection.fromLTRB(),
-                child: Container(color: Colors.white10)
+              duration: Duration(seconds: 1),
+              enabled: true,
+              direction: ShimmerDirection.fromLTRB(),
+              color: WooAppTheme.colorShimmerForeground,
+              child: Container(
+                color: WooAppTheme.colorShimmerBackground,
+              ),
             ),
           ),
         ),
@@ -302,10 +318,13 @@ class FeaturedCategoriesShimmer extends StatelessWidget {
           width: 100,
           height: 14,
           child: Shimmer(
-              duration: Duration(seconds: 1),
-              enabled: true,
-              direction: ShimmerDirection.fromLTRB(),
-              child: Container(color: Colors.white10)
+            duration: Duration(seconds: 1),
+            enabled: true,
+            direction: ShimmerDirection.fromLTRB(),
+            color: WooAppTheme.colorShimmerForeground,
+            child: Container(
+              color: WooAppTheme.colorShimmerBackground,
+            ),
           ),
         )
       ],
@@ -355,10 +374,13 @@ class FeaturedShimmer extends StatelessWidget {
         Container(
           height: (MediaQuery.of(context).size.height / 6),
           child: Shimmer(
-              duration: Duration(seconds: 1),
-              enabled: true,
-              direction: ShimmerDirection.fromLTRB(),
-              child: Container(color: Colors.white10)
+            duration: Duration(seconds: 1),
+            enabled: true,
+            direction: ShimmerDirection.fromLTRB(),
+            color: WooAppTheme.colorShimmerForeground,
+            child: Container(
+              color: WooAppTheme.colorShimmerBackground,
+            ),
           ),
         ),
         Padding(
@@ -367,25 +389,31 @@ class FeaturedShimmer extends StatelessWidget {
             width: 100,
             height: 14,
             child: Shimmer(
-                duration: Duration(seconds: 1),
-                enabled: true,
-                direction: ShimmerDirection.fromLTRB(),
-                child: Container(color: Colors.white10)
+              duration: Duration(seconds: 1),
+              enabled: true,
+              direction: ShimmerDirection.fromLTRB(),
+              color: WooAppTheme.colorShimmerForeground,
+              child: Container(
+                color: WooAppTheme.colorShimmerBackground,
+              ),
             ),
-          )
+          ),
         ),
         Padding(
-            padding: EdgeInsets.only(top: 10, left: 8, right: 4),
-            child: Container(
-              width: 100,
-              height: 14,
-              child: Shimmer(
-                  duration: Duration(seconds: 1),
-                  enabled: true,
-                  direction: ShimmerDirection.fromLTRB(),
-                  child: Container(color: Colors.white10)
+          padding: EdgeInsets.only(top: 10, left: 8, right: 4),
+          child: Container(
+            width: 100,
+            height: 14,
+            child: Shimmer(
+              duration: Duration(seconds: 1),
+              enabled: true,
+              direction: ShimmerDirection.fromLTRB(),
+              color: WooAppTheme.colorShimmerForeground,
+              child: Container(
+                color: WooAppTheme.colorShimmerBackground,
               ),
-            )
+            ),
+          ),
         ),
       ],
     ),
@@ -405,6 +433,7 @@ class ProfileShimmer extends StatelessWidget {
         leading: Icon(Icons.person),
         backgroundColor: WooAppTheme.colorToolbarBackground,
       ),
+      backgroundColor: WooAppTheme.colorCommonBackground,
       body: SafeArea(
         child: Container(
           child: SingleChildScrollView(
@@ -424,10 +453,13 @@ class ProfileShimmer extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.all(Radius.circular(40)),
                               child: Shimmer(
-                                  duration: Duration(seconds: 1),
-                                  enabled: true,
-                                  direction: ShimmerDirection.fromLTRB(),
-                                  child: Container(color: Colors.transparent)
+                                duration: Duration(seconds: 1),
+                                enabled: true,
+                                direction: ShimmerDirection.fromLTRB(),
+                                color: WooAppTheme.colorShimmerForeground,
+                                child: Container(
+                                  color: WooAppTheme.colorShimmerBackground,
+                                ),
                               ),
                             ),
                           ),
@@ -440,7 +472,10 @@ class ProfileShimmer extends StatelessWidget {
                             duration: Duration(seconds: 1),
                             enabled: true,
                             direction: ShimmerDirection.fromLTRB(),
-                            child: Container(color: Colors.white10),
+                            color: WooAppTheme.colorShimmerForeground,
+                            child: Container(
+                              color: WooAppTheme.colorShimmerBackground,
+                            ),
                           ),
                         ),
                         SizedBox(height: 6),
@@ -451,7 +486,10 @@ class ProfileShimmer extends StatelessWidget {
                             duration: Duration(seconds: 1),
                             enabled: true,
                             direction: ShimmerDirection.fromLTRB(),
-                            child: Container(color: Colors.white10),
+                            color: WooAppTheme.colorShimmerForeground,
+                            child: Container(
+                              color: WooAppTheme.colorShimmerBackground,
+                            ),
                           ),
                         ),
                       ],
@@ -485,7 +523,10 @@ class ProfileShimmer extends StatelessWidget {
                 duration: Duration(seconds: 1),
                 enabled: true,
                 direction: ShimmerDirection.fromLTRB(),
-                child: Container(color: Colors.white70),
+                color: WooAppTheme.colorShimmerForeground,
+                child: Container(
+                  color: WooAppTheme.colorShimmerBackground,
+                ),
               ),
             ),
             SizedBox(width: 12),
@@ -497,7 +538,10 @@ class ProfileShimmer extends StatelessWidget {
                   duration: Duration(seconds: 1),
                   enabled: true,
                   direction: ShimmerDirection.fromLTRB(),
-                  child: Container(color: Colors.white70),
+                  color: WooAppTheme.colorShimmerForeground,
+                  child: Container(
+                    color: WooAppTheme.colorShimmerBackground,
+                  ),
                 ),
               ),
             ),

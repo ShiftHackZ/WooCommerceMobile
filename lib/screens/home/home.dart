@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/screens/cart/cart_screen.dart';
 import 'package:wooapp/screens/catalog/catalog_screen.dart';
 import 'package:wooapp/screens/featured/featured.dart';

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:fluster/fluster.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/datasource/shopmap_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/woo_shop.dart';
