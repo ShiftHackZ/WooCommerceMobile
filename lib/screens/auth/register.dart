@@ -6,7 +6,7 @@ import 'package:wooapp/datasource/customer_auth_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/auth_register_response.dart';
-import 'package:wooapp/widget/widget_diaolg.dart';
+import 'package:wooapp/widget/widget_dialog.dart';
 import 'package:validators/validators.dart';
 
 class RegisterScreen extends StatefulWidget {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/cart_data_source.dart';
 import 'package:wooapp/locator.dart';
@@ -43,7 +44,11 @@ class _CartTotalItemState extends State<CartTotalItem> {
       !isLoading
           ? Text(
             '$total${WooAppConfig.currency}',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: WooAppTheme.colorPrice,
+            ),
           )
           : Container(
               width: 100,

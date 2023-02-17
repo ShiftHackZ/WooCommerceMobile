@@ -16,8 +16,16 @@ class CategoryInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text(name),
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      title: Text(
+        name,
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ),
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(

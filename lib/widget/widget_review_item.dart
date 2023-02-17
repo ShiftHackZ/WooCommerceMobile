@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/product_rewiew.dart';
 
@@ -38,8 +38,9 @@ class ReviewItemWidget extends StatelessWidget {
                         rating: review.rating,
                         itemBuilder: (context, index) => Icon(
                           Icons.star,
-                          color: Colors.amber,
+                          color: WooAppTheme.colorRatingActive,
                         ),
+                        unratedColor: WooAppTheme.colorRatingNonActive,
                         itemCount: 5,
                         itemSize: 12,
                         direction: Axis.horizontal,

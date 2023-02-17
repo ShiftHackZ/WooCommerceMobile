@@ -25,7 +25,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: Text('orders').tr(),
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(

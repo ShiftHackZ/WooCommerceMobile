@@ -6,7 +6,7 @@ import 'package:wooapp/datasource/customer_auth_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/screens/auth/register.dart';
 import 'package:wooapp/screens/auth/reset.dart';
-import 'package:wooapp/widget/widget_diaolg.dart';
+import 'package:wooapp/widget/widget_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/datasource/cart_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
@@ -45,11 +46,14 @@ class _CartQuantityWidgetState extends State<CartQuantityWidget> {
           hideKeyboardForce(context);
         },
         child: CircleAvatar(
-          backgroundColor: Colors.grey,
+          backgroundColor: WooAppTheme.colorSecondaryBackground,
           radius: buttonSize,
           child: ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(buttonSize)),
-            child: FaIcon(FontAwesomeIcons.minus, color: Colors.white),
+            child: FaIcon(
+              FontAwesomeIcons.minus,
+              color: WooAppTheme.colorSecondaryForeground,
+            ),
           ),
         ),
       ),
@@ -83,12 +87,15 @@ class _CartQuantityWidgetState extends State<CartQuantityWidget> {
           hideKeyboardForce(context);
         },
         child: CircleAvatar(
-            backgroundColor: Colors.grey,
-            radius: buttonSize,
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(buttonSize)),
-              child: FaIcon(FontAwesomeIcons.plus, color: Colors.white),
-            )
+          backgroundColor: WooAppTheme.colorSecondaryBackground,
+          radius: buttonSize,
+          child: ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(buttonSize)),
+            child: FaIcon(
+              FontAwesomeIcons.plus,
+              color: WooAppTheme.colorSecondaryForeground,
+            ),
+          ),
         ),
       ),
     ],

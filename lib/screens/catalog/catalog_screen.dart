@@ -29,22 +29,27 @@ class _CatalogScreenState extends State<CatalogScreen> {
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: WooAppTheme.colorCommonBackground,
     appBar: AppBar(
-      title: Text('tab_catalog').tr(),
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      title: Text(
+        'tab_catalog',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ).tr(),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
       actions: [
         IconButton(
           onPressed: () => showBottomOptions(
-              context,
-              SortingWidget(_sort, SortingType.catalog, (newSort) {
-                setState(() {
-                  _sort = newSort;
-                  _pagingController.refresh();
-                });
-              })
+            context,
+            SortingWidget(_sort, SortingType.catalog, (newSort) {
+              setState(() {
+                _sort = newSort;
+                _pagingController.refresh();
+              });
+            }),
           ),
           icon: Icon(
             Icons.sort,
-            color: Colors.white,
+            color: WooAppTheme.colorToolbarForeground,
           ),
         ),
       ],

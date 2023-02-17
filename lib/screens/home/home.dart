@@ -76,8 +76,10 @@ class HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         unselectedItemColor: WooAppTheme.colorBottomBarIconActive,
         selectedItemColor: WooAppTheme.colorBottomBarIconNonActive,
+        backgroundColor: WooAppTheme.colorBottomBarBackground,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+
         onTap: (index) {
           setState(() {
             _currentTab = index;

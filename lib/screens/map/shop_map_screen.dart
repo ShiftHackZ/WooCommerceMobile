@@ -41,8 +41,16 @@ class _ShopMapState extends State<ShopMap> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('Map'),
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      title: Text(
+        'Map',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     body: SafeArea(
       child: Container(

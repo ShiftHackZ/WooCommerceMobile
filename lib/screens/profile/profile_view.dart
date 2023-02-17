@@ -63,8 +63,17 @@ class ProfileView extends StatelessWidget {
   Widget _noAuth(BuildContext context) => NoAuthScreen(
         title: tr('tab_profile'),
         appBar: AppBar(
-          title: Text('tab_profile').tr(),
-          backgroundColor: WooAppTheme.colorCommonToolbar,
+          title: Text(
+            'tab_profile',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          leading: Icon(
+            Icons.person,
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
         onRefresh: () {
           Future.delayed(Duration(milliseconds: 200), () {
@@ -78,8 +87,17 @@ class ProfileView extends StatelessWidget {
     CustomerProfile profile,
   ) => Scaffold(
     appBar: AppBar(
-      title: Text('tab_profile').tr(),
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      title: Text(
+        'tab_profile',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ).tr(),
+      leading: Icon(
+        Icons.person,
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
       elevation: 0,
       actions: [
         IconButton(
@@ -95,7 +113,7 @@ class ProfileView extends StatelessWidget {
           },
           icon: Icon(
             Icons.edit,
-            color: Colors.white,
+            color: WooAppTheme.colorToolbarForeground,
           ),
         ),
       ],
@@ -108,7 +126,7 @@ class ProfileView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                color: WooAppTheme.colorCommonToolbar,
+                color: WooAppTheme.colorToolbarBackground,
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 16),
                   child: Column(
@@ -134,10 +152,10 @@ class ProfileView extends StatelessWidget {
                                   ),
                                 ),
                                 placeholder: (context, url) => Shimmer(
-                                    duration: Duration(seconds: 1),
-                                    enabled: true,
-                                    direction: ShimmerDirection.fromLTRB(),
-                                    child: Container(color: Colors.white10),
+                                  duration: Duration(seconds: 1),
+                                  enabled: true,
+                                  direction: ShimmerDirection.fromLTRB(),
+                                  child: Container(color: Colors.white10),
                                 ),
                                 errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
                               ),
@@ -148,14 +166,20 @@ class ProfileView extends StatelessWidget {
                       SizedBox(height: 6),
                       Text(
                         '${profile.username}',
-                        style: TextStyle(fontSize: 24, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: WooAppTheme.colorToolbarForeground,
+                        ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
                       SizedBox(height: 6),
                       Text(
                         '${profile.firstName} ${profile.lastName}',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: WooAppTheme.colorToolbarForeground,
+                        ),
                       ),
                     ],
                   ),
@@ -169,9 +193,8 @@ class ProfileView extends StatelessWidget {
     )
   );
 
-  Widget _loadingState(BuildContext context) => ProfileShimmer(
-      _profileSections(context)
-  );
+  Widget _loadingState(BuildContext context) =>
+      ProfileShimmer(_profileSections(context));
 
   Widget _errorState() => Center(
     child: Text("Error"),
@@ -289,16 +312,20 @@ class ProfileView extends StatelessWidget {
               'logout',
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.white,
+                color: WooAppTheme.colorDangerActionForeground,
               ),
             ).tr(),
           ),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Color(0xFFF56E6E)),
+            backgroundColor: MaterialStateProperty.all(
+              WooAppTheme.colorDangerActionBackground,
+            ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(36.0),
-                side: BorderSide(color: Colors.redAccent),
+                side: BorderSide(
+                  color: WooAppTheme.colorDangerActionBackground,
+                ),
               ),
             ),
           ),

@@ -16,7 +16,7 @@ import 'package:wooapp/screens/orders/create/create_order_widget_shipping.dart';
 import 'package:wooapp/screens/orders/create/create_order_widgets.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:wooapp/widget/widget_custom_spacer.dart';
-import 'package:wooapp/widget/widget_diaolg.dart';
+import 'package:wooapp/widget/widget_dialog.dart';
 import 'package:wooapp/widget/widget_retry.dart';
 
 import 'create_order_model.dart';
@@ -30,8 +30,16 @@ class CreateOrderView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: WooAppTheme.colorCommonBackground,
         appBar: AppBar(
-          title: Text('create_order_title').tr(),
-          backgroundColor: WooAppTheme.colorCommonToolbar,
+          leading: BackButton(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          title: Text(
+            'create_order_title',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
         body: SafeArea(
           child: BlocListener<CreateOrderCubit, CreateOrderState>(
@@ -146,78 +154,96 @@ class CreateOrderView extends StatelessWidget {
               ),
               SizedBox(height: 8),
               CreateOrderHeader(
-                  FaIcon(FontAwesomeIcons.truck),
-                  tr('create_order_shipping_method')
+                FaIcon(FontAwesomeIcons.truck),
+                tr('create_order_shipping_method'),
               ),
               SizedBox(height: 8),
               CreateOrderShippingWidget(
-                  state.selectedShippingIndex,
-                  state.shippingMethods,
-                  (shippingIndex) => context
-                      .read<CreateOrderCubit>()
-                      .onShippingSelected(shippingIndex),
+                state.selectedShippingIndex,
+                state.shippingMethods,
+                (shippingIndex) => context
+                    .read<CreateOrderCubit>()
+                    .onShippingSelected(shippingIndex),
               ),
               CreateOrderHeader(
-                  FaIcon(FontAwesomeIcons.wallet),
-                  tr('create_order_payment_method')
+                FaIcon(FontAwesomeIcons.wallet),
+                tr('create_order_payment_method'),
               ),
               SizedBox(height: 8),
               CreateOrderPaymentWidget(
-                  state.selectedPaymentIndex,
-                  state.paymentMethods,
-                  (paymentIndex) => context
-                      .read<CreateOrderCubit>()
-                      .onPaymentSelected(paymentIndex),
+                state.selectedPaymentIndex,
+                state.paymentMethods,
+                (paymentIndex) => context
+                    .read<CreateOrderCubit>()
+                    .onPaymentSelected(paymentIndex),
               ),
 
               SizedBox(height: 8),
               CreateOrderHeader(
-                  FaIcon(FontAwesomeIcons.userAlt),
-                  tr('create_order_person'),
-                  end: TextButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Color(0xD000000))
-                    ),
-                    onPressed: () {},
-                    child: Row(
-                      children: [
-                        Text('edit').tr(),
-                        SizedBox(width: 8),
-                        FaIcon(FontAwesomeIcons.pen, size: 16),
-                      ],
-                    ),
+                FaIcon(FontAwesomeIcons.userAlt),
+                tr('create_order_person'),
+                end: TextButton(
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xD000000))
                   ),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Text(
+                        'edit',
+                        style: TextStyle(
+                          color: WooAppTheme.colorPrimaryBackground,
+                        ),
+                      ).tr(),
+                      SizedBox(width: 8),
+                      FaIcon(
+                        FontAwesomeIcons.pen,
+                        color: WooAppTheme.colorPrimaryBackground,
+                        size: 16,
+                      ),
+                    ],
+                  ),
+                ),
               ),
               SizedBox(height: 8),
               CreateOrderSection(
-                  FaIcon(FontAwesomeIcons.child, size: 20,),
-                  tr('create_order_name'),
-                  '${state.recipient.firstName} ${state.recipient.lastName}',
-                  () {}
+                FaIcon(FontAwesomeIcons.child, size: 20,),
+                tr('create_order_name'),
+                '${state.recipient.firstName} ${state.recipient.lastName}',
+                () {},
               ),
               CreateOrderSection(
-                  FaIcon(FontAwesomeIcons.phoneAlt, size: 20,),
-                  tr('create_order_phone'),
-                  '${state.recipient.phone}',
-                  () {}
+                FaIcon(FontAwesomeIcons.phoneAlt, size: 20,),
+                tr('create_order_phone'),
+                '${state.recipient.phone}',
+                () {},
               ),
               SizedBox(height: 8),
               CreateOrderHeader(
-                  FaIcon(FontAwesomeIcons.mapMarkerAlt),
-                  tr('create_order_shipping'),
-                  end: TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Color(0xD000000))
-                    ),
-                    onPressed: () {},
-                    child: Row(
-                      children: [
-                        Text('edit').tr(),
-                        SizedBox(width: 8),
-                        FaIcon(FontAwesomeIcons.pen, size: 16),
-                      ],
-                    ),
+                FaIcon(FontAwesomeIcons.mapMarkerAlt),
+                tr('create_order_shipping'),
+                end: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Color(0xD000000))
                   ),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Text(
+                        'edit',
+                        style: TextStyle(
+                          color: WooAppTheme.colorPrimaryBackground,
+                        ),
+                      ).tr(),
+                      SizedBox(width: 8),
+                      FaIcon(
+                        FontAwesomeIcons.pen,
+                        color: WooAppTheme.colorPrimaryBackground,
+                        size: 16,
+                      ),
+                    ],
+                  ),
+                ),
               ),
               SizedBox(height: 8),
               CreateOrderSection(
@@ -292,9 +318,16 @@ class CreateOrderView extends StatelessWidget {
 
 
               Container(
-                margin: EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 8),
+                margin: EdgeInsets.only(
+                  left: 16,
+                  right: 16,
+                  bottom: 16,
+                  top: 8,
+                ),
                 child: ElevatedButton(
-                  onPressed: () => context.read<CreateOrderCubit>().createOrder(),
+                  onPressed: () => context
+                      .read<CreateOrderCubit>()
+                      .createOrder(),
                   child: Container(
                     alignment: Alignment.center,
                     height: 50,
@@ -315,11 +348,15 @@ class CreateOrderView extends StatelessWidget {
                     ),
                   ),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+                    backgroundColor: MaterialStateProperty.all(
+                      WooAppTheme.colorPrimaryBackground,
+                    ),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(36.0),
-                          side: BorderSide(color: Colors.blue)
+                        borderRadius: BorderRadius.circular(36.0),
+                        side: BorderSide(
+                          color: WooAppTheme.colorPrimaryBackground,
+                        ),
                       ),
                     ),
                   ),

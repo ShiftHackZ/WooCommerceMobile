@@ -14,8 +14,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('settings').tr(),
-          backgroundColor: WooAppTheme.colorCommonToolbar,
+          leading: BackButton(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          title: Text(
+            'settings',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
         backgroundColor: WooAppTheme.colorCommonBackground,
         body: SafeArea(

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wooapp/datasource/customer_auth_data_source.dart';
 import 'package:wooapp/locator.dart';
-import 'package:wooapp/widget/widget_diaolg.dart';
+import 'package:wooapp/widget/widget_dialog.dart';
 
 class PasswordRecoveryScreen extends StatefulWidget {
   @override

@@ -5,7 +5,7 @@ import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/datasource/product_review_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
-import 'package:wooapp/widget/widget_diaolg.dart';
+import 'package:wooapp/widget/widget_dialog.dart';
 
 class AddReviewScreen extends StatefulWidget {
   final int productId;
@@ -28,8 +28,16 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('review_add').tr(),
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      title: Text(
+        'review_add',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ).tr(),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(
@@ -111,18 +119,22 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 'review_add_action',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white,
+                  color: WooAppTheme.colorPrimaryForeground,
                 ),
               ).tr(),
             ],
           )
       ),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+        backgroundColor: MaterialStateProperty.all(
+          WooAppTheme.colorPrimaryBackground,
+        ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(36.0),
-              side: BorderSide(color: Colors.blue)
+            borderRadius: BorderRadius.circular(36.0),
+            side: BorderSide(
+              color: WooAppTheme.colorPrimaryBackground,
+            ),
           ),
         ),
       ),

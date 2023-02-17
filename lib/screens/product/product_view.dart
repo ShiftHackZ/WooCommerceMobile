@@ -73,8 +73,16 @@ class ProductView extends StatelessWidget {
 
   Widget _contentState(BuildContext context, Product product) => Scaffold(
     appBar: AppBar(
-      title: Text('${product.name}'),
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      title: Text(
+        '${product.name}',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: AddToCartBottomBar(product),
@@ -99,8 +107,9 @@ class ProductView extends StatelessWidget {
                       rating: product.rating,
                       itemBuilder: (context, index) => Icon(
                         Icons.star,
-                        color: Colors.amber,
+                        color: WooAppTheme.colorRatingActive,
                       ),
+                      unratedColor: WooAppTheme.colorRatingNonActive,
                       itemCount: 5,
                       itemSize: 12,
                       direction: Axis.horizontal,

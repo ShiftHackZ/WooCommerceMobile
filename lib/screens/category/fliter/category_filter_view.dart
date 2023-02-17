@@ -21,18 +21,15 @@ class CategoryFilterView extends StatelessWidget {
         context.read<CategoryFilterCubit>().getAttributes();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorToolbarBackground,
         appBar: AppBar(
           leading: SizedBox(),
-          backgroundColor: WooAppTheme.colorCommonToolbar,
+          backgroundColor: WooAppTheme.colorToolbarBackground,
           // title: Text('Filters'),
+          shadowColor: Colors.transparent,
         ),
         body: BlocListener<CategoryFilterCubit, CategoryFilterState>(
-          listener: (context, state) {
-            switch (state.runtimeType) {
-              //ToDo ...
-            }
-          },
+          listener: (context, state) {},
           child: BlocBuilder<CategoryFilterCubit, CategoryFilterState>(
             builder: (context, state) {
               switch (state.runtimeType) {

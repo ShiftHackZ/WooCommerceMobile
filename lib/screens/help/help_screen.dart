@@ -7,8 +7,16 @@ class HelpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('help').tr(),
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      title: Text(
+        'help',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ).tr(),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(

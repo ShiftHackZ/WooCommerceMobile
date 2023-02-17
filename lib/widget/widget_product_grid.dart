@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/product/product_screen.dart';
@@ -33,6 +34,7 @@ class ProductGridItem extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
+      color: WooAppTheme.colorCardProductBackground,
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,8 +78,9 @@ class ProductGridItem extends StatelessWidget {
                   rating: product.rating,
                   itemBuilder: (context, index) => Icon(
                     Icons.star,
-                    color: Colors.amber,
+                    color: WooAppTheme.colorRatingActive,
                   ),
+                  unratedColor: WooAppTheme.colorRatingNonActive,
                   itemCount: 5,
                   itemSize: 12,
                   direction: Axis.horizontal,
@@ -110,6 +113,7 @@ class CategoryProductGridItem extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
+      color: WooAppTheme.colorCardProductBackground,
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

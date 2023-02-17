@@ -28,8 +28,16 @@ class ShippingEditView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: WooAppTheme.colorCommonBackground,
         appBar: AppBar(
-          title: Text('shipping').tr(),
-          backgroundColor: WooAppTheme.colorCommonToolbar,
+          leading: BackButton(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          title: Text(
+            'shipping',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
         body: BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
@@ -80,32 +88,32 @@ class ShippingEditView extends StatelessWidget {
             if (_formKey.currentState!.validate()) {
               hideKeyboardForce(context);
               context.read<ProfileCubit>().updateShipping(
-                  _countryController.text,
-                  _cityController.text,
-                  _stateController.text,
-                  _postCodeController.text,
-                  _address1Controller.text,
-                  _address2Controller.text
+                _countryController.text,
+                _cityController.text,
+                _stateController.text,
+                _postCodeController.text,
+                _address1Controller.text,
+                _address2Controller.text,
               );
             }
           },
-          child: Container(
-            width: 290,
-            alignment: Alignment.center,
-            child: Text(
-              'update_shipping',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ).tr(),
-          ),
+          child: Text(
+            'update_shipping',
+            style: TextStyle(
+              fontSize: 18,
+              color: WooAppTheme.colorPrimaryForeground,
+            ),
+          ).tr(),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+            backgroundColor: MaterialStateProperty.all(
+              WooAppTheme.colorPrimaryBackground,
+            ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(36.0),
-                  side: BorderSide(color: Colors.blue)
+                borderRadius: BorderRadius.circular(36.0),
+                side: BorderSide(
+                  color: WooAppTheme.colorPrimaryBackground,
+                ),
               ),
             ),
           ),

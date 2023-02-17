@@ -28,8 +28,16 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('reviews').tr(),
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      title: Text(
+        'reviews',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ).tr(),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: _bottomBar(),
@@ -79,7 +87,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
     padding: EdgeInsets.only(bottom: 8, right: 8, left: 8),
     height: 60,
     child: ElevatedButton(
-      onPressed: () =>Navigator
+      onPressed: () => Navigator
           .push(context, MaterialPageRoute(builder: (_) => AddReviewScreen(widget.productId)))
           .then((value) {
         // Future.delayed(Duration(milliseconds: 200), () {
@@ -93,24 +101,31 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FaIcon(FontAwesomeIcons.commentMedical),
+              FaIcon(
+                FontAwesomeIcons.commentMedical,
+                color: WooAppTheme.colorPrimaryForeground,
+              ),
               SizedBox(width: 8),
               Text(
                 'review_add',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white,
+                  color: WooAppTheme.colorPrimaryForeground,
                 ),
               ).tr(),
             ],
           )
       ),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+        backgroundColor: MaterialStateProperty.all(
+          WooAppTheme.colorPrimaryBackground,
+        ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(36.0),
-              side: BorderSide(color: Colors.blue)
+            borderRadius: BorderRadius.circular(36.0),
+            side: BorderSide(
+              color: WooAppTheme.colorPrimaryBackground,
+            ),
           ),
         ),
       ),

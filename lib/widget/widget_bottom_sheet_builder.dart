@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wooapp/config/colors.dart';
 
 class BottomSheetBuilder extends StatelessWidget {
   final Widget content;
@@ -42,7 +43,7 @@ class BottomSheetHeading extends StatelessWidget {
     child: Container(
       margin: EdgeInsets.only(bottom: 4),
       decoration: BoxDecoration(
-        color: Color(0x25000000),
+        color: WooAppTheme.colorCommonSectionBackground,
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
       width: 150,

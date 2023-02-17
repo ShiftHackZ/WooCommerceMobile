@@ -12,8 +12,16 @@ class WishListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('wish_list').tr(),
-          backgroundColor: WooAppTheme.colorCommonToolbar,
+          leading: BackButton(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          title: Text(
+            'wish_list',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
         backgroundColor: WooAppTheme.colorCommonBackground,
         body: BlocListener<WishListCubit, WishListState>(
@@ -78,11 +86,14 @@ class WishListView extends StatelessWidget {
             child: InkWell(
               onTap: () => context.read<WishListCubit>().removeItem(index),
               child: CircleAvatar(
-                backgroundColor: Colors.redAccent,
+                backgroundColor: WooAppTheme.colorDangerActionBackground,
                 radius: 16,
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(16)),
-                  child: Icon(Icons.delete_outline, color: Colors.white),
+                  child: Icon(
+                    Icons.delete_outline,
+                    color: WooAppTheme.colorDangerActionForeground,
+                  ),
                 ),
               ),
             ),

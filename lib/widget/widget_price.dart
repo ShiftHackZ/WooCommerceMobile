@@ -19,7 +19,11 @@ class PriceWidget extends StatelessWidget {
     if (salePrice == '') {
       return Text(
         '$price${WooAppConfig.currency}',
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w800,
+          color: WooAppTheme.colorPrice,
+        ),
       );
     } else {
       return Row(
@@ -35,7 +39,11 @@ class PriceWidget extends StatelessWidget {
           ),
           Text(
             ' $salePrice${WooAppConfig.currency}',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: WooAppTheme.colorPrice,
+            ),
           ),
         ],
       );

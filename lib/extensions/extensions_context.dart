@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wooapp/config/colors.dart';
 import 'package:wooapp/widget/widget_bottom_sheet_builder.dart';
 
 void hideKeyboard(BuildContext context) {
@@ -22,7 +23,7 @@ void showBottomOptions(BuildContext context, Widget child) {
     ),
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.white,
+    backgroundColor: WooAppTheme.colorCommonBackground,
     builder: (context) => Column(
       mainAxisSize: MainAxisSize.min,
       children: [

@@ -8,7 +8,7 @@ class ProductScreenShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      backgroundColor: WooAppTheme.colorCommonToolbar,
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: Container(
@@ -181,7 +181,6 @@ class CartListShimmer extends StatelessWidget {
       _buildCartItem(context),
       _buildCartItem(context),
       _buildCartItem(context),
-      // _buildCartItem(context),
     ],
   );
 
@@ -191,6 +190,7 @@ class CartListShimmer extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
+      color: WooAppTheme.colorCardProductBackground,
       clipBehavior: Clip.antiAlias,
       child: Expanded(
         child: Column(
@@ -288,6 +288,7 @@ class FeaturedCategoriesShimmer extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(50.0),
             ),
+            color: WooAppTheme.colorCardProductBackground,
             clipBehavior: Clip.antiAlias,
             child: Shimmer(
                 duration: Duration(seconds: 1),
@@ -346,6 +347,7 @@ class FeaturedShimmer extends StatelessWidget {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16.0),
     ),
+    color: WooAppTheme.colorCardProductBackground,
     clipBehavior: Clip.antiAlias,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -400,7 +402,8 @@ class ProfileShimmer extends StatelessWidget {
       appBar: AppBar(
         title: Text('tab_profile').tr(),
         elevation: 0,
-        backgroundColor: WooAppTheme.colorCommonToolbar,
+        leading: Icon(Icons.person),
+        backgroundColor: WooAppTheme.colorToolbarBackground,
       ),
       body: SafeArea(
         child: Container(
@@ -409,7 +412,7 @@ class ProfileShimmer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  color: Colors.blue,
+                  color: WooAppTheme.colorToolbarBackground,
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 16),
                     child: Column(
@@ -434,10 +437,10 @@ class ProfileShimmer extends StatelessWidget {
                           width: 200,
                           height: 16,
                           child: Shimmer(
-                              duration: Duration(seconds: 1),
-                              enabled: true,
-                              direction: ShimmerDirection.fromLTRB(),
-                              child: Container(color: Colors.white10)
+                            duration: Duration(seconds: 1),
+                            enabled: true,
+                            direction: ShimmerDirection.fromLTRB(),
+                            child: Container(color: Colors.white10),
                           ),
                         ),
                         SizedBox(height: 6),
@@ -445,10 +448,10 @@ class ProfileShimmer extends StatelessWidget {
                           width: 200,
                           height: 16,
                           child: Shimmer(
-                              duration: Duration(seconds: 1),
-                              enabled: true,
-                              direction: ShimmerDirection.fromLTRB(),
-                              child: Container(color: Colors.white10)
+                            duration: Duration(seconds: 1),
+                            enabled: true,
+                            direction: ShimmerDirection.fromLTRB(),
+                            child: Container(color: Colors.white10),
                           ),
                         ),
                       ],
@@ -460,7 +463,7 @@ class ProfileShimmer extends StatelessWidget {
             ),
           ),
         ),
-      )
+      ),
   );
 
   Widget _shimmerSection() => Padding(
@@ -479,10 +482,10 @@ class ProfileShimmer extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(4)),
               ),
               child: Shimmer(
-                  duration: Duration(seconds: 1),
-                  enabled: true,
-                  direction: ShimmerDirection.fromLTRB(),
-                  child: Container(color: Colors.white70)
+                duration: Duration(seconds: 1),
+                enabled: true,
+                direction: ShimmerDirection.fromLTRB(),
+                child: Container(color: Colors.white70),
               ),
             ),
             SizedBox(width: 12),
@@ -491,15 +494,18 @@ class ProfileShimmer extends StatelessWidget {
                 width: 450,
                 height: 17,
                 child: Shimmer(
-                    duration: Duration(seconds: 1),
-                    enabled: true,
-                    direction: ShimmerDirection.fromLTRB(),
-                    child: Container(color: Colors.white70)
+                  duration: Duration(seconds: 1),
+                  enabled: true,
+                  direction: ShimmerDirection.fromLTRB(),
+                  child: Container(color: Colors.white70),
                 ),
               ),
             ),
             SizedBox(width: 12),
-            Icon(Icons.arrow_forward_ios, color: Colors.grey,),
+            Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.grey,
+            ),
           ],
         ),
       ),
