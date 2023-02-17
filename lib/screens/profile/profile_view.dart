@@ -317,11 +317,6 @@ class ProfileView extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 4),
-        Text(
-          'Version: 0.1 Alpha',
-          style: TextStyle(color: Colors.grey),
-        ),
         SizedBox(height: 16),
       ];
 }

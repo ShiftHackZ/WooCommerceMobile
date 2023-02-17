@@ -124,7 +124,7 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
         // cursorColor: Colors.blue,
         style: TextStyle(
           fontSize: 20,
-          // color: Colors.white
+          color: WooAppTheme.colorCommonText,
         ),
         decoration: _decorate(),
       ),

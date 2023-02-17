@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/datasource/customer_auth_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/screens/auth/register.dart';
@@ -26,12 +27,16 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       elevation: 0,
+      backgroundColor: WooAppTheme.colorAuthBackground,
       leading: IconButton(
-        icon: Icon(CupertinoIcons.clear),
+        icon: Icon(
+          CupertinoIcons.clear,
+          color: WooAppTheme.colorToolbarForeground,
+        ),
         onPressed: () => Navigator.of(context).pop(),
       ),
     ),
-    backgroundColor: Colors.blue,
+    backgroundColor: WooAppTheme.colorAuthBackground,
     body: SafeArea(
       child: Center(
         child: SingleChildScrollView(
@@ -44,41 +49,58 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Text(
                     'sign_in',
-                    style: TextStyle(fontSize: 34, fontWeight: FontWeight.w600, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.w600,
+                      color: WooAppTheme.colorAuthHeaderText,
+                    ),
                   ).tr(),
                   SizedBox(height: 32),
                   TextFormField(
-                      enableSuggestions: false,
-                      autocorrect: false,
-                      controller: _lController,
-                      cursorColor: Colors.white,
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    controller: _lController,
+                    cursorColor: WooAppTheme.colorAuthFieldText,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: WooAppTheme.colorAuthFieldText,
+                    ),
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: WooAppTheme.colorAuthFieldText,
+                          width: 0.0,
+                        ),
                       ),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 0.0)
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: WooAppTheme.colorAuthFieldText,
+                          width: 1.0,
                         ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 1.0)
-                        ),
-                        errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.redAccent, width: 1.0)
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.redAccent, width: 1.0)
-                        ),
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: tr('username'),
-
                       ),
-                      validator: (value) {
-                        if (value.toString().isEmpty) {
-                          return 'Username is required';
-                        }
-                        return null;
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: WooAppTheme.colorAuthNotValidFieldText,
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: WooAppTheme.colorAuthNotValidFieldText,
+                          width: 1.0,
+                        ),
+                      ),
+                      labelStyle: TextStyle(
+                        color: WooAppTheme.colorAuthFieldText,
+                      ),
+                      labelText: tr('username'),
+                    ),
+                    validator: (value) {
+                      if (value.toString().isEmpty) {
+                        return 'Username is required';
                       }
+                      return null;
+                    },
                   ),
                   SizedBox(height: 16),
                   TextFormField(
@@ -86,26 +108,40 @@ class _LoginScreenState extends State<LoginScreen> {
                     enableSuggestions: false,
                     autocorrect: false,
                     controller: _pController,
-                    cursorColor: Colors.white,
+                    cursorColor: WooAppTheme.colorAuthFieldText,
                     style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white
+                      fontSize: 16,
+                      color: WooAppTheme.colorAuthFieldText,
                     ),
                     decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 0.0)
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: WooAppTheme.colorAuthFieldText,
+                          width: 0.0,
                         ),
-                        focusedBorder:OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.white, width: 1.0)
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: WooAppTheme.colorAuthFieldText,
+                          width: 1.0,
                         ),
-                        errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.redAccent, width: 1.0)
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: WooAppTheme.colorAuthNotValidFieldText,
+                          width: 1.0,
                         ),
-                        focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.redAccent, width: 1.0)
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: WooAppTheme.colorAuthNotValidFieldText,
+                          width: 1.0,
                         ),
-                        labelStyle: TextStyle(color: Colors.white),
-                        labelText: tr('password')
+                      ),
+                      labelStyle: TextStyle(
+                        color: WooAppTheme.colorAuthFieldText,
+                      ),
+                      labelText: tr('password'),
                     ),
                     validator: (value) {
                       if (value.toString().isEmpty) {
@@ -128,9 +164,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           tr('forgot_credentials'),
                           style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: WooAppTheme.colorAuthActionText,
                           ),
                         ),
                       ),
@@ -150,19 +186,23 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Text(
                           tr('login').toUpperCase(),
                           style: TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.blue,
-                              letterSpacing: 2.0
+                            fontSize: 21,
+                            fontWeight: FontWeight.w600,
+                            color: WooAppTheme.colorPrimaryForeground,
+                            letterSpacing: 2.0,
                           ),
                         ),
                       ),
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.white),
+                        backgroundColor: MaterialStateProperty.all(
+                          WooAppTheme.colorPrimaryBackground,
+                        ),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(36.0),
-                              side: BorderSide(color: Colors.white)
+                            borderRadius: BorderRadius.circular(36.0),
+                            side: BorderSide(
+                              color: WooAppTheme.colorPrimaryBackground,
+                            ),
                           ),
                         ),
                       ),
@@ -175,30 +215,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         'have_no_account',
                         style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: WooAppTheme.colorCommonText,
                         ),
                       ).tr(),
                       SizedBox(width: 6),
                       InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => RegisterScreen())
-                          );
-                        },
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegisterScreen(),
+                          ),
+                        ),
                         child: Text(
                           'sign_up_footer',
                           style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white
+                            fontSize: 17,
+                            fontWeight: FontWeight.w800,
+                            color: WooAppTheme.colorAuthActionText,
                           ),
                         ).tr(),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class WooAppTheme {
   static const Color colorCommonBackground = Color(0xFF448844);
@@ -36,6 +37,26 @@ class WooAppTheme {
   static const Color colorCardProductBackground = Color(0xFFFF0000);
   static const Color colorCardProductText = Color(0xfffffb00);
 
+  static const Color colorProductStatusBgInStock = Color(0xFFFFFFFF);
+  static const Color colorProductStatusTextInStock = Colors.lightGreen;
+
+  static const Color colorProductStatusBgOutOfStock = Color(0xFFFFFFFF);
+  static const Color colorProductStatusTextOutOfStock = Colors.redAccent;
+
+  static const Color colorProductStatusBgBackOrder = Color(0xFF5A4D0D);
+  static const Color colorProductStatusTextBackOrder = Colors.amberAccent;
+
+  static const Color colorProductStatusBgDefault = Color(0xFFFFF3F3);
+  static const Color colorProductStatusTextDefault = Colors.redAccent;
+
+
+
+
+
+
+
+
+
   static const Color colorCardOrderBackground = Color(0xFFFF0000);
   static const Color colorCardOrderForeground = Color(0xFF00FFF0);
 
@@ -45,4 +66,10 @@ class WooAppTheme {
 
   static const Color colorPrice = Color(0xFF00FF00);
   static const Color colorPriceSale = Color(0xffa70404);
+
+  static const Color colorAuthBackground = Color(0xFF092C57);
+  static const Color colorAuthHeaderText = Color(0xFF000000);
+  static const Color colorAuthActionText = Color(0xFF7400EF);
+  static const Color colorAuthFieldText = Color(0xFF831369);
+  static const Color colorAuthNotValidFieldText = Color(0xFF837413);
 }
