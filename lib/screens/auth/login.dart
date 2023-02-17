@@ -188,20 +188,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontSize: 21,
                             fontWeight: FontWeight.w600,
-                            color: WooAppTheme.colorPrimaryForeground,
+                            color: WooAppTheme.colorAuthActionText,
                             letterSpacing: 2.0,
                           ),
                         ),
                       ),
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
-                          WooAppTheme.colorPrimaryBackground,
+                          WooAppTheme.colorAuthActionBackground,
                         ),
                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(36.0),
                             side: BorderSide(
-                              color: WooAppTheme.colorPrimaryBackground,
+                              color: WooAppTheme.colorAuthActionBackground,
                             ),
                           ),
                         ),
@@ -217,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
-                          color: WooAppTheme.colorCommonText,
+                          color: WooAppTheme.colorAuthHeaderText,
                         ),
                       ).tr(),
                       SizedBox(width: 6),

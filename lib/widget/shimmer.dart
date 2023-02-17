@@ -98,7 +98,6 @@ class ProductScreenShimmer extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          color: WooAppTheme.colorShimmerBackground,
                           margin: EdgeInsets.zero,
                           clipBehavior: Clip.antiAlias,
                           child: Container(
