@@ -7,14 +7,17 @@ class NoAuthScreen extends StatelessWidget {
 
   final String title;
   final VoidCallback onRefresh;
+  final AppBar? appBar;
 
-  NoAuthScreen(this.title, this.onRefresh);
+  NoAuthScreen({
+    required this.title,
+    required this.onRefresh,
+    this.appBar,
+  });
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text(title),
-    ),
+    appBar: appBar,
     body: SafeArea(
       child: Center(
         child: Column(

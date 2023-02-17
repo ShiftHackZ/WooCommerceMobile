@@ -61,12 +61,15 @@ class CartView extends StatelessWidget {
       ),
   );
 
-  Widget _noAuth(BuildContext context) => NoAuthScreen(tr('tab_cart'), () {
-    authCompleteCallback();
-    Future.delayed(Duration(milliseconds: 200), () {
-      context.read<CartCubit>().getCart();
-    });
-  });
+  Widget _noAuth(BuildContext context) => NoAuthScreen(
+        title: tr('tab_cart'),
+        onRefresh: () {
+          authCompleteCallback();
+          Future.delayed(Duration(milliseconds: 200), () {
+            context.read<CartCubit>().getCart();
+          });
+        },
+      );
 
   Widget _emptyState(BuildContext context) => SingleChildScrollView(
         child: Column(

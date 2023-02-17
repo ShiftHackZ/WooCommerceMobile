@@ -60,15 +60,22 @@ class ProfileView extends StatelessWidget {
       ),
   );
 
-  Widget _noAuth(BuildContext context) => NoAuthScreen(tr('tab_profile'), () {
-    Future.delayed(Duration(milliseconds: 200), () {
-      context.read<ProfileCubit>().getProfile();
-    });
-  });
+  Widget _noAuth(BuildContext context) => NoAuthScreen(
+        title: tr('tab_profile'),
+        appBar: AppBar(
+          title: Text('tab_profile').tr(),
+          backgroundColor: WooAppTheme.colorCommonToolbar,
+        ),
+        onRefresh: () {
+          Future.delayed(Duration(milliseconds: 200), () {
+            context.read<ProfileCubit>().getProfile();
+          });
+        },
+      );
 
   Widget _contentState(
-      BuildContext context,
-      CustomerProfile profile,
+    BuildContext context,
+    CustomerProfile profile,
   ) => Scaffold(
     appBar: AppBar(
       title: Text('tab_profile').tr(),
@@ -130,7 +137,7 @@ class ProfileView extends StatelessWidget {
                                     duration: Duration(seconds: 1),
                                     enabled: true,
                                     direction: ShimmerDirection.fromLTRB(),
-                                    child: Container(color: Colors.white10)
+                                    child: Container(color: Colors.white10),
                                 ),
                                 errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
                               ),
