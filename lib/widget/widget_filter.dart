@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/screens/featured/featured_filter.dart';
 
@@ -43,26 +44,26 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
         _priceItem(),
         _stockItem(),
         _switchItem(
-            tr('filter_on_sale'),
-            _filter.onSale,
-            (state) {
-              setState(() {
-                _filter = _filter
-                  ..resetLogic()
-                  ..onSale = state;
-              });
-            }
+          tr('filter_on_sale'),
+          _filter.onSale,
+          (state) {
+            setState(() {
+              _filter = _filter
+                ..resetLogic()
+                ..onSale = state;
+            });
+          },
         ),
         _switchItem(
-            tr('filter_featured'),
-            _filter.featured,
-            (state) {
-              setState(() {
-                _filter = _filter
-                  ..resetLogic()
-                  ..featured = state;
-              });
-            }
+          tr('filter_featured'),
+          _filter.featured,
+          (state) {
+            setState(() {
+              _filter = _filter
+                ..resetLogic()
+                ..featured = state;
+            });
+          },
         ),
 
         Padding(
@@ -82,7 +83,7 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
   Widget _priceItem() => Container(
     margin: EdgeInsets.only(top: 8, right: 16, left: 16),
     decoration: BoxDecoration(
-      color: Color(0x25636363),
+      color: WooAppTheme.colorCommonSectionBackground,
       borderRadius: BorderRadius.all(Radius.circular(8.0)),
     ),
     child: Padding(
@@ -95,13 +96,15 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
               Text(
                 'filter_price',
                 style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w400
+                  fontSize: 17,
+                  fontWeight: FontWeight.w400,
                 ),
               ).tr(),
               Spacer(),
               Text(
-                '${_currentRangeValues.start.round()}${WooAppConfig.currency} — ${_currentRangeValues.end.round()}${WooAppConfig.currency}',
+                '${_currentRangeValues.start.round()}${WooAppConfig.currency}'
+                ' — '
+                '${_currentRangeValues.end.round()}${WooAppConfig.currency}',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600
@@ -110,28 +113,30 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
             ],
           ),
           RangeSlider(
-              values: _currentRangeValues,
-              min: 0,
-              max: widget.priceRangeMax,
-              labels: RangeLabels(
-                _currentRangeValues.start.round().toString(),
-                _currentRangeValues.end.round().toString(),
-              ),
-              onChanged: (range) {
-                setState(() {
-                  _currentRangeValues = range;
-                });
-              }
-          )
+            values: _currentRangeValues,
+            min: 0,
+            max: widget.priceRangeMax,
+            activeColor: WooAppTheme.colorPrimaryBackground,
+            inactiveColor: WooAppTheme.colorPrimaryForeground,
+            labels: RangeLabels(
+              _currentRangeValues.start.round().toString(),
+              _currentRangeValues.end.round().toString(),
+            ),
+            onChanged: (range) {
+              setState(() {
+                _currentRangeValues = range;
+              });
+            },
+          ),
         ],
-      )
+      ),
     ),
   );
 
   Widget _stockItem() => Container(
       margin: EdgeInsets.only(top: 8, right: 16, left: 16),
       decoration: BoxDecoration(
-        color: Color(0x25636363),
+        color: WooAppTheme.colorCommonSectionBackground,
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
       child: Padding(
@@ -181,7 +186,9 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
     },
     child: Container(
       decoration: BoxDecoration(
-        color: selected ? Colors.blue : Color(0x73636363),
+        color: selected
+            ? WooAppTheme.colorPrimaryBackground
+            : Color(0x73636363),
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
@@ -189,8 +196,12 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
         title,
         style: TextStyle(
           fontSize: selected ? 16 : 15,
-          fontWeight: selected ? FontWeight.w600 : FontWeight.w400,
-          color: selected ? Colors.white : Color(0xFF232323)
+          fontWeight: selected
+              ? FontWeight.w600
+              : FontWeight.w400,
+          color: selected
+              ? WooAppTheme.colorPrimaryForeground
+              : Color(0xFF232323),
         ),
       ),
     ),
@@ -203,7 +214,7 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
     child: Container(
       margin: EdgeInsets.only(top: 8, right: 16, left: 16),
       decoration: BoxDecoration(
-        color: Color(0x25636363),
+        color: WooAppTheme.colorCommonSectionBackground,
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
       child: Padding(
@@ -219,7 +230,11 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
               ),
             ),
             Spacer(),
-            Switch(value: selected, onChanged: callback)
+            Switch(
+              value: selected,
+              onChanged: callback,
+              activeColor: WooAppTheme.colorPrimaryBackground,
+            ),
           ],
         ),
       ),
@@ -235,28 +250,35 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
       Navigator.of(context).pop();
     },
     child: Container(
-        alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FaIcon(FontAwesomeIcons.times, color: Color(0xFF393939)),
-            SizedBox(width: 8),
-            Text(
-              'filter_clear',
-              style: TextStyle(
-                fontSize: 18,
-                color: Color(0xFF393939),
-              ),
-            ).tr(),
-          ],
-        )
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FaIcon(
+            FontAwesomeIcons.times,
+            color: WooAppTheme.colorSecondaryForeground,
+          ),
+          SizedBox(width: 8),
+          Text(
+            'filter_clear',
+            style: TextStyle(
+              fontSize: 18,
+              color: WooAppTheme.colorSecondaryForeground,
+            ),
+          ).tr(),
+        ],
+      ),
     ),
     style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(Color(0xFFDADADA)),
+      backgroundColor: MaterialStateProperty.all(
+        WooAppTheme.colorSecondaryBackground,
+      ),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(36.0),
-            side: BorderSide(color: Color(0xFFDADADA))
+          borderRadius: BorderRadius.circular(36.0),
+          side: BorderSide(
+            color: WooAppTheme.colorSecondaryBackground,
+          ),
         ),
       ),
     ),
@@ -280,28 +302,35 @@ class _FeaturedFilterWidgetState extends State<FeaturedFilterWidget> {
       Navigator.of(context).pop();
     },
     child: Container(
-        alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FaIcon(FontAwesomeIcons.check),
-            SizedBox(width: 8),
-            Text(
-              'filter_apply',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ).tr(),
-          ],
-        )
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FaIcon(
+            FontAwesomeIcons.check,
+            color: WooAppTheme.colorPrimaryForeground,
+          ),
+          SizedBox(width: 8),
+          Text(
+            'filter_apply',
+            style: TextStyle(
+              fontSize: 18,
+              color: WooAppTheme.colorPrimaryForeground,
+            ),
+          ).tr(),
+        ],
+      ),
     ),
     style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+      backgroundColor: MaterialStateProperty.all(
+        WooAppTheme.colorPrimaryBackground,
+      ),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(36.0),
-            side: BorderSide(color: Colors.blue)
+          borderRadius: BorderRadius.circular(36.0),
+          side: BorderSide(
+            color: WooAppTheme.colorPrimaryBackground,
+          ),
         ),
       ),
     ),

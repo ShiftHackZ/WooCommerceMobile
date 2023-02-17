@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/product/product_screen.dart';
@@ -33,6 +34,7 @@ class ProductGridItem extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
+      color: WooAppTheme.colorCardProductBackground,
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,10 +52,13 @@ class ProductGridItem extends StatelessWidget {
                 ),
               ),
               placeholder: (context, url) => Shimmer(
-                  duration: Duration(seconds: 1),
-                  enabled: true,
-                  direction: ShimmerDirection.fromLTRB(),
-                  child: Container(color: Colors.white10)
+                duration: Duration(seconds: 1),
+                enabled: true,
+                direction: ShimmerDirection.fromLTRB(),
+                color: WooAppTheme.colorShimmerForeground,
+                child: Container(
+                  color: WooAppTheme.colorShimmerBackground,
+                ),
               ),
               errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
             ),
@@ -63,7 +68,11 @@ class ProductGridItem extends StatelessWidget {
             child: Text(
               product.name,
               maxLines: 1,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: WooAppTheme.colorCardProductText,
+              ),
             ),
           ),
           Padding(
@@ -76,13 +85,19 @@ class ProductGridItem extends StatelessWidget {
                   rating: product.rating,
                   itemBuilder: (context, index) => Icon(
                     Icons.star,
-                    color: Colors.amber,
+                    color: WooAppTheme.colorRatingActive,
                   ),
+                  unratedColor: WooAppTheme.colorRatingNonActive,
                   itemCount: 5,
                   itemSize: 12,
                   direction: Axis.horizontal,
                 ),
-                Text(' ${product.rating.toString()}')
+                Text(
+                  ' ${product.rating.toString()}',
+                  style: TextStyle(
+                    color: WooAppTheme.colorRatingText,
+                  ),
+                ),
               ],
             ),
           ),
@@ -110,6 +125,7 @@ class CategoryProductGridItem extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
+      color: WooAppTheme.colorCardProductBackground,
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,10 +143,13 @@ class CategoryProductGridItem extends StatelessWidget {
                 ),
               ),
               placeholder: (context, url) => Shimmer(
-                  duration: Duration(seconds: 1),
-                  enabled: true,
-                  direction: ShimmerDirection.fromLTRB(),
-                  child: Container(color: Colors.white10)
+                duration: Duration(seconds: 1),
+                enabled: true,
+                direction: ShimmerDirection.fromLTRB(),
+                color: WooAppTheme.colorShimmerForeground,
+                child: Container(
+                  color: WooAppTheme.colorShimmerBackground,
+                ),
               ),
               errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
             ),
@@ -140,7 +159,11 @@ class CategoryProductGridItem extends StatelessWidget {
             child: Text(
               _product.name,
               maxLines: 1,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: WooAppTheme.colorCardProductText,
+              ),
             ),
           ),
           Padding(

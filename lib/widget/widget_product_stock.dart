@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/product.dart';
 
 class ProductStockWidget extends StatelessWidget {
@@ -44,7 +45,7 @@ class ProductStockWidget extends StatelessWidget {
       case inStock:
         return FontAwesomeIcons.check;
       case outOfStock:
-        return FontAwesomeIcons.times;
+        return FontAwesomeIcons.xmark;
       case backOrder:
         return FontAwesomeIcons.headset;
       default:
@@ -55,26 +56,26 @@ class ProductStockWidget extends StatelessWidget {
   Color _bindTextColor() {
     switch (product.stockStatus) {
       case inStock:
-        return Color(0xFFFFFFFF);
+        return WooAppTheme.colorProductStatusBgInStock;
       case outOfStock:
-        return Color(0xFFFFF3F3);
+        return WooAppTheme.colorProductStatusBgOutOfStock;
       case backOrder:
-        return Color(0xFF5A4D0D);
+        return WooAppTheme.colorProductStatusBgBackOrder;
       default:
-        return Color(0xFFFFF3F3);
+        return WooAppTheme.colorProductStatusBgDefault;
     }
   }
 
   Color _bindCardColor() {
     switch (product.stockStatus) {
       case inStock:
-        return Colors.lightGreen;
+        return WooAppTheme.colorProductStatusTextInStock;
       case outOfStock:
-        return Colors.redAccent;
+        return WooAppTheme.colorProductStatusTextOutOfStock;
       case backOrder:
-        return Colors.amberAccent;
+        return WooAppTheme.colorProductStatusTextBackOrder;
       default:
-        return Colors.redAccent;
+        return WooAppTheme.colorProductStatusTextDefault;
     }
   }
 

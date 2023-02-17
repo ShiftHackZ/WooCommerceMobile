@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/database/database.dart';
 import 'package:wooapp/database/entity/filter.dart';
 import 'package:wooapp/database/entity/filter_value.dart';
@@ -18,7 +19,11 @@ class CategoryFilterItem extends StatelessWidget {
       children: [
         Text(
           filter.name,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            color: WooAppTheme.colorToolbarForeground,
+          ),
         ),
         _buildTerms(),
       ],
@@ -69,22 +74,29 @@ class _CategoryFilterValueState extends State<CategoryFilterValue> {
   Widget build(BuildContext context) => Row(
     children: [
       Checkbox(
-          value: _isSelected,
-          onChanged: (value) {
-            setState(() {
-              _isSelected = value!;
-              if (_isSelected) {
-                print("[APPLIED_FILTER] >>> APPLYING filter [${widget.filter.slug}] with value [${widget.value.id}]");
-                widget._db.applyFilter(widget.filter, widget.value);
-              } else {
-                print("[APPLIED_FILTER] <<< REMOVING filter [${widget.filter.slug}] with value [${widget.value.id}]");
-                widget._db.removeFilter(widget.filter, widget.value);
-              }
-              widget.onChanged();
-            });
-          }
+        value: _isSelected,
+        checkColor: WooAppTheme.colorToolbarForeground,
+        activeColor: WooAppTheme.colorToolbarForeground,
+        onChanged: (value) {
+          setState(() {
+            _isSelected = value!;
+            if (_isSelected) {
+              print("[APPLIED_FILTER] >>> APPLYING filter [${widget.filter.slug}] with value [${widget.value.id}]");
+              widget._db.applyFilter(widget.filter, widget.value);
+            } else {
+              print("[APPLIED_FILTER] <<< REMOVING filter [${widget.filter.slug}] with value [${widget.value.id}]");
+              widget._db.removeFilter(widget.filter, widget.value);
+            }
+            widget.onChanged();
+          });
+        },
       ),
-      Text(widget.value.name),
+      Text(
+        widget.value.name,
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ),
     ],
   );
 }

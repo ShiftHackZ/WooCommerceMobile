@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/catalog_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
@@ -26,22 +27,29 @@ class _CatalogScreenState extends State<CatalogScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+    backgroundColor: WooAppTheme.colorCommonBackground,
     appBar: AppBar(
-      title: Text('tab_catalog').tr(),
+      title: Text(
+        'tab_catalog',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ).tr(),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
       actions: [
         IconButton(
           onPressed: () => showBottomOptions(
-              context,
-              SortingWidget(_sort, SortingType.catalog, (newSort) {
-                setState(() {
-                  _sort = newSort;
-                  _pagingController.refresh();
-                });
-              })
+            context,
+            SortingWidget(_sort, SortingType.catalog, (newSort) {
+              setState(() {
+                _sort = newSort;
+                _pagingController.refresh();
+              });
+            }),
           ),
           icon: Icon(
             Icons.sort,
-            color: Colors.white,
+            color: WooAppTheme.colorToolbarForeground,
           ),
         ),
       ],

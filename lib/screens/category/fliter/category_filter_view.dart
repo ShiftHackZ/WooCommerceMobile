@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/database/entity/filter.dart';
 import 'package:wooapp/model/attribute.dart';
 import 'package:wooapp/screens/category/fliter/category_filter_cubit.dart';
@@ -20,17 +21,15 @@ class CategoryFilterView extends StatelessWidget {
         context.read<CategoryFilterCubit>().getAttributes();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorToolbarBackground,
         appBar: AppBar(
           leading: SizedBox(),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
           // title: Text('Filters'),
+          shadowColor: Colors.transparent,
         ),
         body: BlocListener<CategoryFilterCubit, CategoryFilterState>(
-          listener: (context, state) {
-            switch (state.runtimeType) {
-              //ToDo ...
-            }
-          },
+          listener: (context, state) {},
           child: BlocBuilder<CategoryFilterCubit, CategoryFilterState>(
             builder: (context, state) {
               switch (state.runtimeType) {

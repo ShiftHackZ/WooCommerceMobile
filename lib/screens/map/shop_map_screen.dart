@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fluster/fluster.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/datasource/shopmap_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/woo_shop.dart';
@@ -40,7 +41,16 @@ class _ShopMapState extends State<ShopMap> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('Map'),
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      title: Text(
+        'Map',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     body: SafeArea(
       child: Container(

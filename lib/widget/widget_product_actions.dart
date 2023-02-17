@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/datasource/wish_list_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/product.dart';
@@ -59,7 +60,7 @@ class _ProductActionsWidgetState extends State<ProductActionsWidget> {
               _wishListPresent
                   ? FontAwesomeIcons.solidHeart
                   : FontAwesomeIcons.heart,
-              color: Colors.white,
+              color: WooAppTheme.colorSecondaryForeground,
             ),
             () {
               if (_wishListOperationExecution) return;
@@ -86,7 +87,10 @@ class _ProductActionsWidgetState extends State<ProductActionsWidget> {
           ),
           SizedBox(width: 8),
           _buildIcon(
-            FaIcon(FontAwesomeIcons.comment, color: Colors.white),
+            FaIcon(
+              FontAwesomeIcons.comment,
+              color: WooAppTheme.colorSecondaryForeground,
+            ),
             () => Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (_) => ReviewsScreen(widget.product.id),
@@ -95,7 +99,10 @@ class _ProductActionsWidgetState extends State<ProductActionsWidget> {
           ),
           SizedBox(width: 8),
           _buildIcon(
-            FaIcon(FontAwesomeIcons.share, color: Colors.white),
+            FaIcon(
+              FontAwesomeIcons.share,
+              color: WooAppTheme.colorSecondaryForeground,
+            ),
             () => Share.share(
               'Check out: ${widget.product.name}\n${widget.product.permalink}',
               subject: 'Share ${widget.product.name}',
@@ -107,7 +114,7 @@ class _ProductActionsWidgetState extends State<ProductActionsWidget> {
   Widget _buildIcon(
     Widget icon,
     VoidCallback action, {
-    Color backgroundColor = Colors.grey,
+    Color backgroundColor = WooAppTheme.colorSecondaryBackground,
   }) =>
       GestureDetector(
         onTap: action,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/payment_method.dart';
 
 class CreateOrderPaymentWidget extends StatelessWidget {
@@ -20,29 +21,38 @@ class CreateOrderPaymentWidget extends StatelessWidget {
   );
 
   Widget _methodItem(PaymentMethod method, bool isSelected, int index) => Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(11.0),
-    ),
-    clipBehavior: Clip.antiAlias,
-    child: InkWell(
-      onTap: () => onSelected(index),
-      child: Column(
-        children: [
-          Row(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(11.0),
+        ),
+        color: WooAppTheme.colorCardCreateOrderBackground,
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: () => onSelected(index),
+          child: Column(
             children: [
-              Checkbox(
-                  checkColor: Colors.white,
-                  fillColor: MaterialStateProperty.all(Colors.deepPurple),
-                  value: isSelected,
-                  shape: CircleBorder(),
-                  onChanged: (value) => onSelected(index)
+              Row(
+                children: [
+                  Checkbox(
+                    checkColor: WooAppTheme.colorPrimaryForeground,
+                    fillColor: MaterialStateProperty.all(
+                      WooAppTheme.colorPrimaryBackground,
+                    ),
+                    value: isSelected,
+                    shape: CircleBorder(),
+                    onChanged: (value) => onSelected(index),
+                  ),
+                  Text(
+                    '${method.title}',
+                    style: TextStyle(
+                      fontSize: 15.8,
+                      color: WooAppTheme.colorCardCreateOrderText,
+                    ),
+                  ),
+                ],
               ),
-              Text('${method.title}', style: TextStyle(fontSize: 15.8))
+              // Text('${method.description}')
             ],
           ),
-          // Text('${method.description}')
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 }

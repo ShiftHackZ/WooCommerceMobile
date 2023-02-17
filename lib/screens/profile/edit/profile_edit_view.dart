@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/model/customer_profile.dart';
 import 'package:wooapp/screens/profile/profile_cubit.dart';
@@ -25,9 +26,18 @@ class ProfileEditView extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('edit_profile').tr(),
+          leading: BackButton(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          title: Text(
+            'edit_profile',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
             switch (state.runtimeType) {
@@ -65,6 +75,7 @@ class ProfileEditView extends StatelessWidget {
   );
 
   Widget _contentState(BuildContext context, CustomerProfile profile) => Scaffold(
+    backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: Container(
       height: 60,
       child: Padding(
@@ -81,23 +92,23 @@ class ProfileEditView extends StatelessWidget {
               );
             }
           },
-          child: Container(
-            width: 290,
-            alignment: Alignment.center,
-            child: Text(
-              'update_profile',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ).tr(),
-          ),
+          child: Text(
+            'update_profile',
+            style: TextStyle(
+              fontSize: 18,
+              color: WooAppTheme.colorPrimaryForeground,
+            ),
+          ).tr(),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+            backgroundColor: MaterialStateProperty.all(
+              WooAppTheme.colorPrimaryBackground,
+            ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(36.0),
-                  side: BorderSide(color: Colors.blue)
+                borderRadius: BorderRadius.circular(36.0),
+                side: BorderSide(
+                  color: WooAppTheme.colorPrimaryBackground,
+                ),
               ),
             ),
           ),

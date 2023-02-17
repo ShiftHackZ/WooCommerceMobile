@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/database/database.dart';
 import 'package:wooapp/datasource/cart_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
@@ -11,8 +11,7 @@ import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/orders/create/create_order_screen.dart';
 import 'package:wooapp/widget/widget_product_stock.dart';
 import 'package:wooapp/widget/widget_product_variations.dart';
-
-import 'widget_diaolg.dart';
+import 'package:wooapp/widget/widget_dialog.dart';
 
 class AddToCartBottomBar extends StatefulWidget {
   final CartDataSource _ds = locator<CartDataSource>();
@@ -38,7 +37,6 @@ class _AddToCartBottomBarEmptyState extends State<AddToCartBottomBar> {
 }
 
 class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
-
   final TextEditingController _countController = TextEditingController();
 
   int getCount() => int.tryParse(_countController.text) ?? 1;
@@ -97,11 +95,14 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
         hideKeyboardForce(context);
       },
       child: CircleAvatar(
-        backgroundColor: Colors.grey,
+        backgroundColor: WooAppTheme.colorSecondaryBackground,
         radius: 22,
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(22)),
-          child: FaIcon(FontAwesomeIcons.minus, color: Colors.white),
+          child: FaIcon(
+            FontAwesomeIcons.minus,
+            color: WooAppTheme.colorSecondaryForeground,
+          ),
         ),
       ),
     ),
@@ -123,7 +124,7 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
         // cursorColor: Colors.blue,
         style: TextStyle(
           fontSize: 20,
-          // color: Colors.white
+          color: WooAppTheme.colorCommonText,
         ),
         decoration: _decorate(),
       ),
@@ -134,12 +135,15 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
         hideKeyboardForce(context);
       },
       child: CircleAvatar(
-          backgroundColor: Colors.grey,
-          radius: 22,
-          child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(22)),
-            child: FaIcon(FontAwesomeIcons.plus, color: Colors.white),
-          )
+        backgroundColor: WooAppTheme.colorSecondaryBackground,
+        radius: 22,
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(22)),
+          child: FaIcon(
+            FontAwesomeIcons.plus,
+            color: WooAppTheme.colorSecondaryForeground,
+          ),
+        ),
       ),
     ),
   ]);
@@ -152,24 +156,31 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
         alignment: Alignment.center,
         child: Row(
           children: [
-            FaIcon(FontAwesomeIcons.check),
+            FaIcon(
+              FontAwesomeIcons.check,
+              color: WooAppTheme.colorPrimaryForeground,
+            ),
             SizedBox(width: 8),
             Text(
               'cart_checkout',
               style: TextStyle(
                 fontSize: 18,
-                color: Colors.white,
+                color: WooAppTheme.colorPrimaryForeground,
               ),
             ).tr(),
           ],
         )
     ),
     style: ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+      backgroundColor: MaterialStateProperty.all(
+        WooAppTheme.colorPrimaryBackground,
+      ),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
         RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(36.0),
-            side: BorderSide(color: Colors.blue)
+          borderRadius: BorderRadius.circular(36.0),
+          side: BorderSide(
+            color: WooAppTheme.colorPrimaryBackground,
+          ),
         ),
       ),
     ),
@@ -177,7 +188,6 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
 
   Widget _buildAddButton() => ElevatedButton(
         onPressed: () {
-          // _processSimpleProduct();return;
           if (widget.product.isVariable) {
             _processVariableProduct();
           } else {
@@ -188,24 +198,31 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
           alignment: Alignment.center,
           child: Row(
             children: [
-              FaIcon(FontAwesomeIcons.cartPlus),
+              FaIcon(
+                FontAwesomeIcons.cartPlus,
+                color: WooAppTheme.colorPrimaryForeground,
+              ),
               SizedBox(width: 8),
               Text(
                 'cart_add',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white,
+                  color: WooAppTheme.colorPrimaryForeground,
                 ),
               ).tr(),
             ],
           ),
         ),
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+          backgroundColor: MaterialStateProperty.all(
+            WooAppTheme.colorPrimaryBackground,
+          ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(36.0),
-              side: BorderSide(color: Colors.blue),
+              side: BorderSide(
+                color: WooAppTheme.colorPrimaryBackground,
+              ),
             ),
           ),
         ),

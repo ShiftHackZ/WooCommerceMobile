@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/product_review_data_source.dart';
 import 'package:wooapp/locator.dart';
@@ -27,8 +28,18 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('reviews').tr(),
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      title: Text(
+        'reviews',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ).tr(),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: _bottomBar(),
     body: SafeArea(
       child: Container(
@@ -76,7 +87,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
     padding: EdgeInsets.only(bottom: 8, right: 8, left: 8),
     height: 60,
     child: ElevatedButton(
-      onPressed: () =>Navigator
+      onPressed: () => Navigator
           .push(context, MaterialPageRoute(builder: (_) => AddReviewScreen(widget.productId)))
           .then((value) {
         // Future.delayed(Duration(milliseconds: 200), () {
@@ -90,24 +101,31 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FaIcon(FontAwesomeIcons.commentMedical),
+              FaIcon(
+                FontAwesomeIcons.commentMedical,
+                color: WooAppTheme.colorPrimaryForeground,
+              ),
               SizedBox(width: 8),
               Text(
                 'review_add',
                 style: TextStyle(
                   fontSize: 18,
-                  color: Colors.white,
+                  color: WooAppTheme.colorPrimaryForeground,
                 ),
               ).tr(),
             ],
           )
       ),
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Color(0xFF62A1E2)),
+        backgroundColor: MaterialStateProperty.all(
+          WooAppTheme.colorPrimaryBackground,
+        ),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(36.0),
-              side: BorderSide(color: Colors.blue)
+            borderRadius: BorderRadius.circular(36.0),
+            side: BorderSide(
+              color: WooAppTheme.colorPrimaryBackground,
+            ),
           ),
         ),
       ),

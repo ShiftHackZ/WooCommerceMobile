@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/product.dart';
@@ -18,8 +19,8 @@ import 'package:wooapp/widget/widget_attributes.dart';
 import 'package:wooapp/widget/widget_price_product.dart';
 import 'package:wooapp/widget/widget_product_actions.dart';
 import 'package:wooapp/widget/widget_product_info.dart';
-import 'package:wooapp/widget/widget_section.dart';
 import 'package:wooapp/widget/widget_text_expanded.dart';
+import 'package:wooapp/widget/widget_woo_section.dart';
 
 class ProductViewWillPopController {
   bool value;
@@ -38,7 +39,7 @@ class ProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => WillPopScope(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: BlocListener<ProductCubit, ProductState>(
           listener: (context, state) {},
           child: BlocBuilder<ProductCubit, ProductState>(
@@ -71,7 +72,19 @@ class ProductView extends StatelessWidget {
   Widget _loadingState() => ProductScreenShimmer();
 
   Widget _contentState(BuildContext context, Product product) => Scaffold(
-    appBar: AppBar(title: Text('${product.name}')),
+    appBar: AppBar(
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      title: Text(
+        '${product.name}',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
+    ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: AddToCartBottomBar(product),
     body: SingleChildScrollView(
       child: Column(
@@ -82,57 +95,98 @@ class ProductView extends StatelessWidget {
             child: _imageSlider(context, product),
           ),
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(0.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 16),
                 Row(
                   children: [
+                    SizedBox(width: 16),
                     ProductPriceWidget.withProduct(product),
                     Spacer(),
                     RatingBarIndicator(
                       rating: product.rating,
                       itemBuilder: (context, index) => Icon(
                         Icons.star,
-                        color: Colors.amber,
+                        color: WooAppTheme.colorRatingActive,
                       ),
+                      unratedColor: WooAppTheme.colorRatingNonActive,
                       itemCount: 5,
                       itemSize: 12,
                       direction: Axis.horizontal,
                     ),
-                    Text(' ${product.rating.toString()}')
+                    Text(
+                      ' ${product.rating.toString()}',
+                      style: TextStyle(
+                        color: WooAppTheme.colorRatingText,
+                      ),
+                    ),
+                    SizedBox(width: 16),
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16,
+                  ),
                   child: Text(
                     product.name,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: WooAppTheme.colorCommonText,
+                    ),
                   ),
                 ),
-                ProductActionsWidget(
-                  product: product, 
-                  changeCallback: () {
-                    _willPopController.value = true;
-                  },
-                ),
-                Divider(),
                 Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8.0,
+                    horizontal: 16,
+                  ),
+                  child: ProductActionsWidget(
+                    product: product,
+                    changeCallback: () {
+                      _willPopController.value = true;
+                    },
+                  ),
+                ),
+                if (product.hasDescription) Divider(),
+                if (product.hasDescription) Padding(
+                  padding: EdgeInsets.only(
+                    top: 8.0,
+                    right: 16,
+                    left: 16,
+                  ),
                   child: ExpandableText(
                     text: parseHtml(product.description),
                     length: 200,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: WooAppTheme.colorCommonText,
+                    ),
                   ),
                 ),
                 Divider(),
-                SectionWidget(FontAwesomeIcons.thList, tr('product_attributes'), () {
-                  _showAttributes(context, product);
-                }),
-                Divider(),
-                SectionWidget(FontAwesomeIcons.infoCircle, tr('product_information'), () {
-                  _showInfo(context, product);
-                }),
+                WooSection(
+                  icon: FaIcon(
+                    FontAwesomeIcons.tableList,
+                    color: WooAppTheme.colorCommonSectionForeground,
+                  ),
+                  text: tr('product_attributes'),
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  action: () => _showAttributes(context, product),
+                ),
+                WooSection(
+                  icon: FaIcon(
+                    FontAwesomeIcons.circleInfo,
+                    color: WooAppTheme.colorCommonSectionForeground,
+                  ),
+                  text: tr('product_information'),
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  action: () => _showInfo(context, product),
+                ),
               ],
             ),
           ),
@@ -190,7 +244,10 @@ class ProductView extends StatelessWidget {
           duration: Duration(seconds: 1),
           enabled: true,
           direction: ShimmerDirection.fromLTRB(),
-          child: Container(color: Colors.white10),
+          color: WooAppTheme.colorShimmerForeground,
+          child: Container(
+            color: WooAppTheme.colorShimmerBackground,
+          ),
         ),
         errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
       );

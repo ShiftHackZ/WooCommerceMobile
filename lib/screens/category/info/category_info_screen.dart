@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/extensions/extensions_product.dart';
 
 class CategoryInfoScreen extends StatelessWidget {
@@ -15,8 +16,18 @@ class CategoryInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text(name),
+      title: Text(
+        name,
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ),
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(
       child: Container(
         child: SingleChildScrollView(

@@ -23,6 +23,7 @@ class Product {
   List<ProductAttribute> attributes;
 
   bool get isVariable => type == 'variable';
+  bool get hasDescription => description.isNotEmpty;
 
   Product.fromJson(Map<String, dynamic> json)
     : id = json['id'],

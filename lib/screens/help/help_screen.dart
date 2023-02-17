@@ -1,90 +1,83 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wooapp/config/theme.dart';
+import 'package:wooapp/widget/widget_woo_section.dart';
 
 class HelpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text('help').tr(),
-    ),
-    body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 16),
-            _profileSection(
-                FaIcon(FontAwesomeIcons.headset),
-                tr('support'),
-                () {}
+        appBar: AppBar(
+          leading: BackButton(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          title: Text(
+            'help',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
             ),
-            _profileSection(
-                FaIcon(FontAwesomeIcons.question),
-                tr('faq'),
-                () {}
-            ),
-            SizedBox(height: 8),
-            _profileSection(
-                FaIcon(FontAwesomeIcons.book),
-                tr('privacy_policy'),
-                () {}
-            ),
-            _profileSection(
-                FaIcon(FontAwesomeIcons.list),
-                tr('terms_of_use'),
-                () {}
-            ),
-            _profileSection(
-                FaIcon(FontAwesomeIcons.infoCircle),
-                tr('about_us'),
-                () {}
-            ),
-            SizedBox(height: 8),
-            _profileSection(
-                FaIcon(FontAwesomeIcons.star),
-                tr('rate_app'),
-                () {}
-            ),
-          ],
+          ).tr(),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
-      ),
-    ),
-  );
-
-  Widget _profileSection(Widget icon, String text, VoidCallback action, {Color iconBackground = Colors.transparent}) => Padding(
-    padding: EdgeInsets.only(left: 8, right: 8),
-    child: Card(
-      color: Colors.white70,
-      child: InkWell(
-        onTap: action,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-          child: Row(
-            children: [
-              SizedBox(width: 8),
-              Container(
-                decoration: BoxDecoration(
-                  color: iconBackground,
-                  border: Border.all(
-                      color: iconBackground
+        backgroundColor: WooAppTheme.colorCommonBackground,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 16),
+                WooSection(
+                  icon: FaIcon(
+                    FontAwesomeIcons.headset,
+                    color: WooAppTheme.colorCommonSectionForeground,
                   ),
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                  text: tr('support'),
+                  action: () {},
                 ),
-                width: 34,
-                height: 34,
-                child: Padding(
-                  padding: EdgeInsets.all(4),
-                  child: Center(child: icon),
+                WooSection(
+                  icon: FaIcon(
+                    FontAwesomeIcons.question,
+                    color: WooAppTheme.colorCommonSectionForeground,
+                  ),
+                  text: tr('faq'),
+                  action: () {},
                 ),
-              ),
-              SizedBox(width: 12),
-              Text(text, style: TextStyle(fontSize: 17)),
-              Spacer(),
-              Icon(Icons.arrow_forward_ios),
-            ],
+                SizedBox(height: 8),
+                WooSection(
+                  icon: FaIcon(
+                    FontAwesomeIcons.book,
+                    color: WooAppTheme.colorCommonSectionForeground,
+                  ),
+                  text: tr('privacy_policy'),
+                  action: () {},
+                ),
+                WooSection(
+                  icon: FaIcon(
+                    FontAwesomeIcons.list,
+                    color: WooAppTheme.colorCommonSectionForeground,
+                  ),
+                  text: tr('terms_of_use'),
+                  action: () {},
+                ),
+                WooSection(
+                  icon: FaIcon(
+                    FontAwesomeIcons.circleInfo,
+                    color: WooAppTheme.colorCommonSectionForeground,
+                  ),
+                  text: tr('about_us'),
+                  action: () {},
+                ),
+                SizedBox(height: 8),
+                WooSection(
+                  icon: FaIcon(
+                    FontAwesomeIcons.star,
+                    color: WooAppTheme.colorCommonSectionForeground,
+                  ),
+                  text: tr('rate_app'),
+                  action: () {},
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    ),
-  );
+      );
 }

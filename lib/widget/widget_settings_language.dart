@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/translations.dart';
 
 class LanguageWidget extends StatefulWidget {
@@ -32,7 +33,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
     child: Container(
       margin: EdgeInsets.only(top: 8, right: 16, left: 16),
       decoration: BoxDecoration(
-        color: Color(0x25636363),
+        color: WooAppTheme.colorCommonSectionBackground,
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
       child: Padding(
@@ -43,23 +44,29 @@ class _LanguageWidgetState extends State<LanguageWidget> {
             Container(
               alignment: Alignment.center,
               width: 50,
-              // height: 20,
               margin: EdgeInsets.only(left:0, right: 4),
               child: Padding(
                 padding: EdgeInsets.all(4),
-                child: FaIcon(FontAwesomeIcons.language),
+                child: FaIcon(
+                  FontAwesomeIcons.language,
+                  color: WooAppTheme.colorCommonSectionForeground,
+                ),
               ),
             ),
             Text(
               '${lang.title}',
               style: TextStyle(
                 fontSize: widget.locale.languageCode.contains(lang.locale.languageCode) ? 18 : 17,
-                fontWeight: widget.locale.languageCode.contains(lang.locale.languageCode) ? FontWeight.w800 : FontWeight.w400
+                fontWeight: widget.locale.languageCode.contains(lang.locale.languageCode) ? FontWeight.w800 : FontWeight.w400,
+                color: WooAppTheme.colorCommonSectionForeground,
               ),
             ),
             Spacer(),
             if (widget.locale.languageCode.contains(lang.locale.languageCode))
-              Icon(Icons.check),
+              Icon(
+                Icons.check,
+                color: WooAppTheme.colorCommonSectionForeground,
+              ),
           ],
         ),
       ),

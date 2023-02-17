@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:wooapp/config/colors.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/model/product.dart';
 
@@ -19,7 +19,11 @@ class PriceWidget extends StatelessWidget {
     if (salePrice == '') {
       return Text(
         '$price${WooAppConfig.currency}',
-        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w800,
+          color: WooAppTheme.colorPrice,
+        ),
       );
     } else {
       return Row(
@@ -29,13 +33,17 @@ class PriceWidget extends StatelessWidget {
             style: TextStyle(
               decoration: TextDecoration.lineThrough,
               fontSize: 13,
-              color: WooTheme.priceSale,
+              color: WooAppTheme.colorPriceSale,
               fontWeight: FontWeight.w800
             ),
           ),
           Text(
             ' $salePrice${WooAppConfig.currency}',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w800,
+              color: WooAppTheme.colorPrice,
+            ),
           ),
         ],
       );

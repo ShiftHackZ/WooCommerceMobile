@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wooapp/config/theme.dart';
 
 enum WooDialogType {
   text,
@@ -57,7 +58,7 @@ class _WooDialogState extends State<WooDialog> {
           margin: EdgeInsets.only(top: indentAvatar),
           decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            color: Colors.white,
+            color: WooAppTheme.colorCommonBackground,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
@@ -70,33 +71,44 @@ class _WooDialogState extends State<WooDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              SizedBox(height: 16),
               Text(
                 widget.title,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
+                  color: WooAppTheme.colorCommonText,
                 ),
               ),
               SizedBox(height: 15,),
               if (widget.type == WooDialogType.text) Text(
                 widget.text,
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: WooAppTheme.colorCommonText,
+                ),
                 textAlign: TextAlign.center,
               ),
               if (widget.type == WooDialogType.widget) widget.content ?? Container(),
               SizedBox(height: 22),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: TextButton(
-                  onPressed: () {
-                    if (widget.onPositiveButton != null) {
-                      widget.onPositiveButton!();
-                    }
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    widget.buttonPositiveText.toUpperCase(),
-                    style: TextStyle(fontSize: 18),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: TextButton(
+                    onPressed: () {
+                      if (widget.onPositiveButton != null) {
+                        widget.onPositiveButton!();
+                      }
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      widget.buttonPositiveText.toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: WooAppTheme.colorPrimaryForeground,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -107,11 +119,17 @@ class _WooDialogState extends State<WooDialog> {
           left: indentPadding,
           right: indentPadding,
           child: CircleAvatar(
-            backgroundColor: Colors.blue,
+            backgroundColor: WooAppTheme.colorPrimaryBackground,
             radius: indentAvatar,
             child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(indentAvatar)),
-              child: Icon(Icons.error, size: 40),
+              borderRadius: BorderRadius.all(
+                Radius.circular(indentAvatar),
+              ),
+              child: Icon(
+                Icons.error,
+                size: 40,
+                color: WooAppTheme.colorPrimaryForeground,
+              ),
             ),
           ),
         ),

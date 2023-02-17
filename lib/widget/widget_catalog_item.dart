@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:invert_colors/invert_colors.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/extensions/extensions_image.dart';
 import 'package:wooapp/model/category.dart';
 import 'package:wooapp/screens/category/category_screen.dart';
@@ -22,7 +23,6 @@ class CatalogItemWidget extends StatefulWidget {
 }
 
 class _CatalogItemWidgetState extends State<CatalogItemWidget> {
-
   Color _backgroundColor = Color(0xFFFFFFFF);
 
   @override
@@ -37,121 +37,134 @@ class _CatalogItemWidgetState extends State<CatalogItemWidget> {
 
   @override
   Widget build(BuildContext context) => Expanded(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Stack(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: _buildItemImage(widget.category.image),
-            ),
-            Opacity(
-              opacity: 1.0,
-              child: Container(
-                  height: CatalogItemWidget.imageHeight,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        // Color(0x80FFFFFF),
-                        _backgroundColor.withAlpha(180),
-                        Color(0xFFFFFFFF),
-                      ],
-                    ),
-                  )
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Stack(
               children: [
-                Center(
+                Container(
+                  child: _buildItemImage(widget.category.image),
+                ),
+                Opacity(
+                  opacity: 1.0,
                   child: Container(
-                    margin: EdgeInsets.only(top: 12),
-                    child: InvertColors(
-                      child: Text(
-                        '${widget.category.name}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          color: _backgroundColor,
-                        ),
+                    height: CatalogItemWidget.imageHeight,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          _backgroundColor.withAlpha(180),
+                          WooAppTheme.colorCommonBackground,
+                        ],
                       ),
                     ),
                   ),
                 ),
-                Container(
-                  height: 170,
-                  margin: EdgeInsets.only(top: 22),
-                  child: CatalogProductsWidget(widget.category.id),
-                ),
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(width: 8),
-                    Text(
-                      '${tr('catalog_total')}: ${widget.category.count}',
-                      style: TextStyle(
-                        fontSize: 14.5,
-                        fontWeight: FontWeight.w500
-                      ),
-                    ),
-                    Spacer(),
-                    TextButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Color(
-                            0x0))
-                      ),
-                      onPressed: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => CategoryScreen(
-                            widget.category.id,
-                            widget.category.slug,
-                            categoryTitle: widget.category.name,
-                            categoryDescription: widget.category.description,
-                            categoryImage: widget.category.image,
+                    Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 12),
+                        child: InvertColors(
+                          child: Text(
+                            '${widget.category.name}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: _backgroundColor,
+                            ),
                           ),
                         ),
                       ),
-                      child: Row(
-                        children: [
-                          Text('catalog_view_all').tr(),
-                          SizedBox(width: 8),
-                          FaIcon(FontAwesomeIcons.chevronRight, size: 16),
-                        ],
-                      ),
                     ),
+                    Container(
+                      height: 170,
+                      margin: EdgeInsets.only(top: 22),
+                      child: CatalogProductsWidget(widget.category.id),
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(width: 8),
+                        Text(
+                          '${tr('catalog_total')}: ${widget.category.count}',
+                          style: TextStyle(
+                            fontSize: 14.5,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Spacer(),
+                        TextButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              Color(0x0),
+                            ),
+                          ),
+                          onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => CategoryScreen(
+                                widget.category.id,
+                                widget.category.slug,
+                                categoryTitle: widget.category.name,
+                                categoryDesc: widget.category.description,
+                                categoryImage: widget.category.image,
+                              ),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Text(
+                                'catalog_view_all',
+                                style: TextStyle(
+                                  color: WooAppTheme.colorPrimaryBackground,
+                                ),
+                              ).tr(),
+                              SizedBox(width: 8),
+                              FaIcon(
+                                FontAwesomeIcons.chevronRight,
+                                size: 16,
+                                color: WooAppTheme.colorPrimaryBackground,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
                   ],
                 ),
-                SizedBox(height: 20),
               ],
             ),
           ],
         ),
-      ],
-    ),
-  );
+      );
 
   Widget _buildItemImage(String image) => Container(
-    // width: 120,
-    height: CatalogItemWidget.imageHeight,
-    child: CachedNetworkImage(
-      imageUrl: image,
-      imageBuilder: (context, imageProvider) => Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: imageProvider,
-            fit: BoxFit.cover,
+        height: CatalogItemWidget.imageHeight,
+        child: CachedNetworkImage(
+          imageUrl: image,
+          imageBuilder: (context, imageProvider) => Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          placeholder: (context, url) => Shimmer(
+            duration: Duration(seconds: 1),
+            enabled: true,
+            direction: ShimmerDirection.fromLTRB(),
+            color: WooAppTheme.colorShimmerForeground,
+            child: Container(
+              color: WooAppTheme.colorShimmerBackground,
+            ),
+          ),
+          errorWidget: (context, url, error) => Center(
+            child: Icon(Icons.error),
           ),
         ),
-      ),
-      placeholder: (context, url) => Shimmer(
-        duration: Duration(seconds: 1),
-        enabled: true,
-        direction: ShimmerDirection.fromLTRB(),
-        child: Container(color: Colors.white10),
-      ),
-      errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
-    ),
-  );
+      );
 }

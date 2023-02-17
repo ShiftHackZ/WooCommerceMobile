@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/wishlist/wishlist_cubit.dart';
 import 'package:wooapp/screens/wishlist/wishlist_state.dart';
@@ -11,9 +12,18 @@ class WishListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('wish_list').tr(),
+          leading: BackButton(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          title: Text(
+            'wish_list',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: BlocListener<WishListCubit, WishListState>(
           listener: (context, state) {},
           child: BlocBuilder<WishListCubit, WishListState>(
@@ -76,11 +86,14 @@ class WishListView extends StatelessWidget {
             child: InkWell(
               onTap: () => context.read<WishListCubit>().removeItem(index),
               child: CircleAvatar(
-                backgroundColor: Colors.redAccent,
+                backgroundColor: WooAppTheme.colorDangerActionBackground,
                 radius: 16,
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(16)),
-                  child: Icon(Icons.delete_outline, color: Colors.white),
+                  child: Icon(
+                    Icons.delete_outline,
+                    color: WooAppTheme.colorDangerActionForeground,
+                  ),
                 ),
               ),
             ),

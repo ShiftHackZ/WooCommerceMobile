@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:wooapp/config/theme.dart';
 
 class Sort {
   Widget icon;
@@ -13,7 +14,10 @@ class Sort {
   String query() => 'order=$order&orderby=$orderBy';
 
   Sort.byDefault()
-    : icon = FaIcon(FontAwesomeIcons.calendarPlus),
+    : icon = FaIcon(
+        FontAwesomeIcons.calendarPlus,
+        color: WooAppTheme.colorCommonSectionForeground,
+      ),
       title = tr('sort_date_desc'),
       order = 'desc',
       orderBy = 'date';

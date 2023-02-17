@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/shipping_method.dart';
 
 class CreateOrderShippingWidget extends StatelessWidget {
@@ -23,6 +24,7 @@ class CreateOrderShippingWidget extends StatelessWidget {
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(11.0),
     ),
+    color: WooAppTheme.colorCardCreateOrderBackground,
     clipBehavior: Clip.antiAlias,
     child: InkWell(
       onTap: () => onSelected(index),
@@ -31,13 +33,21 @@ class CreateOrderShippingWidget extends StatelessWidget {
           Row(
             children: [
               Checkbox(
-                  checkColor: Colors.white,
-                  fillColor: MaterialStateProperty.all(Colors.deepPurple),
-                  value: isSelected,
-                  shape: CircleBorder(),
-                  onChanged: (value) => onSelected(index)
+                checkColor: WooAppTheme.colorPrimaryForeground,
+                fillColor: MaterialStateProperty.all(
+                  WooAppTheme.colorPrimaryBackground,
+                ),
+                value: isSelected,
+                shape: CircleBorder(),
+                onChanged: (value) => onSelected(index),
               ),
-              Text('${method.title}', style: TextStyle(fontSize: 15.8))
+              Text(
+                '${method.title}',
+                style: TextStyle(
+                  fontSize: 15.8,
+                  color: WooAppTheme.colorCardCreateOrderText,
+                ),
+              ),
             ],
           ),
           // Text('${method.description}')

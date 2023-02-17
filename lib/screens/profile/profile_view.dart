@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/customer_profile.dart';
 import 'package:wooapp/screens/auth/login.dart';
 import 'package:wooapp/screens/auth/no_auth_screen.dart';
@@ -22,6 +23,7 @@ import 'package:wooapp/screens/settings/settings.dart';
 import 'package:wooapp/screens/wishlist/wishlist_screen.dart';
 import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
+import 'package:wooapp/widget/widget_woo_section.dart';
 
 class ProfileView extends StatelessWidget {
   @override
@@ -30,7 +32,7 @@ class ProfileView extends StatelessWidget {
         context.read<ProfileCubit>().getProfile();
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: BlocListener<ProfileCubit, ProfileState>(
           listener: (context, state) {
             switch (state.runtimeType) {
@@ -59,18 +61,44 @@ class ProfileView extends StatelessWidget {
       ),
   );
 
-  Widget _noAuth(BuildContext context) => NoAuthScreen(tr('tab_profile'), () {
-    Future.delayed(Duration(milliseconds: 200), () {
-      context.read<ProfileCubit>().getProfile();
-    });
-  });
+  Widget _noAuth(BuildContext context) => NoAuthScreen(
+        title: tr('tab_profile'),
+        appBar: AppBar(
+          title: Text(
+            'tab_profile',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          leading: Icon(
+            Icons.person,
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
+        ),
+        onRefresh: () {
+          Future.delayed(Duration(milliseconds: 200), () {
+            context.read<ProfileCubit>().getProfile();
+          });
+        },
+      );
 
   Widget _contentState(
-      BuildContext context,
-      CustomerProfile profile,
+    BuildContext context,
+    CustomerProfile profile,
   ) => Scaffold(
     appBar: AppBar(
-      title: Text('tab_profile').tr(),
+      title: Text(
+        'tab_profile',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ).tr(),
+      leading: Icon(
+        Icons.person,
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      backgroundColor: WooAppTheme.colorToolbarBackground,
       elevation: 0,
       actions: [
         IconButton(
@@ -86,11 +114,12 @@ class ProfileView extends StatelessWidget {
           },
           icon: Icon(
             Icons.edit,
-            color: Colors.white,
+            color: WooAppTheme.colorToolbarForeground,
           ),
         ),
       ],
     ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(
       child: Container(
         child: SingleChildScrollView(
@@ -98,7 +127,7 @@ class ProfileView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                color: Colors.blue,
+                color: WooAppTheme.colorToolbarBackground,
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 16),
                   child: Column(
@@ -124,10 +153,13 @@ class ProfileView extends StatelessWidget {
                                   ),
                                 ),
                                 placeholder: (context, url) => Shimmer(
-                                    duration: Duration(seconds: 1),
-                                    enabled: true,
-                                    direction: ShimmerDirection.fromLTRB(),
-                                    child: Container(color: Colors.white10)
+                                  duration: Duration(seconds: 1),
+                                  enabled: true,
+                                  direction: ShimmerDirection.fromLTRB(),
+                                  color: WooAppTheme.colorShimmerForeground,
+                                  child: Container(
+                                    color: WooAppTheme.colorShimmerBackground,
+                                  ),
                                 ),
                                 errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
                               ),
@@ -138,14 +170,20 @@ class ProfileView extends StatelessWidget {
                       SizedBox(height: 6),
                       Text(
                         '${profile.username}',
-                        style: TextStyle(fontSize: 24, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: WooAppTheme.colorToolbarForeground,
+                        ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
                       SizedBox(height: 6),
                       Text(
                         '${profile.firstName} ${profile.lastName}',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: WooAppTheme.colorToolbarForeground,
+                        ),
                       ),
                     ],
                   ),
@@ -159,57 +197,22 @@ class ProfileView extends StatelessWidget {
     )
   );
 
-  Widget _loadingState(BuildContext context) => ProfileShimmer(
-      _profileSections(context)
-  );
+  Widget _loadingState(BuildContext context) =>
+      ProfileShimmer(_profileSections(context));
 
   Widget _errorState() => Center(
-    child: Text("Error"),
-  );
-
-  Widget _profileSection(Widget icon, String text, VoidCallback action, {Color iconBackground = Colors.transparent}) => Padding(
-    padding: EdgeInsets.only(left: 8, right: 8),
-    child: Card(
-      color: Colors.white70,
-      child: InkWell(
-        onTap: action,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-          child: Row(
-            children: [
-              SizedBox(width: 8),
-              Container(
-                decoration: BoxDecoration(
-                  color: iconBackground,
-                  border: Border.all(
-                    color: iconBackground
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
-                ),
-                width: 34,
-                height: 34,
-                child: Padding(
-                  padding: EdgeInsets.all(4),
-                  child: Center(child: icon),
-                ),
-              ),
-              SizedBox(width: 12),
-              Text(text, style: TextStyle(fontSize: 17)),
-              Spacer(),
-              Icon(Icons.arrow_forward_ios),
-            ],
-          ),
-        ),
-      ),
-    ),
-  );
+        child: Text("Error"),
+      );
 
   List<Widget> _profileSections(BuildContext context) => [
         SizedBox(height: 8),
-        _profileSection(
-          FaIcon(FontAwesomeIcons.mapMarkerAlt),
-          tr('shipping'),
-          () => Navigator.push(
+        WooSection(
+          icon: FaIcon(
+            FontAwesomeIcons.locationDot,
+            color: WooAppTheme.colorCommonSectionForeground,
+          ),
+          text: tr('shipping'),
+          action: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => ShippingEditScreen()),
           ).then((value) {
@@ -219,10 +222,13 @@ class ProfileView extends StatelessWidget {
             print('back, context = $context');
           }),
         ),
-        _profileSection(
-          FaIcon(FontAwesomeIcons.cog),
-          tr('settings'),
-          () => Navigator.push(
+        WooSection(
+          icon: FaIcon(
+            FontAwesomeIcons.gear,
+            color: WooAppTheme.colorCommonSectionForeground,
+          ),
+          text: tr('settings'),
+          action: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => SettingsScreen()),
           ).then((value) {
@@ -230,41 +236,55 @@ class ProfileView extends StatelessWidget {
           }),
         ),
         SizedBox(height: 8),
-        _profileSection(
-          FaIcon(FontAwesomeIcons.heart),
-          tr('wish_list'),
-          () => Navigator.push(
+        WooSection(
+          icon: FaIcon(
+            FontAwesomeIcons.heart,
+            color: WooAppTheme.colorCommonSectionForeground,
+          ),
+          text: tr('wish_list'),
+          action: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => WishListScreen()),
           ),
         ),
-        _profileSection(
-          FaIcon(FontAwesomeIcons.shoppingBag),
-          tr('orders'),
-          () => Navigator.push(
+        WooSection(
+          icon: FaIcon(
+            FontAwesomeIcons.bagShopping,
+            color: WooAppTheme.colorCommonSectionForeground,
+          ),
+          text: tr('orders'),
+          action: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => OrdersScreen()),
           ),
         ),
-        _profileSection(
-          FaIcon(FontAwesomeIcons.ticketAlt),
-          tr('coupons'),
-          () {},
+        WooSection(
+          icon: FaIcon(
+            FontAwesomeIcons.ticketSimple,
+            color: WooAppTheme.colorCommonSectionForeground,
+          ),
+          text: tr('coupons'),
+          action: () {},
         ),
         SizedBox(height: 8),
-        _profileSection(
-          FaIcon(FontAwesomeIcons.map),
-          tr('shops'),
-          () => Navigator.push(
+        WooSection(
+          icon: FaIcon(
+            FontAwesomeIcons.map,
+            color: WooAppTheme.colorCommonSectionForeground,
+          ),
+          text: tr('shops'),
+          action: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => ShopMap()),
           ),
         ),
-        _profileSection(
-          FaIcon(FontAwesomeIcons.questionCircle),
-          tr('help'),
-          () => Navigator
-              .of(context)
+        WooSection(
+          icon: FaIcon(
+            FontAwesomeIcons.circleQuestion,
+            color: WooAppTheme.colorCommonSectionForeground,
+          ),
+          text: tr('help'),
+          action: () => Navigator.of(context)
               .push(MaterialPageRoute(builder: (_) => HelpScreen())),
         ),
         SizedBox(height: 8),
@@ -279,24 +299,23 @@ class ProfileView extends StatelessWidget {
               'logout',
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.white,
+                color: WooAppTheme.colorDangerActionForeground,
               ),
             ).tr(),
           ),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Color(0xFFF56E6E)),
+            backgroundColor: MaterialStateProperty.all(
+              WooAppTheme.colorDangerActionBackground,
+            ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(36.0),
-                side: BorderSide(color: Colors.redAccent),
+                side: BorderSide(
+                  color: WooAppTheme.colorDangerActionBackground,
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(height: 4),
-        Text(
-          'Version: 0.1 Alpha',
-          style: TextStyle(color: Colors.grey),
         ),
         SizedBox(height: 16),
       ];

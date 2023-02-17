@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/products_home_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
@@ -78,12 +79,14 @@ class _FeaturedListState extends State<FeaturedListView> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
+      backgroundColor: WooAppTheme.colorToolbarBackground,
       title: Container(
         padding: EdgeInsets.only(left: 8, top: 0),
         decoration: BoxDecoration(
-          color: Color(0xFF50AAF1),
+          //color: Color(0xFF50AAF1),
+          color: WooAppTheme.colorFeaturedSearchBackground,
           border: Border.all(
-            color: Color(0x808BC0EA)
+            color: WooAppTheme.colorFeaturedSearchBorder,
           ),
           borderRadius: BorderRadius.all(Radius.circular(16)),
         ),
@@ -91,7 +94,9 @@ class _FeaturedListState extends State<FeaturedListView> {
           controller: _searchController,
           textAlign: TextAlign.start,
           textInputAction: TextInputAction.search,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
           onChanged: (query) {
             setState(() {
               _searchIconState = query.isEmpty;
@@ -106,14 +111,19 @@ class _FeaturedListState extends State<FeaturedListView> {
               }
             });
           },
-          cursorColor: Colors.white,
+          cursorColor: WooAppTheme.colorToolbarForeground,
           decoration: InputDecoration(
             hintText: tr('search'),
-            hintStyle: TextStyle(color: Colors.white70),
+            hintStyle: TextStyle(color: WooAppTheme.colorToolbarForeground),
             border: InputBorder.none,
             contentPadding: EdgeInsets.only(top: 14),
             suffixIcon: IconButton(
-              icon: Icon(Icons.clear, color: _searchIconState ? Color(0x00FFFFFF) : Colors.white),
+              icon: Icon(
+                Icons.clear,
+                color: _searchIconState
+                    ? Color(0x00FFFFFF)
+                    : WooAppTheme.colorToolbarForeground,
+              ),
               onPressed: () {
                 _searchController.clear();
                 _searchIconState = true;
@@ -140,31 +150,36 @@ class _FeaturedListState extends State<FeaturedListView> {
           ),
           icon: Icon(
             Icons.sort,
-            color: Colors.white,
+            color: WooAppTheme.colorToolbarForeground,
           ),
         ),
         IconButton(
           onPressed: () {
             showBottomOptions(
               context,
-              FeaturedFilterWidget(_filter, (newFilter) {
-                setState(() {
-                  _filter = newFilter;
-                  _pagingController.refresh();
-                });
-              }, priceRangeMax: _priceMax)
+              FeaturedFilterWidget(
+                _filter,
+                (newFilter) {
+                  setState(() {
+                    _filter = newFilter;
+                    _pagingController.refresh();
+                  });
+                },
+                priceRangeMax: _priceMax,
+              ),
             );
           },
           icon: NotificationIcon(
             Icon(
               Icons.filter_alt_rounded,
-              color: Colors.white,
+              color: WooAppTheme.colorToolbarForeground,
             ),
             _filter.isApplied()
           ),
         ),
       ],
     ),
+    backgroundColor: WooAppTheme.colorCommonBackground,
     body: RefreshIndicator(
       onRefresh: () => Future.sync(() {
         _categoryRefreshEvent();
