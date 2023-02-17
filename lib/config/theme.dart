@@ -36,7 +36,12 @@ class WooAppTheme {
   static const Color colorCardProductBackground = Color(0xFFFF0000);
   static const Color colorCardProductText = Color(0xfffffb00);
 
+  static const Color colorCardOrderBackground = Color(0xFFFF0000);
+  static const Color colorCardOrderForeground = Color(0xFF00FFF0);
 
+  static const Color colorCreateOrderHeaderText = Color(0xFFE74BFF);
+  static const Color colorCardCreateOrderBackground = Color(0xFFFF0000);
+  static const Color colorCardCreateOrderText = Color(0xFF565D88);
 
   static const Color colorPrice = Color(0xFF00FF00);
   static const Color colorPriceSale = Color(0xffa70404);

@@ -131,7 +131,10 @@ class CreateOrderView extends StatelessWidget {
           child: Column(
             children: [
               CreateOrderHeader(
-                FaIcon(FontAwesomeIcons.box),
+                FaIcon(
+                  FontAwesomeIcons.box,
+                  color: WooAppTheme.colorCreateOrderHeaderText,
+                ),
                 tr('create_order_products')
               ),
               SizedBox(height: 8),
@@ -142,19 +145,30 @@ class CreateOrderView extends StatelessWidget {
                   children: [
                     Text(
                       'create_order_totals',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: WooAppTheme.colorCardCreateOrderText,
+                      ),
                     ).tr(),
                     DotSpacer(),
                     Text(
                       '${state.cart.totals.total}${WooAppConfig.currency}',
-                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        color: WooAppTheme.colorCardCreateOrderText,
+                      ),
                     )
                   ],
                 ),
               ),
               SizedBox(height: 8),
               CreateOrderHeader(
-                FaIcon(FontAwesomeIcons.truck),
+                FaIcon(
+                  FontAwesomeIcons.truck,
+                  color: WooAppTheme.colorCreateOrderHeaderText,
+                ),
                 tr('create_order_shipping_method'),
               ),
               SizedBox(height: 8),
@@ -166,7 +180,10 @@ class CreateOrderView extends StatelessWidget {
                     .onShippingSelected(shippingIndex),
               ),
               CreateOrderHeader(
-                FaIcon(FontAwesomeIcons.wallet),
+                FaIcon(
+                  FontAwesomeIcons.wallet,
+                  color: WooAppTheme.colorCreateOrderHeaderText,
+                ),
                 tr('create_order_payment_method'),
               ),
               SizedBox(height: 8),
@@ -180,7 +197,10 @@ class CreateOrderView extends StatelessWidget {
 
               SizedBox(height: 8),
               CreateOrderHeader(
-                FaIcon(FontAwesomeIcons.userAlt),
+                FaIcon(
+                  FontAwesomeIcons.userLarge,
+                  color: WooAppTheme.colorCreateOrderHeaderText,
+                ),
                 tr('create_order_person'),
                 end: TextButton(
                   style: ButtonStyle(
@@ -207,20 +227,31 @@ class CreateOrderView extends StatelessWidget {
               ),
               SizedBox(height: 8),
               CreateOrderSection(
-                FaIcon(FontAwesomeIcons.child, size: 20,),
+                FaIcon(
+                  FontAwesomeIcons.child,
+                  size: 20,
+                  color: WooAppTheme.colorCardCreateOrderText,
+                ),
                 tr('create_order_name'),
                 '${state.recipient.firstName} ${state.recipient.lastName}',
                 () {},
               ),
               CreateOrderSection(
-                FaIcon(FontAwesomeIcons.phoneAlt, size: 20,),
+                FaIcon(
+                  FontAwesomeIcons.phoneFlip,
+                  size: 20,
+                  color: WooAppTheme.colorCardCreateOrderText,
+                ),
                 tr('create_order_phone'),
                 '${state.recipient.phone}',
                 () {},
               ),
               SizedBox(height: 8),
               CreateOrderHeader(
-                FaIcon(FontAwesomeIcons.mapMarkerAlt),
+                FaIcon(
+                  FontAwesomeIcons.locationDot,
+                  color: WooAppTheme.colorCreateOrderHeaderText,
+                ),
                 tr('create_order_shipping'),
                 end: TextButton(
                   style: ButtonStyle(
@@ -247,40 +278,64 @@ class CreateOrderView extends StatelessWidget {
               ),
               SizedBox(height: 8),
               CreateOrderSection(
-                  FaIcon(FontAwesomeIcons.globe, size: 20,),
-                  tr('create_order_country'),
-                  '${state.shipping.country}',
-                  () {}
+                FaIcon(
+                  FontAwesomeIcons.globe
+                  , size: 20,
+                  color: WooAppTheme.colorCardCreateOrderText,
+                ),
+                tr('create_order_country'),
+                '${state.shipping.country}',
+                () {},
               ),
               CreateOrderSection(
-                  FaIcon(FontAwesomeIcons.map, size: 20,),
-                  tr('create_order_state'),
-                  '${state.shipping.state}',
-                      () {}
+                FaIcon(
+                  FontAwesomeIcons.map,
+                  size: 20,
+                  color: WooAppTheme.colorCardCreateOrderText,
+                ),
+                tr('create_order_state'),
+                '${state.shipping.state}',
+                () {},
               ),
               CreateOrderSection(
-                  FaIcon(FontAwesomeIcons.road, size: 20,),
-                  tr('create_order_city'),
-                  '${state.shipping.city}',
-                      () {}
+                FaIcon(
+                  FontAwesomeIcons.road,
+                  size: 20,
+                  color: WooAppTheme.colorCardCreateOrderText,
+                ),
+                tr('create_order_city'),
+                '${state.shipping.city}',
+                () {},
               ),
               CreateOrderSection(
-                  FaIcon(FontAwesomeIcons.locationArrow, size: 20,),
-                  tr('create_order_post'),
-                  '${state.shipping.index}',
-                      () {}
+                FaIcon(
+                  FontAwesomeIcons.locationArrow,
+                  size: 20,
+                  color: WooAppTheme.colorCardCreateOrderText,
+                ),
+                tr('create_order_post'),
+                '${state.shipping.index}',
+                () {},
               ),
               CreateOrderSection(
-                  FaIcon(FontAwesomeIcons.building, size: 20,),
-                  tr('create_order_address_1'),
-                  '${state.shipping.address1}',
-                      () {}
+                FaIcon(
+                  FontAwesomeIcons.building,
+                  size: 20,
+                  color: WooAppTheme.colorCardCreateOrderText,
+                ),
+                tr('create_order_address_1'),
+                '${state.shipping.address1}',
+                () {},
               ),
               CreateOrderSection(
-                  FaIcon(FontAwesomeIcons.mapSigns, size: 20,),
-                  tr('create_order_address_2'),
-                  '${state.shipping.address2}',
-                      () {}
+                FaIcon(
+                  FontAwesomeIcons.signsPost,
+                  size: 20,
+                  color: WooAppTheme.colorCardCreateOrderText,
+                ),
+                tr('create_order_address_2'),
+                '${state.shipping.address2}',
+                () {},
               ),
 
               Container(
@@ -296,8 +351,10 @@ class CreateOrderView extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: 8, right: 4),
                         child: Checkbox(
-                          checkColor: Colors.white,
-                          fillColor: MaterialStateProperty.all(Colors.deepPurple),
+                          checkColor: WooAppTheme.colorPrimaryForeground,
+                          fillColor: MaterialStateProperty.all(
+                            WooAppTheme.colorPrimaryBackground,
+                          ),
                           value: state.termsAccepted,
                           shape: CircleBorder(),
                           onChanged: (value) => context
@@ -308,8 +365,11 @@ class CreateOrderView extends StatelessWidget {
                       Flexible(
                         child: Text(
                           'create_order_terms',
-                          style: TextStyle(fontSize: 15)
-                        ).tr()
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: WooAppTheme.colorCommonText,
+                          ),
+                        ).tr(),
                       ),
                     ],
                   ),
@@ -335,13 +395,16 @@ class CreateOrderView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FaIcon(FontAwesomeIcons.check),
+                        FaIcon(
+                          FontAwesomeIcons.check,
+                          color: WooAppTheme.colorPrimaryForeground,
+                        ),
                         SizedBox(width: 8),
                         Text(
                           'cart_checkout_full',
                           style: TextStyle(
                             fontSize: 18,
-                            color: Colors.white,
+                            color: WooAppTheme.colorPrimaryForeground,
                           ),
                         ).tr(),
                       ],

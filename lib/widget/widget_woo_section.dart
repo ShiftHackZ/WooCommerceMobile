@@ -6,6 +6,7 @@ class WooSection extends StatelessWidget {
   final String text;
   final VoidCallback action;
   final Color iconBackground;
+  final EdgeInsetsGeometry padding;
   final Widget? endWidget;
 
   WooSection({
@@ -13,12 +14,13 @@ class WooSection extends StatelessWidget {
     required this.text,
     required this.action,
     this.iconBackground = Colors.transparent,
+    this.padding = const EdgeInsets.only(left: 8, right: 8),
     this.endWidget,
   });
 
   @override
   Widget build(BuildContext context) => Padding(
-    padding: EdgeInsets.only(left: 8, right: 8),
+    padding: padding,
     child: Card(
       elevation: 0,
       shape: RoundedRectangleBorder(

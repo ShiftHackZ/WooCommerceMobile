@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:wooapp/config/theme.dart';
@@ -12,19 +11,23 @@ import 'package:wooapp/widget/widget_order_item.dart';
 class OrdersScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _OrdersScreenState();
-
 }
 
 class _OrdersScreenState extends State<OrdersScreen> {
-
   final OrdersDataSource _ds = locator<OrdersDataSource>();
-
   final PagingController<int, Order> _pagingController = PagingController(firstPageKey: 1);
 
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text('orders').tr(),
+      leading: BackButton(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+      title: Text('orders',
+        style: TextStyle(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+      ).tr(),
       backgroundColor: WooAppTheme.colorToolbarBackground,
     ),
     backgroundColor: WooAppTheme.colorCommonBackground,
@@ -55,9 +58,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   Future<void> _fetch(int page) async {
     try {
-      final items = await _ds.getOrders(page).catchError((error, stackTrace) {
-        print(error.toString());
-      });
+      final items = await _ds.getOrders(page);
       final isLast = items.length < WooAppConfig.paginationLimit;
       if (isLast) {
         _pagingController.appendLastPage(items);
