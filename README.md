@@ -1,5 +1,7 @@
 # WooCommerceMobile
 
+[![Version](https://img.shields.io/badge/Version-0.0.1-green)](https://github.com/ShiftHackZ/WooCommerceMobile/releases)
+
 Flutter mobile WooCommerce application for your customers.
 
 ## Server requirements
