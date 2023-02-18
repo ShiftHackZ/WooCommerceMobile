@@ -260,10 +260,10 @@ class ProductView extends StatelessWidget {
   );
 
   void _showAttributes(BuildContext context, Product product) {
-    showBottomOptions(context, AttributesWidget(product.attributes));
+    showWooBottomSheet(context, AttributesWidget(product.attributes));
   }
 
   void _showInfo(BuildContext context, Product product) {
-    showBottomOptions(context, ProductInfoWidget(product));
+    showWooBottomSheet(context, ProductInfoWidget(product));
   }
 }

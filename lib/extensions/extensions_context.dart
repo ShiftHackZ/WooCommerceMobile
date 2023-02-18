@@ -13,7 +13,7 @@ void hideKeyboardForce(BuildContext context) {
   FocusScope.of(context).requestFocus(new FocusNode());
 }
 
-void showBottomOptions(BuildContext context, Widget child) {
+void showWooBottomSheet(BuildContext context, Widget child) {
   hideKeyboardForce(context);
   showModalBottomSheet(
     shape: RoundedRectangleBorder(
@@ -33,5 +33,50 @@ void showBottomOptions(BuildContext context, Widget child) {
         SizedBox(height: 8),
       ],
     ),
+  );
+}
+
+void showWooScrollableBottomSheet(
+  BuildContext context, {
+  required Widget Function(ScrollController) builder,
+}) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (context) {
+      return GestureDetector(
+        onTap: () => Navigator.of(context).pop(),
+        child: Container(
+          color: Color.fromRGBO(0, 0, 0, 0.001),
+          child: GestureDetector(
+            onTap: () {},
+            child: DraggableScrollableSheet(
+              initialChildSize: 0.4,
+              minChildSize: 0.4,
+              maxChildSize: 0.85,
+              builder: (_, controller) => Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(20.0),
+                    topRight: const Radius.circular(20.0),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    BottomSheetHeading(),
+                    Expanded(
+                      child: builder(controller),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    },
   );
 }

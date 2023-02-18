@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/config/theme.dart';
+import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/line_item.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/widget/widget_custom_spacer.dart';
+import 'package:wooapp/widget/widget_order_status.dart';
 
 class OrderItem extends StatelessWidget {
   final Order order;
@@ -31,6 +33,7 @@ class OrderItem extends StatelessWidget {
             children: [
               SizedBox(height: 12),
               _buildHeader(context),
+              _buildOrderCreateDate(context),
               _buildLineItems(context),
               SizedBox(height: 12),
             ],
@@ -43,16 +46,9 @@ class OrderItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildOrderNumber(),
-                SizedBox(height: 4),
-                _buildOrderCreateDate()
-              ],
-            ),
+            _buildOrderNumber(),
             Spacer(),
-            OrderStatus(order.status),
+            OrderStatusWidget(status: order.status),
           ],
         ),
       );
@@ -95,7 +91,7 @@ class OrderItem extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: WooAppTheme.colorCardOrderForeground,
+                        color: WooAppTheme.colorCommonText2,
                       ),
                     ),
                   ),
@@ -107,7 +103,7 @@ class OrderItem extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                      color: WooAppTheme.colorCardOrderForeground,
+                      color: WooAppTheme.colorCommonText2,
                     ),
                   ),
                 ),
@@ -142,20 +138,29 @@ class OrderItem extends StatelessWidget {
         ),
       );
 
-  Widget _buildOrderCreateDate() => Row(
-    children: [
-      // FaIcon(FontAwesomeIcons.clock),
-      // SizedBox(width: 8),
-      Text(
-        '${tr('order_item_date')}: ${order.dateCreated}',
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-          color: WooAppTheme.colorCardOrderForeground,
+  Widget _buildOrderCreateDate(BuildContext context) => Padding(
+        padding: EdgeInsets.only(right: 12, left: 12, top: 12),
+        child: Row(
+          children: [
+            SizedBox(width: 2),
+            FaIcon(
+              FontAwesomeIcons.calendar,
+              size: 14,
+              color: WooAppTheme.colorCommonText2,
+            ),
+            SizedBox(width: 8),
+            Text(
+              '${tr('order_item_date')}: '
+              '${convertDate(order.dateCreated, locale: context.locale.languageCode)}',
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: WooAppTheme.colorCommonText2,
+              ),
+            ),
+          ],
         ),
-      ),
-    ],
-  );
+      );
 
   Widget _buildOrderNumber() => Row(
         children: [
@@ -173,19 +178,5 @@ class OrderItem extends StatelessWidget {
             ),
           ),
         ],
-      );
-}
-
-class OrderStatus extends StatelessWidget {
-  final String status;
-
-  OrderStatus(this.status);
-
-  @override
-  Widget build(BuildContext context) => Card(
-        child: Padding(
-          padding: EdgeInsets.all(4),
-          child: Text(status),
-        ),
       );
 }

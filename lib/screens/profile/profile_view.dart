@@ -245,7 +245,6 @@ class ProfileView extends StatelessWidget {
             print('back, context = $context');
           }),
         ),
-        SizedBox(height: 8),
         WooSection(
           icon: FaIcon(
             FontAwesomeIcons.heart,
@@ -268,15 +267,16 @@ class ProfileView extends StatelessWidget {
             MaterialPageRoute(builder: (_) => OrdersScreen()),
           ),
         ),
-        WooSection(
+        // ToDo: It is now unclear how coupon feature should look line, hiding this section for the time being
+        /*WooSection(
           icon: FaIcon(
             FontAwesomeIcons.ticketSimple,
             color: WooAppTheme.colorCommonSectionForeground,
           ),
           text: tr('coupons'),
           action: () {},
-        ),
-        SizedBox(height: 8),
+        ),*/
+        // SizedBox(height: 8),
         WooSection(
           icon: FaIcon(
             FontAwesomeIcons.map,

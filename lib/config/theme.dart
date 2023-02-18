@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class WooAppTheme {
   static const Color colorCommonBackground = Color(0xFFfdfcff);
   static const Color colorCommonText = Color(0xFF1a1c1e);
+  static const Color colorCommonText2 = Color(0xda001d35);
 
   static const Color colorCommonSectionBackground = Color(0xccd6e4f7);
   static const Color colorCommonSectionForeground = Color(0xFF0f1d2a);
@@ -52,6 +53,21 @@ class WooAppTheme {
 
   static const Color colorProductStatusBgDefault = Color(0xFFFFF3F3);
   static const Color colorProductStatusTextDefault = Colors.redAccent;
+
+  static const Color colorOrderStatusBgBlue = Color(0xFF9ccaff);
+  static const Color colorOrderStatusTextBlue = Color(0xFF003256);
+  static const Color colorOrderStatusBgGray2 = Color(0xFF3b4857);
+  static const Color colorOrderStatusTextGray2 = Color(0xFFd6e4f7);
+  static const Color colorOrderStatusBgGray = Color(0xFFdfe3eb);
+  static const Color colorOrderStatusTextGray = Color(0xFF42474e);
+  static const Color colorOrderStatusBgPink = Color(0xFFf1daff);
+  static const Color colorOrderStatusTextPink = Color(0xFF241432);
+  static const Color colorOrderStatusBgRed = Color(0xFF93000a);
+  static const Color colorOrderStatusTextRed = Color(0xFFffdad6);
+  static const Color colorOrderStatusBgYellow = Color(0xfff8dda7);
+  static const Color colorOrderStatusTextYellow = Color(0xff9c6e1a);
+  static const Color colorOrderStatusBgGreen = Color(0xffc0eaaf);
+  static const Color colorOrderStatusTextGreen = Color(0xff42650c);
 
   static const Color colorCardOrderBackground = colorCardProductBackground;
   static const Color colorCardOrderForeground = colorCardProductText;

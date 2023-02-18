@@ -139,7 +139,7 @@ class _FeaturedListState extends State<FeaturedListView> {
       ),
       actions: [
         IconButton(
-          onPressed: () => showBottomOptions(
+          onPressed: () => showWooBottomSheet(
             context,
             SortingWidget(_sort, SortingType.home, (newSort) {
               setState(() {
@@ -155,7 +155,7 @@ class _FeaturedListState extends State<FeaturedListView> {
         ),
         IconButton(
           onPressed: () {
-            showBottomOptions(
+            showWooBottomSheet(
               context,
               FeaturedFilterWidget(
                 _filter,

@@ -29,16 +29,6 @@ class WishListView extends StatelessWidget {
           child: BlocBuilder<WishListCubit, WishListState>(
             builder: (context, state) {
               switch (state.runtimeType) {
-                // case InitialProfileState:
-                //   return _loadingState(context);
-                // case LoadingProfileState:
-                //   return _loadingState(context);
-                // case ContentProfileState:
-                //   return _contentState(context, (state as ContentProfileState).profile);
-                // case ErrorProfileState:
-                //   return _errorState();
-                // case NoAuthProfileState:
-                //   return _noAuth(context);
                 case ContentWishListState:
                   return _contentState(context, state as ContentWishListState);
                 default:

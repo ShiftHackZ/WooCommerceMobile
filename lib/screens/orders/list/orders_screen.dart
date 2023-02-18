@@ -5,8 +5,10 @@ import 'package:lottie/lottie.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/orders_data_source.dart';
+import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/order.dart';
+import 'package:wooapp/screens/orders/statuses/orders_statuses_screen.dart';
 import 'package:wooapp/widget/widget_order_item.dart';
 
 class OrdersScreen extends StatefulWidget {
@@ -30,6 +32,20 @@ class _OrdersScreenState extends State<OrdersScreen> {
         ),
       ).tr(),
       backgroundColor: WooAppTheme.colorToolbarBackground,
+      actions: [
+        IconButton(
+          onPressed: () => showWooScrollableBottomSheet(
+            context,
+            builder: (controller) => OrderStatusesScreen(
+              scrollController: controller,
+            ),
+          ),
+          icon: Icon(
+            Icons.info,
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+        ),
+      ],
     ),
     backgroundColor: WooAppTheme.colorCommonBackground,
     body: SafeArea(
