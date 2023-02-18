@@ -111,8 +111,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
                     FontAwesomeIcons.locationDot,
                     color: WooAppTheme.colorCreateOrderHeaderText,
                   ),
-                  // tr('create_order_payment_method'),
-                  'Оберіть куди потрібно доставити ваше замовлення',
+                  tr('create_order_edit_shipping_select'),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -123,8 +122,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
                     FontAwesomeIcons.compass,
                     color: WooAppTheme.colorCreateOrderHeaderText,
                   ),
-                  // tr('create_order_payment_method'),
-                  'Детальне місцезнаходження',
+                  tr('create_order_edit_shipping_data'),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 22),
@@ -150,10 +148,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
                   _postCodeError == null &&
                   _address1Error == null &&
                   _address2Error == null;
-              if (validPredicate) {
-                print('FORM VALID');
-                _executeSubmission();
-              }
+              if (validPredicate) _executeSubmission();
             },
             child: Container(
               alignment: Alignment.center,
@@ -167,7 +162,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
                   ),
                   SizedBox(width: 8),
                   Text(
-                    'Зберегти',
+                    'create_order_edit_confirm_action',
                     style: TextStyle(
                       fontSize: 18,
                       color: WooAppTheme.colorPrimaryForeground,
@@ -249,7 +244,9 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
                     height: 10,
                   ),
                   Text(
-                    isOtherRecipient ? 'Інша адреса' : 'Моя адреса',
+                    isOtherRecipient
+                        ? tr('create_order_shipping_other')
+                        : tr('create_order_shipping_me'),
                     style: TextStyle(
                       fontSize:
                           _isOtherShipping == isOtherRecipient ? 18.5 : 18,
@@ -289,7 +286,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
               ),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  setState(() => _countryError = 'Country is required');
+                  setState(() => _countryError = tr('error_validation_country'));
                   return null;
                 }
                 setState(() => _countryError = null);
@@ -311,7 +308,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
               ),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  setState(() => _cityError = 'City is required');
+                  setState(() => _cityError = tr('error_validation_city'));
                   return null;
                 }
                 setState(() => _cityError = null);
@@ -333,7 +330,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
               ),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  setState(() => _stateError = 'State is required');
+                  setState(() => _stateError = tr('error_validation_state'));
                   return null;
                 }
                 setState(() => _stateError = null);
@@ -358,7 +355,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
               ),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  setState(() => _postCodeError = 'Post code is required');
+                  setState(() => _postCodeError = tr('error_validation_post_code'));
                   return null;
                 }
                 setState(() => _postCodeError = null);
@@ -381,7 +378,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
               ),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  setState(() => _address1Error = 'Address is required');
+                  setState(() => _address1Error = tr('error_validation_address_1'));
                   return null;
                 }
                 setState(() => _address1Error = null);
@@ -404,7 +401,7 @@ class _EditOrderShippingScreenState extends State<EditOrderShippingScreen> {
               ),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  setState(() => _address2Error = 'Address is required');
+                  setState(() => _address2Error = tr('error_validation_address_2'));
                   return null;
                 }
                 setState(() => _address2Error = null);
