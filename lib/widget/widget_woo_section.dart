@@ -63,8 +63,11 @@ class WooSection extends StatelessWidget {
               SizedBox(width: 8),
               Icon(
                 Icons.arrow_forward_ios,
-                color: WooAppTheme.colorCommonSectionForeground,
+                size: 16,
+                color: WooAppTheme.colorCommonSectionForeground
+                    .withOpacity(0.35),
               ),
+              SizedBox(width: 6),
             ],
           ),
         ),
