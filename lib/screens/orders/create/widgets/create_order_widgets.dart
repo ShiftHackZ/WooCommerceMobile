@@ -9,9 +9,9 @@ import 'package:wooapp/widget/widget_custom_spacer.dart';
 class CreateOrderHeader extends StatelessWidget {
   final Widget icon;
   final String text;
-  final Widget end;
+  final Widget? end;
 
-  CreateOrderHeader(this.icon, this.text, {this.end = const Text('')});
+  CreateOrderHeader(this.icon, this.text, {this.end});
 
   @override
   Widget build(BuildContext context) => Container(
@@ -19,21 +19,23 @@ class CreateOrderHeader extends StatelessWidget {
         child: Row(
           children: [
             Padding(
-                padding: EdgeInsets.only(left: 4, right: 8),
-                child: Container(
-                  width: 40,
-                  child: Center(child: icon),
-                )),
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                color: WooAppTheme.colorCreateOrderHeaderText,
+              padding: EdgeInsets.only(left: 4, right: 8),
+              child: Container(
+                width: 40,
+                child: Center(child: icon),
               ),
             ),
-            Spacer(),
-            end,
+            Expanded(
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: WooAppTheme.colorCreateOrderHeaderText,
+                ),
+              ),
+            ),
+            if (end != null) end!,
           ],
         ),
       );

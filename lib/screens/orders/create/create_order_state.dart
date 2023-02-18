@@ -15,6 +15,8 @@ class ErrorCreateOrderState extends CreateOrderState {}
 class ContentCreateOrderState extends CreateOrderState {
   CartResponse cart;
   CreateOrderRecipient recipient;
+  CreateOrderRecipient otherRecipient;
+  bool isOtherRecipient;
   CreateOrderShipping shipping;
   List<ShippingMethod> shippingMethods;
   List<PaymentMethod> paymentMethods;
@@ -27,6 +29,8 @@ class ContentCreateOrderState extends CreateOrderState {
   ContentCreateOrderState(
     this.cart,
     this.recipient,
+    this.otherRecipient,
+    this.isOtherRecipient,
     this.shipping,
     this.shippingMethods,
     this.paymentMethods,

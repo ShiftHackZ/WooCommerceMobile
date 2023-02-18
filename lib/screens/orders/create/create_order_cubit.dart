@@ -27,6 +27,8 @@ class CreateOrderCubit extends Cubit<CreateOrderState> {
   int _dataPaymentIndex = -1;
   CartResponse _dataCart = CartResponse.empty();
   CreateOrderRecipient _dataRecipient = CreateOrderRecipient.empty();
+  CreateOrderRecipient _dataRecipientOther = CreateOrderRecipient.empty();
+  bool _isRecipientOther = false;
   CreateOrderShipping _dataShipping = CreateOrderShipping.empty();
   List<ShippingMethod> _dataShippingMethods = [];
   List<PaymentMethod> _dataPaymentMethods = [];
@@ -73,6 +75,8 @@ class CreateOrderCubit extends Cubit<CreateOrderState> {
       ContentCreateOrderState(
         _dataCart,
         _dataRecipient,
+        _dataRecipientOther,
+        _isRecipientOther,
         _dataShipping,
         _dataShippingMethods,
         _dataPaymentMethods,
@@ -100,7 +104,7 @@ class CreateOrderCubit extends Cubit<CreateOrderState> {
       Future.wait([
         _create.createOrder(
           _dataCart.items,
-          _dataRecipient,
+          _isRecipientOther ? _dataRecipientOther : _dataRecipient,
           _dataShipping,
           _dataShippingMethods[_dataShippingIndex],
           _dataPaymentMethods[_dataPaymentIndex],
@@ -126,6 +130,19 @@ class CreateOrderCubit extends Cubit<CreateOrderState> {
 
   void onPaymentSelected(int index) {
     _dataPaymentIndex = index;
+    invalidate();
+  }
+
+  void onNewRecipient(
+    CreateOrderRecipient recipient, {
+    bool isOther = false,
+  }) {
+    _isRecipientOther = isOther;
+    if (isOther) {
+      _dataRecipientOther = recipient;
+    } else {
+      _dataRecipient = recipient;
+    }
     invalidate();
   }
 }

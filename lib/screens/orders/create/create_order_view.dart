@@ -7,11 +7,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
+import 'package:wooapp/core/pair.dart';
 import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/screens/home/home.dart';
 import 'package:wooapp/screens/orders/create/create_order_cubit.dart';
 import 'package:wooapp/screens/orders/create/create_order_state.dart';
+import 'package:wooapp/screens/orders/create/edit/edit_order_recipient.dart';
 import 'package:wooapp/screens/orders/create/widgets/create_order_widget_payment.dart';
 import 'package:wooapp/screens/orders/create/widgets/create_order_widget_shipping.dart';
 import 'package:wooapp/screens/orders/create/widgets/create_order_widgets.dart';
@@ -212,7 +214,27 @@ class CreateOrderView extends StatelessWidget {
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Color(0xD000000))
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => EditOrderRecipientScreen(
+                          recipient: state.recipient,
+                          otherRecipient: state.otherRecipient,
+                          isOther: state.isOtherRecipient,
+                        ),
+                      ),
+                    ).then((result) {
+                      if (result is Pair<CreateOrderRecipient, bool> == true) {
+                        context.read<CreateOrderCubit>().onNewRecipient(
+                          (result as  Pair<CreateOrderRecipient, bool>).first,
+                          isOther: result.second,
+                        );
+                        // (result as  Pair<CreateOrderRecipient, bool>).first;
+                        print('PAYLOAD DELIVERED');
+                      }
+                    });
+                  },
                   child: Row(
                     children: [
                       Text(
@@ -239,7 +261,9 @@ class CreateOrderView extends StatelessWidget {
                   color: WooAppTheme.colorCardCreateOrderText,
                 ),
                 tr('create_order_name'),
-                '${state.recipient.firstName} ${state.recipient.lastName}',
+                state.isOtherRecipient
+                    ? '${state.otherRecipient.firstName} ${state.otherRecipient.lastName}'
+                    : '${state.recipient.firstName} ${state.recipient.lastName}',
                 () {},
               ),
               CreateOrderSection(
@@ -249,7 +273,9 @@ class CreateOrderView extends StatelessWidget {
                   color: WooAppTheme.colorCardCreateOrderText,
                 ),
                 tr('create_order_phone'),
-                '${state.recipient.phone}',
+                state.isOtherRecipient
+                    ? '${state.otherRecipient.phone}'
+                    : '${state.recipient.phone}',
                 () {},
               ),
               SizedBox(height: 8),

@@ -1,16 +1,30 @@
 class CreateOrderRecipient {
-  String firstName;
-  String lastName;
-  String phone;
-  String email;
+  final String firstName;
+  final String lastName;
+  final String phone;
+  final String email;
 
   CreateOrderRecipient(this.firstName, this.lastName, this.phone, this.email);
 
-  CreateOrderRecipient.empty()
+  const CreateOrderRecipient.empty()
     : firstName = '',
       lastName = '',
       phone = '',
       email = '';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CreateOrderRecipient &&
+          runtimeType == other.runtimeType &&
+          firstName == other.firstName &&
+          lastName == other.lastName &&
+          phone == other.phone &&
+          email == other.email;
+
+  @override
+  int get hashCode =>
+      firstName.hashCode ^ lastName.hashCode ^ phone.hashCode ^ email.hashCode;
 }
 
 class CreateOrderShipping {
