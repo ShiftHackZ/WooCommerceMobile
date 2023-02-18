@@ -25,42 +25,40 @@ import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:wooapp/widget/widget_retry.dart';
 import 'package:wooapp/widget/widget_woo_section.dart';
+import 'package:wooapp/widget/widget_woo_version.dart';
 
 class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => StatefulWrapper(
-      onInit: () {
-        context.read<ProfileCubit>().getProfile();
-      },
-      child: Scaffold(
-        backgroundColor: WooAppTheme.colorCommonBackground,
-        body: BlocListener<ProfileCubit, ProfileState>(
-          listener: (context, state) {
-            switch (state.runtimeType) {
-              //ToDo ...
-            }
-          },
-          child: BlocBuilder<ProfileCubit, ProfileState>(
-            builder: (context, state) {
-              switch (state.runtimeType) {
-                case InitialProfileState:
-                  return _loadingState(context);
-                case LoadingProfileState:
-                  return _loadingState(context);
-                case ContentProfileState:
-                  return _contentState(context, (state as ContentProfileState).profile);
-                case ErrorProfileState:
-                  return _errorState(context);
-                case NoAuthProfileState:
-                  return _noAuth(context);
-                default:
-                  return _loadingState(context);
-              }
-            },
+        onInit: () {
+          context.read<ProfileCubit>().getProfile();
+        },
+        child: Scaffold(
+          backgroundColor: WooAppTheme.colorCommonBackground,
+          body: BlocListener<ProfileCubit, ProfileState>(
+            listener: (context, state) {},
+            child: BlocBuilder<ProfileCubit, ProfileState>(
+              builder: (context, state) {
+                switch (state.runtimeType) {
+                  case InitialProfileState:
+                    return _loadingState(context);
+                  case LoadingProfileState:
+                    return _loadingState(context);
+                  case ContentProfileState:
+                    return _contentState(
+                        context, (state as ContentProfileState).profile);
+                  case ErrorProfileState:
+                    return _errorState(context);
+                  case NoAuthProfileState:
+                    return _noAuth(context);
+                  default:
+                    return _loadingState(context);
+                }
+              },
+            ),
           ),
         ),
-      ),
-  );
+      );
 
   Widget _noAuth(BuildContext context) => NoAuthScreen(
         title: tr('tab_profile'),
@@ -75,116 +73,131 @@ class ProfileView extends StatelessWidget {
   Widget _contentState(
     BuildContext context,
     CustomerProfile profile,
-  ) => Scaffold(
-    appBar: AppBar(
-      title: Text(
-        'tab_profile',
-        style: TextStyle(
-          color: WooAppTheme.colorToolbarForeground,
-        ),
-      ).tr(),
-      leading: Icon(
-        Icons.person,
-        color: WooAppTheme.colorToolbarForeground,
-      ),
-      backgroundColor: WooAppTheme.colorToolbarBackground,
-      elevation: 0,
-      actions: [
-        IconButton(
-          onPressed: () {
-            Navigator
-              .push(context, MaterialPageRoute(builder: (_) => ProfileEditScreen()))
-              .then((value) {
-                if (value == true) {
-                  context.read<ProfileCubit>().forceRefreshProfile();
-                }
-                print('back, context = $context');
-              });
-          },
-          icon: Icon(
-            Icons.edit,
+  ) =>
+      Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'tab_profile',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          leading: Icon(
+            Icons.person,
             color: WooAppTheme.colorToolbarForeground,
           ),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
+          elevation: 0,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ProfileEditScreen(),
+                  ),
+                ).then((value) {
+                  if (value == true) {
+                    context.read<ProfileCubit>().forceRefreshProfile();
+                  }
+                  print('back, context = $context');
+                });
+              },
+              icon: Icon(
+                Icons.edit,
+                color: WooAppTheme.colorToolbarForeground,
+              ),
+            ),
+          ],
         ),
-      ],
-    ),
-    backgroundColor: WooAppTheme.colorCommonBackground,
-    body: SafeArea(
-      child: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                color: WooAppTheme.colorToolbarBackground,
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: Column(
-                    children: [
-                      Center(
-                        child: CircleAvatar(
-                          backgroundColor: Colors.blueGrey,
-                          radius: 40,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(40)),
-                            child: InkWell(
-                              onTap: () => Navigator
-                                  .of(context)
-                                  .push(MaterialPageRoute(builder: (_) => GalleryScreen([profile.avatar]))),
-                              child: CachedNetworkImage(
-                                imageUrl: profile.avatar,
-                                imageBuilder: (context, imageProvider) => Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover,
+        backgroundColor: WooAppTheme.colorCommonBackground,
+        body: SafeArea(
+          child: Container(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    color: WooAppTheme.colorToolbarBackground,
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 16),
+                      child: Column(
+                        children: [
+                          Center(
+                            child: CircleAvatar(
+                              backgroundColor: Colors.blueGrey,
+                              radius: 40,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(40),
+                                ),
+                                child: InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => GalleryScreen(
+                                        [
+                                          profile.avatar,
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                                placeholder: (context, url) => Shimmer(
-                                  duration: Duration(seconds: 1),
-                                  enabled: true,
-                                  direction: ShimmerDirection.fromLTRB(),
-                                  color: WooAppTheme.colorShimmerForeground,
-                                  child: Container(
-                                    color: WooAppTheme.colorShimmerBackground,
+                                  child: CachedNetworkImage(
+                                    imageUrl: profile.avatar,
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    placeholder: (context, url) => Shimmer(
+                                      duration: Duration(seconds: 1),
+                                      enabled: true,
+                                      direction: ShimmerDirection.fromLTRB(),
+                                      color: WooAppTheme.colorShimmerForeground,
+                                      child: Container(
+                                        color:
+                                            WooAppTheme.colorShimmerBackground,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Center(child: Icon(Icons.error)),
                                   ),
                                 ),
-                                errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
                               ),
                             ),
                           ),
-                        ),
+                          SizedBox(height: 6),
+                          Text(
+                            '${profile.username}',
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: WooAppTheme.colorToolbarForeground,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                          SizedBox(height: 6),
+                          Text(
+                            '${profile.firstName} ${profile.lastName}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: WooAppTheme.colorToolbarForeground,
+                            ),
+                          ),
+                        ],
                       ),
-                      SizedBox(height: 6),
-                      Text(
-                        '${profile.username}',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: WooAppTheme.colorToolbarForeground,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        '${profile.firstName} ${profile.lastName}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: WooAppTheme.colorToolbarForeground,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  ..._profileSections(context),
+                ],
               ),
-              ..._profileSections(context),
-            ],
+            ),
           ),
         ),
-      ),
-    )
-  );
+      );
 
   Widget _loadingState(BuildContext context) =>
       ProfileShimmer(_profileSections(context));
@@ -315,19 +328,21 @@ class ProfileView extends StatelessWidget {
           ),
         ),
         SizedBox(height: 16),
+        WooVersionWidget(),
+        SizedBox(height: 16),
       ];
 
   AppBar _appBarFallback() => AppBar(
-    title: Text(
-      'tab_profile',
-      style: TextStyle(
-        color: WooAppTheme.colorToolbarForeground,
-      ),
-    ).tr(),
-    leading: Icon(
-      Icons.person,
-      color: WooAppTheme.colorToolbarForeground,
-    ),
-    backgroundColor: WooAppTheme.colorToolbarBackground,
-  );
+        title: Text(
+          'tab_profile',
+          style: TextStyle(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+        ).tr(),
+        leading: Icon(
+          Icons.person,
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+        backgroundColor: WooAppTheme.colorToolbarBackground,
+      );
 }
