@@ -39,7 +39,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
       backgroundColor: WooAppTheme.colorToolbarBackground,
       actions: [
         IconButton(
-          onPressed: () => showBottomOptions(
+          onPressed: () => showWooBottomSheet(
             context,
             SortingWidget(_sort, SortingType.catalog, (newSort) {
               setState(() {

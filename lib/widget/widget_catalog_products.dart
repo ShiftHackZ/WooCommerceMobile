@@ -61,11 +61,7 @@ class CatalogProductsWidgetView extends StatelessWidget {
       },
       child: Container(
         child: BlocListener<CatalogProductCubit, CatalogProductState>(
-          listener: (context, state) {
-            switch (state.runtimeType) {
-            //ToDo ...
-            }
-          },
+          listener: (context, state) {},
           child: BlocBuilder<CatalogProductCubit, CatalogProductState>(
             builder: (context, state) {
               switch (state.runtimeType) {
@@ -96,6 +92,7 @@ class CatalogProductsWidgetView extends StatelessWidget {
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       itemCount: products.length,
+      physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) => _buildItem(context, products[index])
     ),
   );

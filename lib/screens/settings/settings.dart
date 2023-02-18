@@ -55,7 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ).tr(),
               text: tr('settings_language'),
-              action: () => showBottomOptions(
+              action: () => showWooBottomSheet(
                 context,
                 LanguageWidget(
                   context.locale,

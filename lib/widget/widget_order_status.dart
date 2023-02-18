@@ -13,8 +13,9 @@ const orderStatusProcessing = 'processing';
 
 class OrderStatusWidget extends StatelessWidget {
   final String status;
+  final double? minWidth;
 
-  OrderStatusWidget({required this.status});
+  OrderStatusWidget({required this.status, this.minWidth});
 
   @override
   Widget build(BuildContext context) => Card(
@@ -24,12 +25,15 @@ class OrderStatusWidget extends StatelessWidget {
         color: bindBgColorForOrderStatus(status),
         margin: EdgeInsets.zero,
         clipBehavior: Clip.antiAlias,
-        child: Padding(
+        child: Container(
+          width: minWidth,
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-          child: Text(
-            bindTextLabelForOrderStatus(status),
-            style: TextStyle(
-              color: bindTextColorForOrderStatus(status),
+          child: Center(
+            child: Text(
+              bindTextLabelForOrderStatus(status),
+              style: TextStyle(
+                color: bindTextColorForOrderStatus(status),
+              ),
             ),
           ),
         ),
