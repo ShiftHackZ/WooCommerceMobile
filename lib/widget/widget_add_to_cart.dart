@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +10,7 @@ import 'package:wooapp/datasource/cart_data_source.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/product.dart';
+import 'package:wooapp/screens/auth/login.dart';
 import 'package:wooapp/screens/orders/create/create_order_screen.dart';
 import 'package:wooapp/widget/widget_product_stock.dart';
 import 'package:wooapp/widget/widget_product_variations.dart';
@@ -42,6 +45,7 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
   int getCount() => int.tryParse(_countController.text) ?? 1;
 
   bool _inCart = false;
+  bool _hasAuth = false;
 
   @override
   void initState() {
@@ -52,8 +56,10 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
 
   void checkIfAdded() async {
     var inCart = await widget._db.isInCart(widget.product.id);
+    var hasAuth = await widget._db.isAuthenticated();
     setState(() {
       _inCart = inCart;
+      _hasAuth = hasAuth;
     });
   }
 
@@ -188,11 +194,27 @@ class _AddToCartBottomBarState extends State<AddToCartBottomBar> {
 
   Widget _buildAddButton() => ElevatedButton(
         onPressed: () {
-          if (widget.product.isVariable) {
-            _processVariableProduct();
-          } else {
-            _processSimpleProduct();
+          Function() executeAddToCart = () {
+            if (widget.product.isVariable) {
+              _processVariableProduct();
+            } else {
+              _processSimpleProduct();
+            }
+          };
+          if (_hasAuth) {
+            executeAddToCart();
+            return;
           }
+          Navigator
+            .push(context, MaterialPageRoute(builder: (_) => LoginScreen()))
+            .then((value) {
+              if (value == true) {
+                setState(() {
+                  _hasAuth = true;
+                });
+                Timer(Duration(milliseconds: 200), () => executeAddToCart());
+              }
+            });
         },
         child: Container(
           alignment: Alignment.center,

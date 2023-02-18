@@ -9,8 +9,8 @@ class ProfileScreen extends StatelessWidget {
 
   ProfileScreen();
 
-  void refresh() {
-    _cubit.getProfile();
+  void onTabOpened() {
+    _cubit.onTabOpened();
   }
   
   @override

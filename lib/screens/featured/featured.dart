@@ -260,7 +260,7 @@ class _FeaturedCategoriesViewState extends State<FeaturedCategoriesView> {
       builderDelegate: PagedChildBuilderDelegate<Category>(
         itemBuilder: (context, item, index) => FeaturedCategoryWidget(item),
         firstPageProgressIndicatorBuilder: (_) => FeaturedCategoriesShimmer(),
-        firstPageErrorIndicatorBuilder: (_) => FeaturedCategoriesShimmer(),
+        firstPageErrorIndicatorBuilder: (_) => Container(),
       ),
       scrollDirection: Axis.horizontal,
     ),

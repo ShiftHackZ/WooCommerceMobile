@@ -106,7 +106,7 @@ class _WooDialogState extends State<WooDialog> {
                       widget.buttonPositiveText.toUpperCase(),
                       style: TextStyle(
                         fontSize: 18,
-                        color: WooAppTheme.colorPrimaryForeground,
+                        color: WooAppTheme.colorPrimaryBackground,
                       ),
                     ),
                   ),

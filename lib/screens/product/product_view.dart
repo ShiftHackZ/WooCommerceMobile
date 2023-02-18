@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_view_indicators/circle_page_indicator.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:wooapp/config/theme.dart';
+import 'package:wooapp/core/pop_controller.dart';
 import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/product.dart';
@@ -19,20 +20,15 @@ import 'package:wooapp/widget/widget_attributes.dart';
 import 'package:wooapp/widget/widget_price_product.dart';
 import 'package:wooapp/widget/widget_product_actions.dart';
 import 'package:wooapp/widget/widget_product_info.dart';
+import 'package:wooapp/widget/widget_retry.dart';
 import 'package:wooapp/widget/widget_text_expanded.dart';
 import 'package:wooapp/widget/widget_woo_section.dart';
-
-class ProductViewWillPopController {
-  bool value;
-  
-  ProductViewWillPopController(this.value);
-}
 
 class ProductView extends StatelessWidget {
   final _sliderController = PageController();
   final _sliderNotifier = ValueNotifier<int>(0);
   
-  final _willPopController = ProductViewWillPopController(false);
+  final _willPopController = WillPopController();
 
   ProductView();
 
@@ -55,7 +51,7 @@ class ProductView extends StatelessWidget {
                     (state as ContentProductState).product,
                   );
                 case ErrorProductState:
-                  return _errorState();
+                  return _errorState(context);
                 default:
                   return _loadingState();
               }
@@ -72,18 +68,7 @@ class ProductView extends StatelessWidget {
   Widget _loadingState() => ProductScreenShimmer();
 
   Widget _contentState(BuildContext context, Product product) => Scaffold(
-    appBar: AppBar(
-      leading: BackButton(
-        color: WooAppTheme.colorToolbarForeground,
-      ),
-      title: Text(
-        '${product.name}',
-        style: TextStyle(
-          color: WooAppTheme.colorToolbarForeground,
-        ),
-      ),
-      backgroundColor: WooAppTheme.colorToolbarBackground,
-    ),
+    appBar: _appBar(productName: '${product.name}'),
     backgroundColor: WooAppTheme.colorCommonBackground,
     bottomNavigationBar: AddToCartBottomBar(product),
     body: SingleChildScrollView(
@@ -252,9 +237,27 @@ class ProductView extends StatelessWidget {
         errorWidget: (context, url, error) => Center(child: Icon(Icons.error)),
       );
 
-  Widget _errorState() => Center(
-        child: Text("Error"),
-      );
+  Widget _errorState(BuildContext context) => Scaffold(
+    appBar: _appBar(),
+    body: SafeArea(
+      child: ErrorRetryWidget(
+        () => context.read<ProductCubit>().getProduct(),
+      ),
+    ),
+  );
+
+  AppBar _appBar({String? productName}) => AppBar(
+    leading: BackButton(
+      color: WooAppTheme.colorToolbarForeground,
+    ),
+    title: Text(
+      '${productName ?? ''}',
+      style: TextStyle(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+    ),
+    backgroundColor: WooAppTheme.colorToolbarBackground,
+  );
 
   void _showAttributes(BuildContext context, Product product) {
     showBottomOptions(context, AttributesWidget(product.attributes));

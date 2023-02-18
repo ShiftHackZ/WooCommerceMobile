@@ -17,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 
 class HomeScreenState extends State<HomeScreen> {
   int _currentTab = 0;
-  bool _forceRefreshProfile = false;
   late List<Widget> _tabs;
 
   List<BottomNavigationBarItem> _bottomItems = [
@@ -56,9 +55,6 @@ class HomeScreenState extends State<HomeScreen> {
       CatalogScreen(),
       CartScreen(
         shoppingCallback: () => _openStore(),
-        authCompleteCallback: () {
-          _forceRefreshProfile = true;
-        },
       ),
       ProfileScreen(),
     ];
@@ -86,9 +82,8 @@ class HomeScreenState extends State<HomeScreen> {
             if (index == 2) {
               (_tabs[2] as CartScreen).refresh();
             }
-            if (index == 3 && _forceRefreshProfile) {
-              (_tabs[3] as ProfileScreen).refresh();
-              _forceRefreshProfile = false;
+            if (index == 3) {
+              (_tabs[3] as ProfileScreen).onTabOpened();
             }
           });
         },

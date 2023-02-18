@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/datasource/customer_auth_data_source.dart';
+import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/widget/widget_dialog.dart';
+import 'package:wooapp/widget/widget_loader_full_screen.dart';
 
 class PasswordRecoveryScreen extends StatefulWidget {
   @override
@@ -17,8 +19,17 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
 
   final TextEditingController _lController = TextEditingController();
 
+  bool _loading = false;
+
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Stack(
+    children: [
+      _buildResetWidget(),
+      if (_loading) WooFullScreenLoader(),
+    ],
+  );
+  
+  Widget _buildResetWidget() => Scaffold(
     appBar: AppBar(
       leading: BackButton(
         color: WooAppTheme.colorToolbarForeground,
@@ -165,17 +176,31 @@ class _PasswordRecoveryScreenState extends State<PasswordRecoveryScreen> {
   );
 
   Future<void> _reset() async {
+    _onStartLoading();
     _ds.reset(
         _lController.text.toString().trim(),
     ).then((register) {
+      _onFinalizeLoading();
       Navigator.of(context).pop();
-      showResult(tr('success'), tr('reset_success'));
+      _showResult(tr('success'), tr('reset_success'));
     }).catchError((error) {
-      showResult(tr('error'), tr('error_user_not_exist'));
+      _onFinalizeLoading();
+      _showResult(tr('error'), tr('error_user_not_exist'));
     });
   }
 
-  void showResult(String title, String desc) {
+  void _onStartLoading() {
+    hideKeyboardForce(context);
+    setState(() {
+      _loading = true;
+    });
+  }
+
+  void _onFinalizeLoading() => setState(() {
+    _loading = false;
+  });
+
+  void _showResult(String title, String desc) {
     showDialog(
       context: context,
       builder: (ctx) => WooDialog(

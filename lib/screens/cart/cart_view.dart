@@ -20,11 +20,9 @@ import 'package:wooapp/widget/widget_retry.dart';
 
 class CartView extends StatelessWidget {
   final VoidCallback shoppingCallback;
-  final VoidCallback authCompleteCallback;
 
   CartView({
     required this.shoppingCallback,
-    required this.authCompleteCallback,
   });
 
   @override
@@ -67,7 +65,6 @@ class CartView extends StatelessWidget {
   Widget _noAuth(BuildContext context) => NoAuthScreen(
         title: tr('tab_cart'),
         onRefresh: () {
-          authCompleteCallback();
           Future.delayed(Duration(milliseconds: 200), () {
             context.read<CartCubit>().getCart();
           });
@@ -273,16 +270,13 @@ class CartView extends StatelessWidget {
 
   Widget _loadingState() => CartListShimmer();
 
-  Widget _errorState(BuildContext context) => SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 40),
-            ErrorRetryWidget(() => context.read<CartCubit>().getCart()),
-          ]
+  Widget _errorState(BuildContext context) => Scaffold(
+        body: SafeArea(
+          child: ErrorRetryWidget(
+            () => context.read<CartCubit>().getCart(),
+          ),
         ),
-  );
+      );
 
   AppBar _appBar() => AppBar(
         leading: Icon(

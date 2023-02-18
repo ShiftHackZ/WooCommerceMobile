@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/datasource/customer_auth_data_source.dart';
+import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/screens/auth/register.dart';
 import 'package:wooapp/screens/auth/reset.dart';
 import 'package:wooapp/widget/widget_dialog.dart';
+import 'package:wooapp/widget/widget_loader_full_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -15,7 +17,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   final CustomerAuthDataSource _ds = locator<CustomerAuthDataSource>();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -23,8 +24,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _lController = TextEditingController();
   final TextEditingController _pController = TextEditingController();
 
+  bool _loading = false;
+
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Stack(
+    children: [
+      _buildAuthWidget(),
+      if (_loading) WooFullScreenLoader(),
+    ],
+  );
+
+  Widget _buildAuthWidget() =>  Scaffold(
     appBar: AppBar(
       elevation: 0,
       backgroundColor: WooAppTheme.colorAuthBackground,
@@ -249,20 +259,34 @@ class _LoginScreenState extends State<LoginScreen> {
   );
 
   Future<void> auth() async {
+    _onStartLoading();
     _ds.login(
       _lController.text.toString().trim(),
       _pController.text.toString()
     ).then((data) {
+      _onFinalizeLoading();
       Navigator.pop(context, true);
     }).catchError((error) {
+      _onFinalizeLoading();
       if (error is DioError) {
         var message = error.response!.data['message'];
-        showResult(tr('error'), message);
+        _showResult(tr('error'), message);
       }
     });
   }
+  
+  void _onStartLoading() {
+    hideKeyboardForce(context);
+    setState(() {
+      _loading = true;
+    });
+  }
 
-  void showResult(String title, String desc) {
+  void _onFinalizeLoading() => setState(() {
+    _loading = false;
+  });
+
+  void _showResult(String title, String desc) {
     showDialog(
       context: context,
       builder: (ctx) => WooDialog(

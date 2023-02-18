@@ -8,6 +8,7 @@ import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/auth_register_response.dart';
 import 'package:wooapp/widget/widget_dialog.dart';
 import 'package:validators/validators.dart';
+import 'package:wooapp/widget/widget_loader_full_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -15,7 +16,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   final CustomerAuthDataSource _ds = locator<CustomerAuthDataSource>();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -25,8 +25,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _p1Controller = TextEditingController();
   final TextEditingController _p2Controller = TextEditingController();
 
+  bool _loading = false;
+
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Stack(
+    children: [
+      _buildRegisterWidget(),
+      if (_loading) WooFullScreenLoader(),
+    ],
+  );
+
+  Widget _buildRegisterWidget() => Scaffold(
     appBar: AppBar(
       leading: BackButton(
         color: WooAppTheme.colorToolbarForeground,
@@ -320,22 +329,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
   );
 
   Future<void> _register() async {
+    _onStartLoading();
     _ds.register(
       _lController.text.toString().trim(),
       _eController.text.toString().trim(),
       _p1Controller.text.toString()
     ).then((register) {
+      _onFinalizeLoading();
       Navigator.of(context).pop();
-      showResult(tr('congratulations'), tr('sign_up_success'));
+      _showResult(tr('congratulations'), tr('sign_up_success'));
     }).catchError((error) {
+      _onFinalizeLoading();
       if (error is DioError) {
         var reg = WpRegResponse.fromJson(error.response!.data);
-        showResult(tr('error'), reg.message);
+        _showResult(tr('error'), reg.message);
       }
     });
   }
 
-  void showResult(String title, String desc) {
+  void _onStartLoading() {
+    hideKeyboardForce(context);
+    setState(() {
+      _loading = true;
+    });
+  }
+
+  void _onFinalizeLoading() => setState(() {
+    _loading = false;
+  });
+
+  void _showResult(String title, String desc) {
     showDialog(
       context: context,
       builder: (ctx) => WooDialog(
