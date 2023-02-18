@@ -10,7 +10,6 @@ import 'package:wooapp/model/category.dart';
 import 'package:wooapp/screens/category/category_screen.dart';
 import 'package:wooapp/widget/widget_catalog_products.dart';
 
-
 class CatalogItemWidget extends StatefulWidget {
   static const double imageHeight = 100;
 
@@ -36,109 +35,107 @@ class _CatalogItemWidgetState extends State<CatalogItemWidget> {
   }
 
   @override
-  Widget build(BuildContext context) => Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                Container(
-                  child: _buildItemImage(widget.category.image),
-                ),
-                Opacity(
-                  opacity: 1.0,
-                  child: Container(
-                    height: CatalogItemWidget.imageHeight,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          _backgroundColor.withAlpha(180),
-                          WooAppTheme.colorCommonBackground,
-                        ],
-                      ),
+  Widget build(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Container(
+                child: _buildItemImage(widget.category.image),
+              ),
+              Opacity(
+                opacity: 1.0,
+                child: Container(
+                  height: CatalogItemWidget.imageHeight,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        _backgroundColor.withAlpha(180),
+                        WooAppTheme.colorCommonBackground,
+                      ],
                     ),
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Container(
-                        margin: EdgeInsets.only(top: 12),
-                        child: InvertColors(
-                          child: Text(
-                            '${widget.category.name}',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600,
-                              color: _backgroundColor,
-                            ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 12),
+                      child: InvertColors(
+                        child: Text(
+                          '${widget.category.name}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            color: _backgroundColor,
                           ),
                         ),
                       ),
                     ),
-                    Container(
-                      height: 170,
-                      margin: EdgeInsets.only(top: 22),
-                      child: CatalogProductsWidget(widget.category.id),
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(width: 8),
-                        Text(
-                          '${tr('catalog_total')}: ${widget.category.count}',
-                          style: TextStyle(
-                            fontSize: 14.5,
-                            fontWeight: FontWeight.w500,
+                  ),
+                  Container(
+                    height: 170,
+                    margin: EdgeInsets.only(top: 22),
+                    child: CatalogProductsWidget(widget.category.id),
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(width: 8),
+                      Text(
+                        '${tr('catalog_total')}: ${widget.category.count}',
+                        style: TextStyle(
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Spacer(),
+                      TextButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(
+                            Color(0x0),
                           ),
                         ),
-                        Spacer(),
-                        TextButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                              Color(0x0),
+                        onPressed: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => CategoryScreen(
+                              widget.category.id,
+                              widget.category.slug,
+                              categoryTitle: widget.category.name,
+                              categoryDesc: widget.category.description,
+                              categoryImage: widget.category.image,
                             ),
                           ),
-                          onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (_) => CategoryScreen(
-                                widget.category.id,
-                                widget.category.slug,
-                                categoryTitle: widget.category.name,
-                                categoryDesc: widget.category.description,
-                                categoryImage: widget.category.image,
-                              ),
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Text(
-                                'catalog_view_all',
-                                style: TextStyle(
-                                  color: WooAppTheme.colorPrimaryBackground,
-                                ),
-                              ).tr(),
-                              SizedBox(width: 8),
-                              FaIcon(
-                                FontAwesomeIcons.chevronRight,
-                                size: 16,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              'catalog_view_all',
+                              style: TextStyle(
                                 color: WooAppTheme.colorPrimaryBackground,
                               ),
-                            ],
-                          ),
+                            ).tr(),
+                            SizedBox(width: 8),
+                            FaIcon(
+                              FontAwesomeIcons.chevronRight,
+                              size: 16,
+                              color: WooAppTheme.colorPrimaryBackground,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                ],
+              ),
+            ],
+          ),
+        ],
       );
 
   Widget _buildItemImage(String image) => Container(

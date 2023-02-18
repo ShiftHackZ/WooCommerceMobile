@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/customer_profile.dart';
 import 'package:wooapp/screens/auth/login.dart';
@@ -245,7 +246,7 @@ class ProfileView extends StatelessWidget {
             print('back, context = $context');
           }),
         ),
-        WooSection(
+        if (WooAppConfig.featureWishList) WooSection(
           icon: FaIcon(
             FontAwesomeIcons.heart,
             color: WooAppTheme.colorCommonSectionForeground,
