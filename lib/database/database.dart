@@ -185,7 +185,7 @@ class AppDb {
 
   Future<void> saveProductView(Product product) async {
     var box = await Hive.openBox(boxViewedProduct);
-    if (box.containsKey('$keyViewedProduct${product.id}')) return box.close();
+    if (box.containsKey('$keyViewedProduct${product.id}')) return;
     box.put(
       '$keyViewedProduct${product.id}',
       ViewedProduct(
@@ -195,7 +195,6 @@ class AppDb {
         product.images[0].src,
       ),
     );
-    return box.close();
   }
 
   Future<List<ViewedProduct>> getViewedProducts() async {

@@ -1,7 +1,7 @@
 {
   "lang": "Русский",
   "app_name": "WooApp",
-  "recently_viewed": "Недавно вы интересовались:",
+  "recently_viewed": "Недавно вы интересовались",
   "tab_home": "Товары",
   "tab_catalog": "Каталог",
   "tab_search": "Поиск",
@@ -87,6 +87,8 @@
   "filter_on_sale": "Акции и распродажи",
   "filter_stock": "Наличие",
   "filter_price": "Цена",
+  "product_description": "Описание",
+  "product_characteristics": "Характеристики товара",
   "product_property_id": "Идентификатор",
   "product_property_name": "Наименование",
   "product_property_price": "Цена",

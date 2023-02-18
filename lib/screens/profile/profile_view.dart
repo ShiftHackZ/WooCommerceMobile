@@ -111,7 +111,7 @@ class ProfileView extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: WooAppTheme.colorCommonBackground,
+        backgroundColor: WooAppTheme.colorToolbarBackground,
         body: SafeArea(
           child: Container(
             child: SingleChildScrollView(
@@ -192,7 +192,18 @@ class ProfileView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ..._profileSections(context),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: WooAppTheme.colorCommonBackground,
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(20.0),
+                        topRight: const Radius.circular(20.0),
+                      ),
+                    ),
+                    child: Column(
+                      children: _profileSections(context),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -213,7 +224,7 @@ class ProfileView extends StatelessWidget {
       );
 
   List<Widget> _profileSections(BuildContext context) => [
-        SizedBox(height: 8),
+        SizedBox(height: 12),
         WooSection(
           icon: FaIcon(
             FontAwesomeIcons.locationDot,

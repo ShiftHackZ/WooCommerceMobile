@@ -33,8 +33,10 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  final CategoryAttributeDateSource _ds = locator<CategoryAttributeDateSource>();
-  final PagingController<int, CategoryProduct> _pagingController = PagingController(firstPageKey: 1);
+  final CategoryAttributeDateSource _ds =
+      locator<CategoryAttributeDateSource>();
+  final PagingController<int, CategoryProduct> _pagingController =
+      PagingController(firstPageKey: 1);
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -67,7 +69,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
             color: WooAppTheme.colorToolbarForeground,
           ),
           actions: [
-            IconButton(
+            if (widget.categoryDesc.isNotEmpty) IconButton(
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => CategoryInfoScreen(

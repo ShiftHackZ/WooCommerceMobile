@@ -13,6 +13,7 @@ import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/gallery/gallery.dart';
 import 'package:wooapp/screens/product/product_cubit.dart';
 import 'package:wooapp/screens/product/product_state.dart';
+import 'package:wooapp/screens/viewed/viewed_products_screen.dart';
 import 'package:wooapp/widget/shimmer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wooapp/widget/widget_add_to_cart.dart';
@@ -34,186 +35,185 @@ class ProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WillPopScope(
-      child: Scaffold(
-        backgroundColor: WooAppTheme.colorCommonBackground,
-        body: BlocListener<ProductCubit, ProductState>(
-          listener: (context, state) {},
-          child: BlocBuilder<ProductCubit, ProductState>(
-            builder: (context, state) {
-              switch (state.runtimeType) {
-                case InitialProductState:
-                  return _loadingState();
-                case LoadingProductState:
-                  return _loadingState();
-                case ContentProductState:
-                  return _contentState(
-                    context,
-                    (state as ContentProductState).product,
-                  );
-                case ErrorProductState:
-                  return _errorState(context);
-                default:
-                  return _loadingState();
-              }
-            },
+        child: Scaffold(
+          backgroundColor: WooAppTheme.colorCommonBackground,
+          body: BlocListener<ProductCubit, ProductState>(
+            listener: (context, state) {},
+            child: BlocBuilder<ProductCubit, ProductState>(
+              builder: (context, state) {
+                switch (state.runtimeType) {
+                  case InitialProductState:
+                    return _loadingState();
+                  case LoadingProductState:
+                    return _loadingState();
+                  case ContentProductState:
+                    return _contentState(
+                      context,
+                      (state as ContentProductState).product,
+                    );
+                  case ErrorProductState:
+                    return _errorState(context);
+                  default:
+                    return _loadingState();
+                }
+              },
+            ),
           ),
         ),
-      ),
-      onWillPop: () {
-        Navigator.pop(context, _willPopController.value);
-        return Future(() => false);
-      },
-  );
+        onWillPop: () {
+          Navigator.pop(context, _willPopController.value);
+          return Future(() => false);
+        },
+      );
 
   Widget _loadingState() => ProductScreenShimmer();
 
   Widget _contentState(BuildContext context, Product product) => Scaffold(
-    appBar: _appBar(productName: '${product.name}'),
-    backgroundColor: WooAppTheme.colorCommonBackground,
-    bottomNavigationBar: AddToCartBottomBar(product),
-    body: SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 280,
-            child: _imageSlider(context, product),
-          ),
-          Padding(
-            padding: EdgeInsets.all(0.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Row(
+        appBar: _appBar(productName: '${product.name}'),
+        backgroundColor: WooAppTheme.colorCommonBackground,
+        bottomNavigationBar: AddToCartBottomBar(product),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 280,
+                child: _imageSlider(context, product),
+              ),
+              Padding(
+                padding: EdgeInsets.all(0.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(width: 16),
-                    ProductPriceWidget.withProduct(product),
-                    Spacer(),
-                    RatingBarIndicator(
-                      rating: product.rating,
-                      itemBuilder: (context, index) => Icon(
-                        Icons.star,
-                        color: WooAppTheme.colorRatingActive,
-                      ),
-                      unratedColor: WooAppTheme.colorRatingNonActive,
-                      itemCount: 5,
-                      itemSize: 12,
-                      direction: Axis.horizontal,
+                    SizedBox(height: 16),
+                    Row(
+                      children: [
+                        SizedBox(width: 16),
+                        ProductPriceWidget.withProduct(product),
+                        Spacer(),
+                        RatingBarIndicator(
+                          rating: product.rating,
+                          itemBuilder: (context, index) => Icon(
+                            Icons.star,
+                            color: WooAppTheme.colorRatingActive,
+                          ),
+                          unratedColor: WooAppTheme.colorRatingNonActive,
+                          itemCount: 5,
+                          itemSize: 12,
+                          direction: Axis.horizontal,
+                        ),
+                        Text(
+                          ' ${product.rating.toString()}',
+                          style: TextStyle(
+                            color: WooAppTheme.colorRatingText,
+                          ),
+                        ),
+                        SizedBox(width: 16),
+                      ],
                     ),
-                    Text(
-                      ' ${product.rating.toString()}',
-                      style: TextStyle(
-                        color: WooAppTheme.colorRatingText,
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8.0,
+                        horizontal: 16,
+                      ),
+                      child: Text(
+                        product.name,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: WooAppTheme.colorCommonText,
+                        ),
                       ),
                     ),
-                    SizedBox(width: 16),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8.0,
+                        horizontal: 16,
+                      ),
+                      child: ProductActionsWidget(
+                        product: product,
+                        changeCallback: () {
+                          _willPopController.value = true;
+                        },
+                      ),
+                    ),
+                    if (product.hasDescription) Divider(),
+                    if (product.hasDescription)
+                      WooSectionHeading(tr('product_description')),
+                    if (product.hasDescription)
+                      Padding(
+                        padding: EdgeInsets.only(
+                          top: 8.0,
+                          right: 16,
+                          left: 16,
+                        ),
+                        child: ExpandableText(
+                          text: parseHtml(product.description),
+                          length: 200,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: WooAppTheme.colorCommonText,
+                          ),
+                        ),
+                      ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 16,
-                  ),
-                  child: Text(
-                    product.name,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: WooAppTheme.colorCommonText,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 16,
-                  ),
-                  child: ProductActionsWidget(
-                    product: product,
-                    changeCallback: () {
-                      _willPopController.value = true;
-                    },
-                  ),
-                ),
-                if (product.hasDescription) Divider(),
-                if (product.hasDescription) Padding(
-                  padding: EdgeInsets.only(
-                    top: 8.0,
-                    right: 16,
-                    left: 16,
-                  ),
-                  child: ExpandableText(
-                    text: parseHtml(product.description),
-                    length: 200,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: WooAppTheme.colorCommonText,
-                    ),
-                  ),
-                ),
+              ),
+              if (product.attributes.length > 0)
                 Divider(),
-                WooSection(
-                  icon: FaIcon(
-                    FontAwesomeIcons.tableList,
-                    color: WooAppTheme.colorCommonSectionForeground,
-                  ),
-                  text: tr('product_attributes'),
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  action: () => _showAttributes(context, product),
+              if (product.attributes.length > 0)
+                WooSectionHeading(tr('product_characteristics')),
+              if (product.attributes.length > 0)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: AttributesWidget(product.attributes),
                 ),
-                WooSection(
-                  icon: FaIcon(
-                    FontAwesomeIcons.circleInfo,
-                    color: WooAppTheme.colorCommonSectionForeground,
-                  ),
-                  text: tr('product_information'),
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  action: () => _showInfo(context, product),
-                ),
-              ],
-            ),
+              Divider(),
+              ViewedProductsScreen(() {}),
+              SizedBox(height: 16),
+            ],
           ),
-          //if (product.attributes.length > 0) AttributesWidget(product.attributes)
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 
   Widget _imageSlider(BuildContext context, Product product) => GestureDetector(
-    onTap: () => Navigator.of(context)
-      .push(MaterialPageRoute(builder: (_) => GalleryScreen(
-        product.images.map((wooImg) => wooImg.src).toList(),
-        initialPage: _sliderController.page!.toInt(),
-      ))),
-    child: Stack(
-      children: [
-        PageView(
-          scrollDirection: Axis.horizontal,
-          controller: _sliderController,
-          children: [
-            for (var image in product.images) _imageSingle(image.src)
-          ],
-          onPageChanged: (index) {
-            _sliderNotifier.value = index;
-          },
-        ),
-        if (product.images.length > 1) Positioned(
-          left: 0.0,
-          right: 0.0,
-          bottom: 0.0,
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CirclePageIndicator(
-              itemCount: product.images.length,
-              currentPageNotifier: _sliderNotifier,
+        onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => GalleryScreen(
+              product.images.map((wooImg) => wooImg.src).toList(),
+              initialPage: _sliderController.page!.toInt(),
             ),
           ),
         ),
-      ],
-    ),
-  );
+        child: Stack(
+          children: [
+            PageView(
+              scrollDirection: Axis.horizontal,
+              controller: _sliderController,
+              children: [
+                for (var image in product.images) _imageSingle(image.src)
+              ],
+              onPageChanged: (index) {
+                _sliderNotifier.value = index;
+              },
+            ),
+            if (product.images.length > 1)
+              Positioned(
+                left: 0.0,
+                right: 0.0,
+                bottom: 0.0,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: CirclePageIndicator(
+                    itemCount: product.images.length,
+                    currentPageNotifier: _sliderNotifier,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      );
 
   Widget _imageSingle(String url) => CachedNetworkImage(
         imageUrl: url,
@@ -238,26 +238,26 @@ class ProductView extends StatelessWidget {
       );
 
   Widget _errorState(BuildContext context) => Scaffold(
-    appBar: _appBar(),
-    body: SafeArea(
-      child: ErrorRetryWidget(
-        () => context.read<ProductCubit>().getProduct(),
-      ),
-    ),
-  );
+        appBar: _appBar(),
+        body: SafeArea(
+          child: ErrorRetryWidget(
+            () => context.read<ProductCubit>().getProduct(),
+          ),
+        ),
+      );
 
   AppBar _appBar({String? productName}) => AppBar(
-    leading: BackButton(
-      color: WooAppTheme.colorToolbarForeground,
-    ),
-    title: Text(
-      '${productName ?? ''}',
-      style: TextStyle(
-        color: WooAppTheme.colorToolbarForeground,
-      ),
-    ),
-    backgroundColor: WooAppTheme.colorToolbarBackground,
-  );
+        leading: BackButton(
+          color: WooAppTheme.colorToolbarForeground,
+        ),
+        title: Text(
+          '${productName ?? ''}',
+          style: TextStyle(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+        ),
+        backgroundColor: WooAppTheme.colorToolbarBackground,
+      );
 
   void _showAttributes(BuildContext context, Product product) {
     showWooBottomSheet(context, AttributesWidget(product.attributes));
