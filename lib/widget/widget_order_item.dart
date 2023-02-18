@@ -7,6 +7,7 @@ import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/line_item.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/widget/widget_custom_spacer.dart';
+import 'package:wooapp/widget/widget_divider.dart';
 import 'package:wooapp/widget/widget_order_status.dart';
 
 class OrderItem extends StatelessWidget {
@@ -44,10 +45,10 @@ class OrderItem extends StatelessWidget {
   Widget _buildHeader(BuildContext context) => Container(
         margin: EdgeInsets.symmetric(horizontal: 12),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildOrderNumber(),
-            Spacer(),
             OrderStatusWidget(status: order.status),
           ],
         ),
@@ -71,11 +72,7 @@ class OrderItem extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.only(bottom: 8),
-              child: DotSpacer(),
-            ),
+            CustomDotDivider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
