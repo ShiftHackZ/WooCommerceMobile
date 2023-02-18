@@ -62,7 +62,7 @@ class CartTotals {
   CartTotals.fromJson(Map<String, dynamic> json)
     : subtotal = json['subtotal'] ?? '',
       subtotalTax = json['subtotal_tax'] ?? '',
-      total = json['total'] ?? '',
+      total = double.tryParse(json['total'].toString()) ?? 0.0,
       tax = json['tax'] ?? '';
 }
 

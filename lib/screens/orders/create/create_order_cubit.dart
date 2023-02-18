@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wooapp/datasource/cart_data_source.dart';
 import 'package:wooapp/datasource/customer_profile_data_source.dart';
@@ -10,11 +12,10 @@ import 'package:wooapp/model/customer_profile.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/model/payment_method.dart';
 import 'package:wooapp/model/shipping_method.dart';
-import 'package:wooapp/screens/orders/create/create_order_model.dart';
+import 'package:wooapp/screens/orders/create/model/create_order_model.dart';
 import 'package:wooapp/screens/orders/create/create_order_state.dart';
 
 class CreateOrderCubit extends Cubit<CreateOrderState> {
-
   final CartDataSource _cart = locator<CartDataSource>();
   final CustomerProfileDataSource _profile = locator<CustomerProfileDataSource>();
   final ShippingMethodDataSource _shipping = locator<ShippingMethodDataSource>();
@@ -61,24 +62,24 @@ class CreateOrderCubit extends Cubit<CreateOrderState> {
         ..removeWhere((method) => method.enabled == false);
 
       invalidate();
-    }).catchError((error) {
-      print('ERRRORRRRRRR $error');
+    }).catchError((error, stacktrace) {
+      Completer().completeError(error, stacktrace);
       emit(ErrorCreateOrderState());
     });
   }
 
   void invalidate() {
     emit(
-        ContentCreateOrderState(
-            _dataCart,
-            _dataRecipient,
-            _dataShipping,
-            _dataShippingMethods,
-            _dataPaymentMethods,
-            _dataShippingIndex,
-            _dataPaymentIndex,
-            _orderTermsAccepted
-        )
+      ContentCreateOrderState(
+        _dataCart,
+        _dataRecipient,
+        _dataShipping,
+        _dataShippingMethods,
+        _dataPaymentMethods,
+        _dataShippingIndex,
+        _dataPaymentIndex,
+        _orderTermsAccepted,
+      ),
     );
   }
 
@@ -98,11 +99,11 @@ class CreateOrderCubit extends Cubit<CreateOrderState> {
       emit(LoadingCreateOrderState());
       Future.wait([
         _create.createOrder(
-            _dataCart.items,
-            _dataRecipient,
-            _dataShipping,
-            _dataShippingMethods[_dataShippingIndex],
-            _dataPaymentMethods[_dataPaymentIndex]
+          _dataCart.items,
+          _dataRecipient,
+          _dataShipping,
+          _dataShippingMethods[_dataShippingIndex],
+          _dataPaymentMethods[_dataPaymentIndex],
         ),
         _cart.clearCart()
       ]).then((data) {

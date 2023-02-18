@@ -24,6 +24,7 @@ class CartDataSourceImpl extends CartDataSource {
   Future<CartResponse> getCart() => _sendUserRequest()
       .then((dio) => dio.get('cart'))
       .then((response) {
+        response;
         if (response.data is List<dynamic>) {
           return CartResponse.empty();
         }

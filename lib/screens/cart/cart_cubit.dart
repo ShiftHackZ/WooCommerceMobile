@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wooapp/database/database.dart';
 import 'package:wooapp/datasource/cart_data_source.dart';
@@ -23,8 +25,7 @@ class CartCubit extends Cubit<CartState> {
           emit(ContentCartState(cart));
         }
       }).catchError((error, stacktrace) {
-        print('$error');
-        print('$stacktrace');
+        Completer().completeError(error, stacktrace);
         emit(ErrorCartState());
       });
     }
@@ -38,8 +39,8 @@ class CartCubit extends Cubit<CartState> {
       } else {
         emit(ContentCartState(cart));
       }
-    }).catchError((error) {
-      print('$error');
+    }).catchError((error, stacktrace) {
+      Completer().completeError(error, stacktrace);
       emit(ErrorCartState());
     });
   }

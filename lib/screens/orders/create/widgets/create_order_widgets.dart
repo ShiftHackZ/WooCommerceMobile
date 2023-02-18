@@ -127,7 +127,7 @@ class CreateOrderProduct extends StatelessWidget {
                 ),
               ),
               Text(
-                '${item.price}${WooAppConfig.currency}',
+                '${item.totals.total / item.quantity.value} ${WooAppConfig.currency}',
                 style: TextStyle(
                   color: WooAppTheme.colorCardCreateOrderText,
                 ),

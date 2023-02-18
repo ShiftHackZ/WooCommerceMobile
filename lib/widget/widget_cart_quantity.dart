@@ -12,18 +12,23 @@ class CartQuantityWidget extends StatefulWidget {
   final int initialQuantity;
   final VoidCallback callback;
 
-  CartQuantityWidget(this.productCartKey, this.initialQuantity, this.callback);
+  CartQuantityWidget({
+    super.key,
+    required this.productCartKey, 
+    required this.initialQuantity,
+    required this.callback,
+  });
 
   @override
-  State<StatefulWidget> createState() => _CartQuantityWidgetState();
+  State<StatefulWidget> createState() => CartQuantityWidgetState();
 }
 
-class _CartQuantityWidgetState extends State<CartQuantityWidget> {
-
+class CartQuantityWidgetState extends State<CartQuantityWidget> {
   static const double buttonSize = 16;
 
   final TextEditingController _countController = TextEditingController();
 
+  bool _loading = false;
   int getCount() => int.tryParse(_countController.text) ?? 1;
 
   @override
@@ -39,7 +44,9 @@ class _CartQuantityWidgetState extends State<CartQuantityWidget> {
     children: [
       InkWell(
         onTap: () {
+          if (_loading) return;
           if (getCount() > 1) {
+            _loading = true;
             _countController.text = (getCount() - 1).toString();
             _syncQuantity();
           }
@@ -82,6 +89,8 @@ class _CartQuantityWidgetState extends State<CartQuantityWidget> {
       ),
       InkWell(
         onTap: () {
+          if (_loading) return;
+          _loading = true;
           _countController.text = (getCount() + 1).toString();
           _syncQuantity();
           hideKeyboardForce(context);
@@ -100,6 +109,12 @@ class _CartQuantityWidgetState extends State<CartQuantityWidget> {
       ),
     ],
   );
+
+  void onLoadingFinished() {
+    setState(() {
+      _loading = false;
+    });
+  }
 
   void _syncQuantity() {
     widget._ds.updateQuantity(widget.productCartKey, getCount()).then((_) {

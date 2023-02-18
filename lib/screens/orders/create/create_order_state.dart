@@ -2,7 +2,7 @@ import 'package:wooapp/model/cart_response.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/model/payment_method.dart';
 import 'package:wooapp/model/shipping_method.dart';
-import 'package:wooapp/screens/orders/create/create_order_model.dart';
+import 'package:wooapp/screens/orders/create/model/create_order_model.dart';
 
 abstract class CreateOrderState {}
 
@@ -25,14 +25,14 @@ class ContentCreateOrderState extends CreateOrderState {
   bool termsAccepted;
 
   ContentCreateOrderState(
-      this.cart,
-      this.recipient,
-      this.shipping,
-      this.shippingMethods,
-      this.paymentMethods,
-      this.selectedShippingIndex,
-      this.selectedPaymentIndex,
-      this.termsAccepted
+    this.cart,
+    this.recipient,
+    this.shipping,
+    this.shippingMethods,
+    this.paymentMethods,
+    this.selectedShippingIndex,
+    this.selectedPaymentIndex,
+    this.termsAccepted,
   );
 }
 

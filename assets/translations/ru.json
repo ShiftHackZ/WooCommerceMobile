@@ -113,7 +113,7 @@
   "create_order_title": "Оформление заказа",
   "create_order_products": "Товары",
   "create_order_totals": "Общая сумма",
-  "create_order_person": "Получатель заказа",
+  "create_order_person": "Получатель",
   "create_order_name": "Имя",
   "create_order_phone": "Телефон",
   "create_order_shipping": "Адрес доставки",

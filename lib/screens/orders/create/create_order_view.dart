@@ -7,19 +7,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
+import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/screens/home/home.dart';
 import 'package:wooapp/screens/orders/create/create_order_cubit.dart';
 import 'package:wooapp/screens/orders/create/create_order_state.dart';
-import 'package:wooapp/screens/orders/create/create_order_widget_payment.dart';
-import 'package:wooapp/screens/orders/create/create_order_widget_shipping.dart';
-import 'package:wooapp/screens/orders/create/create_order_widgets.dart';
+import 'package:wooapp/screens/orders/create/widgets/create_order_widget_payment.dart';
+import 'package:wooapp/screens/orders/create/widgets/create_order_widget_shipping.dart';
+import 'package:wooapp/screens/orders/create/widgets/create_order_widgets.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:wooapp/widget/widget_custom_spacer.dart';
 import 'package:wooapp/widget/widget_dialog.dart';
 import 'package:wooapp/widget/widget_retry.dart';
 
-import 'create_order_model.dart';
+import 'model/create_order_model.dart';
 
 class CreateOrderView extends StatelessWidget {
   @override
@@ -90,10 +91,14 @@ class CreateOrderView extends StatelessWidget {
     );
   }
 
-  void _displayValidationErrors(BuildContext context, List<CreateOrderValidationError> errors) {
+  void _displayValidationErrors(
+    BuildContext context,
+    List<CreateOrderValidationError> errors,
+  ) {
     String errorsString = '';
-    for (var err in errors) errorsString = '$errorsString\n${_parseValidationError(err)}';
-
+    for (var err in errors) {
+      errorsString = '$errorsString\n${_parseValidationError(err)}';
+    }
     showDialog(
       context: context,
       builder: (ctx) => WooDialog(
@@ -124,8 +129,8 @@ class CreateOrderView extends StatelessWidget {
   );
 
   Widget _contentState(
-      BuildContext context,
-      ContentCreateOrderState state
+    BuildContext context,
+    ContentCreateOrderState state,
   ) => Container(
         child: SingleChildScrollView(
           child: Column(
@@ -153,7 +158,8 @@ class CreateOrderView extends StatelessWidget {
                     ).tr(),
                     DotSpacer(),
                     Text(
-                      '${state.cart.totals.total}${WooAppConfig.currency}',
+                      '${parseTotals(state.cart.totals.total)}'
+                      '${WooAppConfig.currency}',
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w500,

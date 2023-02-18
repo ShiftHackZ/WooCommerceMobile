@@ -113,7 +113,7 @@
   "create_order_title": "New order",
   "create_order_products": "Products",
   "create_order_totals": "Total products price",
-  "create_order_person": "Order recipient",
+  "create_order_person": "Recipient",
   "create_order_name": "Name",
   "create_order_phone": "Phone",
   "create_order_shipping": "Shipping",
