@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:share/share.dart';
+import 'package:wooapp/config/config.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/datasource/wish_list_data_source.dart';
 import 'package:wooapp/locator.dart';
@@ -55,7 +56,7 @@ class _ProductActionsWidgetState extends State<ProductActionsWidget> {
         children: [
           ProductStockWidget(widget.product),
           Spacer(),
-          _buildIcon(
+          if (WooAppConfig.featureWishList) _buildIcon(
             FaIcon(
               _wishListPresent
                   ? FontAwesomeIcons.solidHeart
