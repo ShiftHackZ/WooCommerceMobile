@@ -13,10 +13,10 @@ class ProductCubit extends Cubit<ProductState> {
   final AppDb _db = locator<AppDb>();
   
   ProductCubit(this._productId) : super(InitialProductState()) {
-    _getProduct();
+    getProduct();
   }
 
-  void _getProduct() {
+  void getProduct() {
     emit(LoadingProductState());
     _dsProduct.getProduct(_productId).then((product) {
       _db.saveProductView(product);

@@ -69,8 +69,13 @@ class CustomerAuthDataSourceImpl extends CustomerAuthDataSource {
       .post(
         'wp/v2/users/lost-password',
         data: jsonEncode({
-          'user_login': username
-        })
+          'user_login': username.toString(),
+        }),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+        ),
       )
       .then((response) => WpRegResponse.fromJson(response.data));
   

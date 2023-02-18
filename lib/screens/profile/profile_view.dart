@@ -23,6 +23,7 @@ import 'package:wooapp/screens/settings/settings.dart';
 import 'package:wooapp/screens/wishlist/wishlist_screen.dart';
 import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
+import 'package:wooapp/widget/widget_retry.dart';
 import 'package:wooapp/widget/widget_woo_section.dart';
 
 class ProfileView extends StatelessWidget {
@@ -49,7 +50,7 @@ class ProfileView extends StatelessWidget {
                 case ContentProfileState:
                   return _contentState(context, (state as ContentProfileState).profile);
                 case ErrorProfileState:
-                  return _errorState();
+                  return _errorState(context);
                 case NoAuthProfileState:
                   return _noAuth(context);
                 default:
@@ -63,19 +64,7 @@ class ProfileView extends StatelessWidget {
 
   Widget _noAuth(BuildContext context) => NoAuthScreen(
         title: tr('tab_profile'),
-        appBar: AppBar(
-          title: Text(
-            'tab_profile',
-            style: TextStyle(
-              color: WooAppTheme.colorToolbarForeground,
-            ),
-          ).tr(),
-          leading: Icon(
-            Icons.person,
-            color: WooAppTheme.colorToolbarForeground,
-          ),
-          backgroundColor: WooAppTheme.colorToolbarBackground,
-        ),
+        appBar: _appBarFallback(),
         onRefresh: () {
           Future.delayed(Duration(milliseconds: 200), () {
             context.read<ProfileCubit>().getProfile();
@@ -200,8 +189,13 @@ class ProfileView extends StatelessWidget {
   Widget _loadingState(BuildContext context) =>
       ProfileShimmer(_profileSections(context));
 
-  Widget _errorState() => Center(
-        child: Text("Error"),
+  Widget _errorState(BuildContext context) => Scaffold(
+        appBar: _appBarFallback(),
+        body: SafeArea(
+          child: ErrorRetryWidget(
+            () => context.read<ProfileCubit>().getProfile(),
+          ),
+        ),
       );
 
   List<Widget> _profileSections(BuildContext context) => [
@@ -232,6 +226,9 @@ class ProfileView extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (_) => SettingsScreen()),
           ).then((value) {
+            if (value == true) {
+              context.read<ProfileCubit>().getProfile();
+            }
             print('back, context = $context');
           }),
         ),
@@ -319,4 +316,18 @@ class ProfileView extends StatelessWidget {
         ),
         SizedBox(height: 16),
       ];
+
+  AppBar _appBarFallback() => AppBar(
+    title: Text(
+      'tab_profile',
+      style: TextStyle(
+        color: WooAppTheme.colorToolbarForeground,
+      ),
+    ).tr(),
+    leading: Icon(
+      Icons.person,
+      color: WooAppTheme.colorToolbarForeground,
+    ),
+    backgroundColor: WooAppTheme.colorToolbarBackground,
+  );
 }

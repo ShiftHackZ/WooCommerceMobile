@@ -11,6 +11,7 @@ import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/category.dart';
 import 'package:wooapp/screens/featured/featured_sort.dart';
 import 'package:wooapp/widget/widget_catalog_item.dart';
+import 'package:wooapp/widget/widget_retry.dart';
 import 'package:wooapp/widget/widget_sort.dart';
 
 class CatalogScreen extends StatefulWidget {
@@ -60,6 +61,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<Category>(
             itemBuilder: (context, item, index) => CatalogItemWidget(item),
+            firstPageErrorIndicatorBuilder: (_) => ErrorRetryWidget(() {
+              _pagingController.refresh();
+            }),
           ),
           scrollDirection: Axis.vertical,
         ),

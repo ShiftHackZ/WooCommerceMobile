@@ -17,6 +17,11 @@ class ProfileCubit extends Cubit<ProfileState> {
     _db.clear().then((_) => getProfile());
   }
 
+  void onTabOpened() {
+    if (state is! NoAuthProfileState || state is! ErrorProfileState) return;
+    getProfile();
+  }
+
   void getProfile() async {
     emit(LoadingProfileState());
     var isAuthenticated = await _db.isAuthenticated();

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/datasource/orders_data_source.dart';
@@ -37,11 +38,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<Order>(
             itemBuilder: (context, item, index) => OrderItem(item),
+            firstPageProgressIndicatorBuilder: (_) => _loadingState(),
           ),
           scrollDirection: Axis.vertical,
         ),
       ),
     ),
+  );
+
+  Widget _loadingState() => Center(
+    child: Lottie.asset('assets/checkout_loader.json'),
   );
 
   @override
