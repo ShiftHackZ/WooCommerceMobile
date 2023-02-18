@@ -7,19 +7,23 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
+import 'package:wooapp/core/pair.dart';
+import 'package:wooapp/extensions/extensions_product.dart';
 import 'package:wooapp/model/order.dart';
 import 'package:wooapp/screens/home/home.dart';
 import 'package:wooapp/screens/orders/create/create_order_cubit.dart';
 import 'package:wooapp/screens/orders/create/create_order_state.dart';
-import 'package:wooapp/screens/orders/create/create_order_widget_payment.dart';
-import 'package:wooapp/screens/orders/create/create_order_widget_shipping.dart';
-import 'package:wooapp/screens/orders/create/create_order_widgets.dart';
+import 'package:wooapp/screens/orders/create/edit/edit_order_recipient.dart';
+import 'package:wooapp/screens/orders/create/edit/edit_order_shipping.dart';
+import 'package:wooapp/screens/orders/create/widgets/create_order_widget_payment.dart';
+import 'package:wooapp/screens/orders/create/widgets/create_order_widget_shipping.dart';
+import 'package:wooapp/screens/orders/create/widgets/create_order_widgets.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:wooapp/widget/widget_custom_spacer.dart';
 import 'package:wooapp/widget/widget_dialog.dart';
 import 'package:wooapp/widget/widget_retry.dart';
 
-import 'create_order_model.dart';
+import 'model/create_order_model.dart';
 
 class CreateOrderView extends StatelessWidget {
   @override
@@ -90,10 +94,14 @@ class CreateOrderView extends StatelessWidget {
     );
   }
 
-  void _displayValidationErrors(BuildContext context, List<CreateOrderValidationError> errors) {
+  void _displayValidationErrors(
+    BuildContext context,
+    List<CreateOrderValidationError> errors,
+  ) {
     String errorsString = '';
-    for (var err in errors) errorsString = '$errorsString\n${_parseValidationError(err)}';
-
+    for (var err in errors) {
+      errorsString = '$errorsString\n${_parseValidationError(err)}';
+    }
     showDialog(
       context: context,
       builder: (ctx) => WooDialog(
@@ -124,8 +132,8 @@ class CreateOrderView extends StatelessWidget {
   );
 
   Widget _contentState(
-      BuildContext context,
-      ContentCreateOrderState state
+    BuildContext context,
+    ContentCreateOrderState state,
   ) => Container(
         child: SingleChildScrollView(
           child: Column(
@@ -153,7 +161,8 @@ class CreateOrderView extends StatelessWidget {
                     ).tr(),
                     DotSpacer(),
                     Text(
-                      '${state.cart.totals.total}${WooAppConfig.currency}',
+                      '${parseTotals(state.cart.totals.total)}'
+                      '${WooAppConfig.currency}',
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
@@ -206,7 +215,25 @@ class CreateOrderView extends StatelessWidget {
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Color(0xD000000))
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => EditOrderRecipientScreen(
+                          recipient: state.recipient,
+                          otherRecipient: state.otherRecipient,
+                          isOther: state.isOtherRecipient,
+                        ),
+                      ),
+                    ).then((result) {
+                      if (result is Pair<CreateOrderRecipient, bool> == true) {
+                        context.read<CreateOrderCubit>().onNewRecipient(
+                          (result as  Pair<CreateOrderRecipient, bool>).first,
+                          isOther: result.second,
+                        );
+                      }
+                    });
+                  },
                   child: Row(
                     children: [
                       Text(
@@ -230,20 +257,24 @@ class CreateOrderView extends StatelessWidget {
                 FaIcon(
                   FontAwesomeIcons.child,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_name'),
-                '${state.recipient.firstName} ${state.recipient.lastName}',
+                state.isOtherRecipient
+                    ? '${state.otherRecipient.firstName} ${state.otherRecipient.lastName}'
+                    : '${state.recipient.firstName} ${state.recipient.lastName}',
                 () {},
               ),
               CreateOrderSection(
                 FaIcon(
                   FontAwesomeIcons.phoneFlip,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_phone'),
-                '${state.recipient.phone}',
+                state.isOtherRecipient
+                    ? '${state.otherRecipient.phone}'
+                    : '${state.recipient.phone}',
                 () {},
               ),
               SizedBox(height: 8),
@@ -257,7 +288,25 @@ class CreateOrderView extends StatelessWidget {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Color(0xD000000))
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => EditOrderShippingScreen(
+                          shipping: state.shipping,
+                          otherShipping: state.otherShipping,
+                          isOther: state.isOtherShipping,
+                        ),
+                      ),
+                    ).then((result) {
+                      if (result is Pair<CreateOrderShipping, bool> == true) {
+                        context.read<CreateOrderCubit>().onNewShipping(
+                          (result as  Pair<CreateOrderShipping, bool>).first,
+                          isOther: result.second,
+                        );
+                      }
+                    });
+                  },
                   child: Row(
                     children: [
                       Text(
@@ -279,62 +328,74 @@ class CreateOrderView extends StatelessWidget {
               SizedBox(height: 8),
               CreateOrderSection(
                 FaIcon(
-                  FontAwesomeIcons.globe
-                  , size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  FontAwesomeIcons.globe,
+                  size: 20,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_country'),
-                '${state.shipping.country}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.country}'
+                    : '${state.shipping.country}',
                 () {},
               ),
               CreateOrderSection(
                 FaIcon(
                   FontAwesomeIcons.map,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_state'),
-                '${state.shipping.state}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.state}'
+                    : '${state.shipping.state}',
                 () {},
               ),
               CreateOrderSection(
                 FaIcon(
                   FontAwesomeIcons.road,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_city'),
-                '${state.shipping.city}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.city}'
+                    : '${state.shipping.city}',
                 () {},
               ),
               CreateOrderSection(
                 FaIcon(
                   FontAwesomeIcons.locationArrow,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_post'),
-                '${state.shipping.index}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.index}'
+                    : '${state.shipping.index}',
                 () {},
               ),
               CreateOrderSection(
                 FaIcon(
                   FontAwesomeIcons.building,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_address_1'),
-                '${state.shipping.address1}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.address1}'
+                    : '${state.shipping.address1}',
                 () {},
               ),
               CreateOrderSection(
                 FaIcon(
                   FontAwesomeIcons.signsPost,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_address_2'),
-                '${state.shipping.address2}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.address2}'
+                    : '${state.shipping.address2}',
                 () {},
               ),
 

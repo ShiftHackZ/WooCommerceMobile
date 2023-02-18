@@ -19,18 +19,20 @@ class CartTotalItem extends StatefulWidget {
 }
 
 class _CartTotalItemState extends State<CartTotalItem> {
+  final GlobalKey<CartQuantityWidgetState> _keyQuantity = GlobalKey();
+  final String _initialTotal;
 
-  final String initialTotal;
+  var _isLoading = false;
+  var _total = '';
 
-  var isLoading = false;
-  var total = '';
-
-  _CartTotalItemState(this.initialTotal);
+  _CartTotalItemState(this._initialTotal);
 
   @override
   void initState() {
+    setState(() {
+      _total = _initialTotal;
+    });
     super.initState();
-    total = initialTotal;
   }
 
   @override
@@ -41,9 +43,9 @@ class _CartTotalItemState extends State<CartTotalItem> {
       //   'Total: ',
       //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
       // ),
-      !isLoading
+      !_isLoading
           ? Text(
-            '$total${WooAppConfig.currency}',
+            '$_total${WooAppConfig.currency}',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w700,
@@ -64,25 +66,30 @@ class _CartTotalItemState extends State<CartTotalItem> {
               ),
           ),
       Spacer(),
-      CartQuantityWidget(widget.item.itemKey, widget.item.quantity.value, () {
-        updatePrice();
-      }),
+      CartQuantityWidget(
+        key: _keyQuantity,
+        productCartKey: widget.item.itemKey,
+        initialQuantity:  widget.item.quantity.value,
+        callback: () => updatePrice(),
+      ),
     ],
   );
 
   void updatePrice() {
     setState(() {
-      isLoading = true;
+      _isLoading = true;
     });
     widget._ds.getItem(widget.item.itemKey).then((item) {
       setState(() {
-        isLoading = false;
-        total = item.totals.total.toString();
+        _isLoading = false;
+        _total = item.totals.total.toString();
+        _keyQuantity.currentState?.onLoadingFinished();
       });
     }).catchError((error) {
       setState(() {
-        isLoading = false;
-        total = initialTotal;
+        _isLoading = false;
+        _total = _initialTotal;
+        _keyQuantity.currentState?.onLoadingFinished();
       });
     });
   }

@@ -14,7 +14,7 @@ import 'package:wooapp/screens/auth/no_auth_screen.dart';
 import 'package:wooapp/screens/gallery/gallery.dart';
 import 'package:wooapp/screens/help/help_screen.dart';
 import 'package:wooapp/screens/map/shop_map_screen.dart';
-import 'package:wooapp/screens/orders/orders_screen.dart';
+import 'package:wooapp/screens/orders/list/orders_screen.dart';
 import 'package:wooapp/screens/profile/edit/profile_edit_screen.dart';
 import 'package:wooapp/screens/profile/profile_cubit.dart';
 import 'package:wooapp/screens/profile/profile_state.dart';
@@ -67,7 +67,7 @@ class ProfileView extends StatelessWidget {
         appBar: _appBarFallback(),
         onRefresh: () {
           Future.delayed(Duration(milliseconds: 200), () {
-            context.read<ProfileCubit>().getProfile();
+            context.read<ProfileCubit>().forceRefreshProfile();
           });
         },
       );
@@ -95,8 +95,8 @@ class ProfileView extends StatelessWidget {
             Navigator
               .push(context, MaterialPageRoute(builder: (_) => ProfileEditScreen()))
               .then((value) {
-                if (value) {
-                  context.read<ProfileCubit>().getProfile();
+                if (value == true) {
+                  context.read<ProfileCubit>().forceRefreshProfile();
                 }
                 print('back, context = $context');
               });
@@ -210,8 +210,8 @@ class ProfileView extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (_) => ShippingEditScreen()),
           ).then((value) {
-            if (value) {
-              context.read<ProfileCubit>().getProfile();
+            if (value == true) {
+              context.read<ProfileCubit>().forceRefreshProfile();
             }
             print('back, context = $context');
           }),

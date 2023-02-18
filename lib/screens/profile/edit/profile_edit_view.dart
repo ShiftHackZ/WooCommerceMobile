@@ -7,11 +7,10 @@ import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/model/customer_profile.dart';
 import 'package:wooapp/screens/profile/profile_cubit.dart';
 import 'package:wooapp/screens/profile/profile_state.dart';
-import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:validators/validators.dart';
+import 'package:wooapp/widget/input_field_decorator.dart';
 
 class ProfileEditView extends StatelessWidget {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final TextEditingController _emailController = TextEditingController();
@@ -20,11 +19,7 @@ class ProfileEditView extends StatelessWidget {
   final TextEditingController _phoneController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) => StatefulWrapper(
-      onInit: () {
-        //context.read<ProfileCubit>().getProfile();
-      },
-      child: Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           leading: BackButton(
             color: WooAppTheme.colorToolbarForeground,
@@ -44,7 +39,6 @@ class ProfileEditView extends StatelessWidget {
               case CompleteProfileState:
                 Navigator.pop(context, true);
                 break;
-              //ToDo ...
             }
           },
           child: BlocBuilder<ProfileCubit, ProfileState>(
@@ -71,164 +65,145 @@ class ProfileEditView extends StatelessWidget {
             },
           ),
         ),
-      )
-  );
+      );
 
-  Widget _contentState(BuildContext context, CustomerProfile profile) => Scaffold(
-    backgroundColor: WooAppTheme.colorCommonBackground,
-    bottomNavigationBar: Container(
-      height: 60,
-      child: Padding(
-        padding: EdgeInsets.only(right: 16, left: 16, bottom: 16),
-        child: ElevatedButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              hideKeyboardForce(context);
-              context.read<ProfileCubit>().updateProfile(
-                _emailController.text,
-                _firstNameController.text,
-                _lastNameController.text,
-                _phoneController.text
-              );
-            }
-          },
-          child: Text(
-            'update_profile',
-            style: TextStyle(
-              fontSize: 18,
-              color: WooAppTheme.colorPrimaryForeground,
-            ),
-          ).tr(),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(
-              WooAppTheme.colorPrimaryBackground,
-            ),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(36.0),
-                side: BorderSide(
-                  color: WooAppTheme.colorPrimaryBackground,
+  Widget _contentState(BuildContext context, CustomerProfile profile) =>
+      Scaffold(
+        backgroundColor: WooAppTheme.colorCommonBackground,
+        bottomNavigationBar: Container(
+          height: 60,
+          child: Padding(
+            padding: EdgeInsets.only(right: 16, left: 16, bottom: 16),
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  hideKeyboardForce(context);
+                  context.read<ProfileCubit>().updateProfile(
+                        _emailController.text,
+                        _firstNameController.text,
+                        _lastNameController.text,
+                        _phoneController.text,
+                      );
+                }
+              },
+              child: Text(
+                'update_profile',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: WooAppTheme.colorPrimaryForeground,
+                ),
+              ).tr(),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  WooAppTheme.colorPrimaryBackground,
+                ),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(36.0),
+                    side: BorderSide(
+                      color: WooAppTheme.colorPrimaryBackground,
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    ),
-    body: SafeArea(
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                TextFormField(
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    controller: _emailController,
-                    // cursorColor: Colors.blue,
-                    style: TextStyle(
+        body: SafeArea(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 16),
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(height: 20),
+                    TextFormField(
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      controller: _emailController,
+                      // cursorColor: Colors.blue,
+                      style: TextStyle(
                         fontSize: 16,
                         // color: Colors.white
+                      ),
+                      decoration: decorateTextFormField(tr('email')),
+                      validator: (value) =>
+                          !isEmail(value.toString()) ? 'Invalid E-Mail' : null,
                     ),
-                    decoration: _decorate(tr('email')),
-                    validator: (value) => !isEmail(value.toString()) ? 'Invalid E-Mail' : null
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    controller: _firstNameController,
-                    // cursorColor: Colors.blue,
-                    style: TextStyle(
-                      fontSize: 16,
-                      // color: Colors.white
+                    SizedBox(height: 16),
+                    TextFormField(
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      controller: _firstNameController,
+                      // cursorColor: Colors.blue,
+                      style: TextStyle(
+                        fontSize: 16,
+                        // color: Colors.white
+                      ),
+                      decoration: decorateTextFormField(tr('first_name')),
+                      validator: (value) {
+                        if (value.toString().isEmpty) {
+                          return 'First name is required';
+                        }
+                        return null;
+                      },
                     ),
-                    decoration: _decorate(tr('first_name')),
-                    validator: (value) {
-                      if (value.toString().isEmpty) {
-                        return 'First name is required';
-                      }
-                      return null;
-                    }
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    controller: _lastNameController,
-                    // cursorColor: Colors.blue,
-                    style: TextStyle(
-                      fontSize: 16,
-                      // color: Colors.white
+                    SizedBox(height: 16),
+                    TextFormField(
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      controller: _lastNameController,
+                      // cursorColor: Colors.blue,
+                      style: TextStyle(
+                        fontSize: 16,
+                        // color: Colors.white
+                      ),
+                      decoration: decorateTextFormField(tr('last_name')),
+                      validator: (value) {
+                        if (value.toString().isEmpty) {
+                          return 'Last name is required';
+                        }
+                        return null;
+                      },
                     ),
-                    decoration: _decorate(tr('last_name')),
-                    validator: (value) {
-                      if (value.toString().isEmpty) {
-                        return 'Last name is required';
-                      }
-                      return null;
-                    }
-                ),
-                SizedBox(height: 16),
-                TextFormField(
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                    controller: _phoneController,
-                    // cursorColor: Colors.blue,
-                    style: TextStyle(
-                      fontSize: 16,
-                      // color: Colors.white
+                    SizedBox(height: 16),
+                    TextFormField(
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                      controller: _phoneController,
+                      // cursorColor: Colors.blue,
+                      style: TextStyle(
+                        fontSize: 16,
+                        // color: Colors.white
+                      ),
+                      maxLength: 12,
+                      decoration: decorateTextFormField(tr('phone'), prefix: '+'),
+                      validator: (value) {
+                        if (value.toString().isEmpty) {
+                          return 'Phone is required';
+                        }
+                        return null;
+                      },
                     ),
-                    maxLength: 12,
-                    decoration: _decorate(tr('phone'), prefix: '+'),
-                    validator: (value) {
-                      if (value.toString().isEmpty) {
-                        return 'Phone is required';
-                      }
-                      return null;
-                    }
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
-    ),
-  );
+      );
 
   Widget _loadingState() => Center(
-    child: CircularProgressIndicator(
-      // backgroundColor: Colors.white,
-      strokeWidth: 1,
-    ),
-  );
+        child: CircularProgressIndicator(
+          // backgroundColor: Colors.white,
+          strokeWidth: 1,
+        ),
+      );
 
   Widget _errorState() => Center(
-    child: Text("Error"),
-  );
-
-  InputDecoration _decorate(String label, {String prefix = ''}) => InputDecoration(
-    enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(width: 0.0)
-    ),
-    focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(width: 1.0)
-    ),
-    errorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.redAccent, width: 1.0)
-    ),
-    focusedErrorBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.redAccent, width: 1.0)
-    ),
-    // labelStyle: TextStyle(color: Colors.white),
-    labelText: label,
-    prefixText: prefix
-  );
+        child: Text("Error"),
+      );
 }
