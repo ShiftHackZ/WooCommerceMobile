@@ -257,7 +257,7 @@ class CreateOrderView extends StatelessWidget {
                 FaIcon(
                   FontAwesomeIcons.child,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_name'),
                 state.isOtherRecipient
@@ -269,7 +269,7 @@ class CreateOrderView extends StatelessWidget {
                 FaIcon(
                   FontAwesomeIcons.phoneFlip,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_phone'),
                 state.isOtherRecipient
@@ -328,9 +328,9 @@ class CreateOrderView extends StatelessWidget {
               SizedBox(height: 8),
               CreateOrderSection(
                 FaIcon(
-                  FontAwesomeIcons.globe
-                  , size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  FontAwesomeIcons.globe,
+                  size: 20,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_country'),
                 state.isOtherShipping
@@ -342,7 +342,7 @@ class CreateOrderView extends StatelessWidget {
                 FaIcon(
                   FontAwesomeIcons.map,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_state'),
                 state.isOtherShipping
@@ -354,7 +354,7 @@ class CreateOrderView extends StatelessWidget {
                 FaIcon(
                   FontAwesomeIcons.road,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_city'),
                 state.isOtherShipping
@@ -366,7 +366,7 @@ class CreateOrderView extends StatelessWidget {
                 FaIcon(
                   FontAwesomeIcons.locationArrow,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_post'),
                 state.isOtherShipping
@@ -378,7 +378,7 @@ class CreateOrderView extends StatelessWidget {
                 FaIcon(
                   FontAwesomeIcons.building,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_address_1'),
                 state.isOtherShipping
@@ -390,7 +390,7 @@ class CreateOrderView extends StatelessWidget {
                 FaIcon(
                   FontAwesomeIcons.signsPost,
                   size: 20,
-                  color: WooAppTheme.colorCardCreateOrderText,
+                  color: WooAppTheme.colorPrimaryBackground,
                 ),
                 tr('create_order_address_2'),
                 state.isOtherShipping

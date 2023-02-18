@@ -95,8 +95,7 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
                     FontAwesomeIcons.userLarge,
                     color: WooAppTheme.colorCreateOrderHeaderText,
                   ),
-                  // tr('create_order_payment_method'),
-                  'Оберіть хто буде отримувати замовлення',
+                  tr('create_order_edit_recipient_select'),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -107,8 +106,7 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
                     FontAwesomeIcons.passport,
                     color: WooAppTheme.colorCreateOrderHeaderText,
                   ),
-                  // tr('create_order_payment_method'),
-                  'Персональні дані отримувача',
+                  tr('create_order_edit_recipient_data'),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 22),
@@ -131,10 +129,7 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
               var validPredicate = _firstNameError == null &&
                   _lastNameError == null &&
                   _phoneError == null;
-              if (validPredicate) {
-                print('FORM VALID');
-                _executeSubmission();
-              }
+              if (validPredicate) _executeSubmission();
             },
             child: Container(
               alignment: Alignment.center,
@@ -148,7 +143,7 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
                   ),
                   SizedBox(width: 8),
                   Text(
-                    'Зберегти',
+                    'create_order_edit_confirm_action',
                     style: TextStyle(
                       fontSize: 18,
                       color: WooAppTheme.colorPrimaryForeground,
@@ -234,7 +229,9 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
                     height: 10,
                   ),
                   Text(
-                    isOtherRecipient ? 'Other' : 'me',
+                    isOtherRecipient
+                        ? tr('create_order_recipient_other')
+                        : tr('create_order_recipient_me'),
                     style: TextStyle(
                       fontSize:
                           _isOtherRecipient == isOtherRecipient ? 18.5 : 18,
@@ -272,7 +269,7 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
                   errorText: _firstNameError),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  setState(() => _firstNameError = 'First name is required');
+                  setState(() => _firstNameError = tr('error_validation_first_name'));
                   return null;
                 }
                 setState(() => _firstNameError = null);
@@ -295,7 +292,7 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
               ),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  setState(() => _lastNameError = 'Last name is required');
+                  setState(() => _lastNameError = tr('error_validation_last_name'));
                   return null;
                 }
                 setState(() => _lastNameError = null);
@@ -321,7 +318,7 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
               ),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  setState(() => _phoneError = 'Phone is required');
+                  setState(() => _phoneError = tr('error_validation_phone'));
                   return null;
                 }
                 setState(() => _phoneError = null);
