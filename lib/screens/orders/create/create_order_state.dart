@@ -18,6 +18,8 @@ class ContentCreateOrderState extends CreateOrderState {
   CreateOrderRecipient otherRecipient;
   bool isOtherRecipient;
   CreateOrderShipping shipping;
+  CreateOrderShipping otherShipping;
+  bool isOtherShipping;
   List<ShippingMethod> shippingMethods;
   List<PaymentMethod> paymentMethods;
 
@@ -32,6 +34,8 @@ class ContentCreateOrderState extends CreateOrderState {
     this.otherRecipient,
     this.isOtherRecipient,
     this.shipping,
+    this.otherShipping,
+    this.isOtherShipping,
     this.shippingMethods,
     this.paymentMethods,
     this.selectedShippingIndex,

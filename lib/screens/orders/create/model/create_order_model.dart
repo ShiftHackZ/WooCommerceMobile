@@ -28,16 +28,16 @@ class CreateOrderRecipient {
 }
 
 class CreateOrderShipping {
-  String country;
-  String state;
-  String city;
-  String index;
-  String address1;
-  String address2;
+  final String country;
+  final String state;
+  final String city;
+  final String index;
+  final String address1;
+  final String address2;
 
   CreateOrderShipping(this.country, this.state, this.city, this.index, this.address1, this.address2);
 
-  CreateOrderShipping.empty()
+  const CreateOrderShipping.empty()
     : country = '',
       state = '',
       city = '',

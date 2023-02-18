@@ -14,6 +14,7 @@ import 'package:wooapp/screens/home/home.dart';
 import 'package:wooapp/screens/orders/create/create_order_cubit.dart';
 import 'package:wooapp/screens/orders/create/create_order_state.dart';
 import 'package:wooapp/screens/orders/create/edit/edit_order_recipient.dart';
+import 'package:wooapp/screens/orders/create/edit/edit_order_shipping.dart';
 import 'package:wooapp/screens/orders/create/widgets/create_order_widget_payment.dart';
 import 'package:wooapp/screens/orders/create/widgets/create_order_widget_shipping.dart';
 import 'package:wooapp/screens/orders/create/widgets/create_order_widgets.dart';
@@ -230,8 +231,6 @@ class CreateOrderView extends StatelessWidget {
                           (result as  Pair<CreateOrderRecipient, bool>).first,
                           isOther: result.second,
                         );
-                        // (result as  Pair<CreateOrderRecipient, bool>).first;
-                        print('PAYLOAD DELIVERED');
                       }
                     });
                   },
@@ -289,7 +288,25 @@ class CreateOrderView extends StatelessWidget {
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Color(0xD000000))
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => EditOrderShippingScreen(
+                          shipping: state.shipping,
+                          otherShipping: state.otherShipping,
+                          isOther: state.isOtherShipping,
+                        ),
+                      ),
+                    ).then((result) {
+                      if (result is Pair<CreateOrderShipping, bool> == true) {
+                        context.read<CreateOrderCubit>().onNewShipping(
+                          (result as  Pair<CreateOrderShipping, bool>).first,
+                          isOther: result.second,
+                        );
+                      }
+                    });
+                  },
                   child: Row(
                     children: [
                       Text(
@@ -316,7 +333,9 @@ class CreateOrderView extends StatelessWidget {
                   color: WooAppTheme.colorCardCreateOrderText,
                 ),
                 tr('create_order_country'),
-                '${state.shipping.country}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.country}'
+                    : '${state.shipping.country}',
                 () {},
               ),
               CreateOrderSection(
@@ -326,7 +345,9 @@ class CreateOrderView extends StatelessWidget {
                   color: WooAppTheme.colorCardCreateOrderText,
                 ),
                 tr('create_order_state'),
-                '${state.shipping.state}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.state}'
+                    : '${state.shipping.state}',
                 () {},
               ),
               CreateOrderSection(
@@ -336,7 +357,9 @@ class CreateOrderView extends StatelessWidget {
                   color: WooAppTheme.colorCardCreateOrderText,
                 ),
                 tr('create_order_city'),
-                '${state.shipping.city}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.city}'
+                    : '${state.shipping.city}',
                 () {},
               ),
               CreateOrderSection(
@@ -346,7 +369,9 @@ class CreateOrderView extends StatelessWidget {
                   color: WooAppTheme.colorCardCreateOrderText,
                 ),
                 tr('create_order_post'),
-                '${state.shipping.index}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.index}'
+                    : '${state.shipping.index}',
                 () {},
               ),
               CreateOrderSection(
@@ -356,7 +381,9 @@ class CreateOrderView extends StatelessWidget {
                   color: WooAppTheme.colorCardCreateOrderText,
                 ),
                 tr('create_order_address_1'),
-                '${state.shipping.address1}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.address1}'
+                    : '${state.shipping.address1}',
                 () {},
               ),
               CreateOrderSection(
@@ -366,7 +393,9 @@ class CreateOrderView extends StatelessWidget {
                   color: WooAppTheme.colorCardCreateOrderText,
                 ),
                 tr('create_order_address_2'),
-                '${state.shipping.address2}',
+                state.isOtherShipping
+                    ? '${state.otherShipping.address2}'
+                    : '${state.shipping.address2}',
                 () {},
               ),
 

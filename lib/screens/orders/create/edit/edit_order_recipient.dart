@@ -66,11 +66,11 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
 
   @override
   Widget build(BuildContext context) => Stack(
-    children: [
-      _buildScreenContent(),
-      if (_loading) WooFullScreenLoader(),
-    ],
-  );
+        children: [
+          _buildScreenContent(),
+          if (_loading) WooFullScreenLoader(),
+        ],
+      );
 
   Widget _buildScreenContent() => Scaffold(
         bottomNavigationBar: _buildBottomActionBar(),
@@ -134,9 +134,7 @@ class _EditOrderRecipientScreenState extends State<EditOrderRecipientScreen> {
               if (validPredicate) {
                 print('FORM VALID');
                 _executeSubmission();
-              } /*else {
-                print('FORM NOT VALID');
-              }*/
+              }
             },
             child: Container(
               alignment: Alignment.center,

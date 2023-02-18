@@ -166,7 +166,7 @@ class ShippingEditView extends StatelessWidget {
                     decoration: _decorate(tr('shipping_state')),
                     validator: (value) {
                       if (value.toString().isEmpty) {
-                        return 'Last name is required';
+                        return 'State is required';
                       }
                       return null;
                     }
@@ -205,7 +205,7 @@ class ShippingEditView extends StatelessWidget {
                     decoration: _decorate(tr('shipping_address_1')),
                     validator: (value) {
                       if (value.toString().isEmpty) {
-                        return 'Phone is required';
+                        return 'Address is required';
                       }
                       return null;
                     }
@@ -223,7 +223,7 @@ class ShippingEditView extends StatelessWidget {
                     decoration: _decorate(tr('shipping_address_2')),
                     validator: (value) {
                       if (value.toString().isEmpty) {
-                        return 'Phone is required';
+                        return 'Address is required';
                       }
                       return null;
                     }
