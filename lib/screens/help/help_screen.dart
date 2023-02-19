@@ -18,66 +18,83 @@ class HelpScreen extends StatelessWidget {
             ),
           ).tr(),
           backgroundColor: WooAppTheme.colorToolbarBackground,
+          elevation: 0,
         ),
-        backgroundColor: WooAppTheme.colorCommonBackground,
+        backgroundColor: WooAppTheme.colorToolbarBackground,
         body: SafeArea(
-          child: SingleChildScrollView(
+          child: Container(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 16),
-                WooSection(
-                  icon: FaIcon(
-                    FontAwesomeIcons.headset,
-                    color: WooAppTheme.colorCommonSectionForeground,
+                Spacer(),
+                Container(
+                  decoration: BoxDecoration(
+                    color: WooAppTheme.colorCommonBackground,
+                    borderRadius: BorderRadius.only(
+                      topLeft: const Radius.circular(20.0),
+                      topRight: const Radius.circular(20.0),
+                    ),
                   ),
-                  text: tr('support'),
-                  action: () {},
-                ),
-                WooSection(
-                  icon: FaIcon(
-                    FontAwesomeIcons.question,
-                    color: WooAppTheme.colorCommonSectionForeground,
-                  ),
-                  text: tr('faq'),
-                  action: () {},
-                ),
-                SizedBox(height: 8),
-                WooSection(
-                  icon: FaIcon(
-                    FontAwesomeIcons.book,
-                    color: WooAppTheme.colorCommonSectionForeground,
-                  ),
-                  text: tr('privacy_policy'),
-                  action: () {},
-                ),
-                WooSection(
-                  icon: FaIcon(
-                    FontAwesomeIcons.list,
-                    color: WooAppTheme.colorCommonSectionForeground,
-                  ),
-                  text: tr('terms_of_use'),
-                  action: () {},
-                ),
-                WooSection(
-                  icon: FaIcon(
-                    FontAwesomeIcons.circleInfo,
-                    color: WooAppTheme.colorCommonSectionForeground,
-                  ),
-                  text: tr('about_us'),
-                  action: () {},
-                ),
-                SizedBox(height: 8),
-                WooSection(
-                  icon: FaIcon(
-                    FontAwesomeIcons.star,
-                    color: WooAppTheme.colorCommonSectionForeground,
-                  ),
-                  text: tr('rate_app'),
-                  action: () {},
+                  child: _buildHelpSections(),
                 ),
               ],
             ),
           ),
         ),
+      );
+
+  Widget _buildHelpSections() => Column(
+        children: [
+          SizedBox(height: 16),
+          WooSection(
+            icon: FaIcon(
+              FontAwesomeIcons.headset,
+              color: WooAppTheme.colorCommonSectionForeground,
+            ),
+            text: tr('support'),
+            action: () {},
+          ),
+          WooSection(
+            icon: FaIcon(
+              FontAwesomeIcons.question,
+              color: WooAppTheme.colorCommonSectionForeground,
+            ),
+            text: tr('faq'),
+            action: () {},
+          ),
+          WooSection(
+            icon: FaIcon(
+              FontAwesomeIcons.book,
+              color: WooAppTheme.colorCommonSectionForeground,
+            ),
+            text: tr('privacy_policy'),
+            action: () {},
+          ),
+          WooSection(
+            icon: FaIcon(
+              FontAwesomeIcons.list,
+              color: WooAppTheme.colorCommonSectionForeground,
+            ),
+            text: tr('terms_of_use'),
+            action: () {},
+          ),
+          WooSection(
+            icon: FaIcon(
+              FontAwesomeIcons.circleInfo,
+              color: WooAppTheme.colorCommonSectionForeground,
+            ),
+            text: tr('about_us'),
+            action: () {},
+          ),
+          WooSection(
+            icon: FaIcon(
+              FontAwesomeIcons.star,
+              color: WooAppTheme.colorCommonSectionForeground,
+            ),
+            text: tr('rate_app'),
+            action: () {},
+          ),
+          SizedBox(height: 12),
+        ],
       );
 }
