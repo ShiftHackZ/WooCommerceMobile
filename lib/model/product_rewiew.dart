@@ -19,7 +19,7 @@ class ProductReview {
       reviewer = json['reviewer'],
       reviewerEmail = json['reviewer_email'],
       review = json['review'],
-      rating = double.tryParse(json['rating'].toString()) ?? 0,
+      rating = double.tryParse(json['rating'].toString()) ?? 1,
       reviewerAvatar = ProductReviewAvatar.fromJson(json['reviewer_avatar_urls']);
 }
 

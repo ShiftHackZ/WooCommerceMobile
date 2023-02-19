@@ -100,12 +100,13 @@ class ProductView extends StatelessWidget {
                           ),
                           unratedColor: WooAppTheme.colorRatingNonActive,
                           itemCount: 5,
-                          itemSize: 12,
+                          itemSize: 16,
                           direction: Axis.horizontal,
                         ),
                         Text(
                           ' ${product.rating.toString()}',
                           style: TextStyle(
+                            fontWeight: FontWeight.w700,
                             color: WooAppTheme.colorRatingText,
                           ),
                         ),

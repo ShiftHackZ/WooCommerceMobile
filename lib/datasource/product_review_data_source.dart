@@ -20,7 +20,8 @@ class ProductReviewDataSourceImpl extends ProductReviewDataSource {
         'review': review,
         'reviewer': user.name,
         'reviewer_email': user.email,
-        'rating': rating
+        'rating': rating,
+        'status': 'hold',
       }))
       .then((response) => ProductReview.fromJson(response.data));
 }

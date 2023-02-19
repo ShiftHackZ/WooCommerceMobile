@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/config/config.dart';
+import 'package:wooapp/database/database.dart';
 import 'package:wooapp/datasource/product_review_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/product_rewiew.dart';
@@ -21,52 +22,55 @@ class ReviewsScreen extends StatefulWidget {
 }
 
 class _ReviewsScreenState extends State<ReviewsScreen> {
-  final ProductReviewDataSource _ds =
-      locator<ProductReviewDataSource>();
   final PagingController<int, ProductReview> _pagingController =
       PagingController(firstPageKey: 1);
 
+  final ProductReviewDataSource _ds = locator<ProductReviewDataSource>();
+  final AppDb _db = locator<AppDb>();
+
+  bool _hasAuth = false;
+
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      leading: BackButton(
-        color: WooAppTheme.colorToolbarForeground,
-      ),
-      title: Text(
-        'reviews',
-        style: TextStyle(
-          color: WooAppTheme.colorToolbarForeground,
+        appBar: AppBar(
+          leading: BackButton(
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+          title: Text(
+            'reviews',
+            style: TextStyle(
+              color: WooAppTheme.colorToolbarForeground,
+            ),
+          ).tr(),
+          backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
-      ).tr(),
-      backgroundColor: WooAppTheme.colorToolbarBackground,
-    ),
-    backgroundColor: WooAppTheme.colorCommonBackground,
-    bottomNavigationBar: _bottomBar(),
-    body: SafeArea(
-      child: Container(
-        child: PagedListView(
-          pagingController: _pagingController,
-          builderDelegate: PagedChildBuilderDelegate<ProductReview>(
-            itemBuilder: (context, item, index) => ReviewItemWidget(item),
-            noItemsFoundIndicatorBuilder: (_) => WooEmptyStateWidget(
-              mainAxisAlignment: MainAxisAlignment.center,
-              animation: WooEmptyStateAnimation.review,
-              keyTitle: 'product_review_empty_title',
-              keySubTitle: 'product_review_empty_subtitle',
-              // action: WooEmptyStateAction(
-              //   buttonLabel: tr('orders_empty_action'),
-              //   buttonClick: () => Navigator.pop(context, true),
-              // ),
+        backgroundColor: WooAppTheme.colorCommonBackground,
+        bottomNavigationBar: _bottomBar(),
+        body: SafeArea(
+          child: Container(
+            child: PagedListView(
+              pagingController: _pagingController,
+              builderDelegate: PagedChildBuilderDelegate<ProductReview>(
+                itemBuilder: (context, item, index) => Padding(
+                  padding: index == 0 ? EdgeInsets.only(top: 8) : EdgeInsets.zero,
+                  child: ReviewItemWidget(item),
+                ),
+                noItemsFoundIndicatorBuilder: (_) => WooEmptyStateWidget(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  animation: WooEmptyStateAnimation.review,
+                  keyTitle: 'product_review_empty_title',
+                  keySubTitle: 'product_review_empty_subtitle',
+                ),
+              ),
             ),
           ),
         ),
-      ),
-    ),
-  );
+      );
 
   @override
   void initState() {
     _pagingController.addPageRequestListener((pageKey) => _fetch(pageKey));
+    _db.isAuthenticated().then((hasAuth) => setState(() => _hasAuth = hasAuth));
     super.initState();
   }
 
@@ -78,9 +82,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
 
   Future<void> _fetch(int page) async {
     try {
-      final items = await _ds.getReviews(widget.productId, page).catchError((error, stackTrace) {
-        print(error.toString());
-      });
+      final items = await _ds.getReviews(widget.productId, page);
       final isLast = items.length < WooAppConfig.paginationLimit;
       if (isLast) {
         _pagingController.appendLastPage(items);
@@ -93,19 +95,24 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
     }
   }
 
-  Widget _bottomBar() => Container(
-    padding: EdgeInsets.only(bottom: 8, right: 8, left: 8),
-    height: 60,
-    child: ElevatedButton(
-      onPressed: () => Navigator
-          .push(context, MaterialPageRoute(builder: (_) => AddReviewScreen(widget.productId)))
-          .then((value) {
-        // Future.delayed(Duration(milliseconds: 200), () {
-        //   context.read<ProfileCubit>().getProfile();
-        // });
-        print('back, value = $value');
-      }),
-      child: Container(
+  Widget? _bottomBar() {
+    if (!_hasAuth) return null;
+    return Container(
+      padding: EdgeInsets.only(bottom: 8, right: 8, left: 8),
+      height: 60,
+      child: ElevatedButton(
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => AddReviewScreen(widget.productId),
+          ),
+        ).then((value) {
+          // Future.delayed(Duration(milliseconds: 200), () {
+          //   context.read<ProfileCubit>().getProfile();
+          // });
+          print('back, value = $value');
+        }),
+        child: Container(
           alignment: Alignment.center,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -124,21 +131,22 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
                 ),
               ).tr(),
             ],
-          )
-      ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(
-          WooAppTheme.colorPrimaryBackground,
+          ),
         ),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(36.0),
-            side: BorderSide(
-              color: WooAppTheme.colorPrimaryBackground,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+            WooAppTheme.colorPrimaryBackground,
+          ),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(36.0),
+              side: BorderSide(
+                color: WooAppTheme.colorPrimaryBackground,
+              ),
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }

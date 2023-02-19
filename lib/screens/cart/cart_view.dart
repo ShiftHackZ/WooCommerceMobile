@@ -73,6 +73,7 @@ class CartView extends StatelessWidget {
 
   Widget _emptyState(BuildContext context) => SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             EmptyCartWidget(shoppingCallback),
             SizedBox(height: 50),
