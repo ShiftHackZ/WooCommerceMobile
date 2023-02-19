@@ -10,8 +10,9 @@ import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/category/fliter/category_filter_screen.dart';
 import 'package:wooapp/screens/category/info/category_info_screen.dart';
 import 'package:wooapp/widget/shimmer.dart';
+import 'package:wooapp/widget/widget_empty_state.dart';
 import 'package:wooapp/widget/widget_product_grid.dart';
-import 'package:wooapp/widget/widget_retry.dart';
+import 'package:wooapp/widget/widget_error_state.dart';
 
 class CategoryScreen extends StatefulWidget {
   final int categoryId;
@@ -114,9 +115,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
             builderDelegate: PagedChildBuilderDelegate<CategoryProduct>(
               itemBuilder: (ctx, item, index) => CategoryProductGridItem(item),
               firstPageProgressIndicatorBuilder: (_) => FeaturedShimmer(true),
-              firstPageErrorIndicatorBuilder: (_) => ErrorRetryWidget(() {
+              firstPageErrorIndicatorBuilder: (_) => WooErrorStateWidget(() {
                 _pagingController.refresh();
               }),
+              noItemsFoundIndicatorBuilder: (_) => WooEmptyStateWidget(
+                mainAxisAlignment: MainAxisAlignment.center,
+              ),
               newPageProgressIndicatorBuilder: (_) => FeaturedShimmer(false),
               newPageErrorIndicatorBuilder: (_) => CircularProgressIndicator(),
             ),

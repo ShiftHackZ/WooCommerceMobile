@@ -16,7 +16,7 @@ import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:wooapp/widget/widget_cart_empty.dart';
 import 'package:wooapp/widget/widget_cart_total.dart';
-import 'package:wooapp/widget/widget_retry.dart';
+import 'package:wooapp/widget/widget_error_state.dart';
 
 class CartView extends StatelessWidget {
   final VoidCallback shoppingCallback;
@@ -272,7 +272,7 @@ class CartView extends StatelessWidget {
 
   Widget _errorState(BuildContext context) => Scaffold(
         body: SafeArea(
-          child: ErrorRetryWidget(
+          child: WooErrorStateWidget(
             () => context.read<CartCubit>().getCart(),
           ),
         ),

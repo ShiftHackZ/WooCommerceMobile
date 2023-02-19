@@ -1,13 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:wooapp/config/config.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/screens/cart/cart_screen.dart';
 import 'package:wooapp/screens/catalog/catalog_screen.dart';
 import 'package:wooapp/screens/featured/featured.dart';
 import 'package:wooapp/screens/profile/profile_screen.dart';
-import 'package:wooapp/widget/stateful_wrapper.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -21,7 +19,7 @@ class HomeScreenState extends State<HomeScreen> {
   late List<Widget> _tabs;
   late List<BottomNavigationBarItem> _bottomItems;
 
-  /*= [
+  /*[
     BottomNavigationBarItem(icon: Icon(Icons.home), label: tr('tab_home')),
     BottomNavigationBarItem(icon: Icon(Icons.dashboard_rounded), label: tr('tab_search')),
     /*BottomNavigationBarItem(
@@ -42,6 +40,7 @@ class HomeScreenState extends State<HomeScreen> {
   ];*/
 
   void _openStore() {
+    if (!WooAppConfig.featureHomepage) return;
     setState(() {
       _currentTab = 0;
     });
@@ -81,7 +80,9 @@ class HomeScreenState extends State<HomeScreen> {
           shoppingCallback: () => _openStore(),
         ),
       if (WooAppConfig.featureProfile)
-        ProfileScreen(),
+        ProfileScreen(
+          shoppingCallback: () => _openStore(),
+        ),
     ];
     super.initState();
   }

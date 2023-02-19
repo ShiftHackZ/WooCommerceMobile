@@ -1,11 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/wishlist/wishlist_cubit.dart';
 import 'package:wooapp/screens/wishlist/wishlist_state.dart';
 import 'package:wooapp/widget/shimmer.dart';
+import 'package:wooapp/widget/widget_empty_state.dart';
+import 'package:wooapp/widget/widget_error_state.dart';
 import 'package:wooapp/widget/widget_product_grid.dart';
 
 class WishListView extends StatelessWidget {
@@ -31,11 +34,30 @@ class WishListView extends StatelessWidget {
               switch (state.runtimeType) {
                 case ContentWishListState:
                   return _contentState(context, state as ContentWishListState);
+                case EmptyWishListState:
+                  return _emptyState(context);
+                case ErrorWishListState:
+                  return _errorState(context);
                 default:
                   return _loadingState(context);
               }
             },
           ),
+        ),
+      );
+
+  Widget _errorState(BuildContext context) => WooErrorStateWidget(() {
+        context.read<WishListCubit>().initialLoad();
+      });
+
+  Widget _emptyState(BuildContext context) => WooEmptyStateWidget(
+        mainAxisAlignment: MainAxisAlignment.center,
+        animation: WooEmptyStateAnimation.wishlist,
+        keySubTitle: 'wish_list_empty_subtitle',
+        action: WooEmptyStateAction(
+          buttonLabel: tr('cart_empty_action'),
+          buttonClick: () => Navigator.pop(context, true),
+          icon: FontAwesomeIcons.basketShopping,
         ),
       );
 

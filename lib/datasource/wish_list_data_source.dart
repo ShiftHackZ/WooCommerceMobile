@@ -38,7 +38,7 @@ class WishListDataSourceImpl extends WishListDataSource {
                       .toList(),
                 );
         var data =
-            await _mapWishEntriesToProducts(entries, products);
+            _mapWishEntriesToProducts(entries, products);
 
         return data;
       });

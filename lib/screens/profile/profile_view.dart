@@ -24,11 +24,15 @@ import 'package:wooapp/screens/settings/settings.dart';
 import 'package:wooapp/screens/wishlist/wishlist_screen.dart';
 import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
-import 'package:wooapp/widget/widget_retry.dart';
+import 'package:wooapp/widget/widget_error_state.dart';
 import 'package:wooapp/widget/widget_woo_section.dart';
 import 'package:wooapp/widget/widget_woo_version.dart';
 
 class ProfileView extends StatelessWidget {
+  final VoidCallback shoppingCallback;
+
+  ProfileView({required this.shoppingCallback});
+
   @override
   Widget build(BuildContext context) => StatefulWrapper(
         onInit: () {
@@ -225,7 +229,7 @@ class ProfileView extends StatelessWidget {
   Widget _errorState(BuildContext context) => Scaffold(
         appBar: _appBarFallback(),
         body: SafeArea(
-          child: ErrorRetryWidget(
+          child: WooErrorStateWidget(
             () => context.read<ProfileCubit>().getProfile(),
           ),
         ),
@@ -274,7 +278,9 @@ class ProfileView extends StatelessWidget {
           action: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => WishListScreen()),
-          ),
+          ).then((result) {
+            if (result == true) shoppingCallback();
+          }),
         ),
         WooSection(
           icon: FaIcon(
@@ -285,7 +291,9 @@ class ProfileView extends StatelessWidget {
           action: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => OrdersScreen()),
-          ),
+          ).then((result) {
+            if (result == true) shoppingCallback();
+          }),
         ),
         // ToDo: It is now unclear how coupon feature should look line, hiding this section for the time being
         /*WooSection(

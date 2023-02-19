@@ -178,5 +178,16 @@
   "error_state_title": "Something went wrong",
   "error_state_subtitle": "We are working on fixing the problem.\nPlease, try again.",
   "error_state_retry": "Try again",
-  "error_user_not_exist": "There is no user registered with provided name.\nPlease, check your username!"
+  "error_user_not_exist": "There is no user registered with provided name.\nPlease, check your username!",
+  "empty_state_title": "No items here \uD83D\uDE48",
+  "empty_state_subtitle": "This list is currently empty",
+  "featured_empty_title": "Nothing found \uD83D\uDE48",
+  "featured_empty_subtitle": "Please try to change your filters or search keywords",
+  "featured_empty_action": "Clear filters",
+  "wish_list_empty_subtitle": "Start shopping and add items to your wish list",
+  "orders_empty_title": "You haven't ordered any of our great products yet",
+  "orders_empty_subtitle": "Maybe now it is great opportunity to make your first order",
+  "orders_empty_action": "Order something",
+  "product_review_empty_title": "No reviews yet",
+  "product_review_empty_subtitle": "Be the first to leave a review about the product, your opinion is important to us"
 }
