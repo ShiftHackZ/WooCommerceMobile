@@ -13,10 +13,11 @@ import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/featured/featured_filter.dart';
 import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/widget_category.dart';
+import 'package:wooapp/widget/widget_empty_state.dart';
 import 'package:wooapp/widget/widget_filter.dart';
 import 'package:wooapp/widget/widget_icon_notification.dart';
 import 'package:wooapp/widget/widget_product_grid.dart';
-import 'package:wooapp/widget/widget_retry.dart';
+import 'package:wooapp/widget/widget_error_state.dart';
 import 'package:wooapp/widget/widget_sort.dart';
 
 import 'featured_sort.dart';
@@ -45,10 +46,10 @@ class FeaturedListView extends StatefulWidget {
 }
 
 class _FeaturedListState extends State<FeaturedListView> {
-
-  final ProductsHomeDataSource _ds = locator<ProductsHomeDataSource>();
-
-  final PagingController<int, Product> _pagingController = PagingController(firstPageKey: 1);
+  final ProductsHomeDataSource _ds =
+      locator<ProductsHomeDataSource>();
+  final PagingController<int, Product> _pagingController =
+      PagingController(firstPageKey: 1);
 
   VoidCallback _categoryRefreshEvent = () {};
 
@@ -209,7 +210,26 @@ class _FeaturedListState extends State<FeaturedListView> {
               ),
               firstPageProgressIndicatorBuilder: (_) => FeaturedShimmer(true),
               newPageProgressIndicatorBuilder: (_) => FeaturedShimmer(false),
-              firstPageErrorIndicatorBuilder: (_) => ErrorRetryWidget(() {
+              noItemsFoundIndicatorBuilder: (_) => WooEmptyStateWidget(
+                keyTitle: 'featured_empty_title',
+                keySubTitle: 'featured_empty_subtitle',
+                action: WooEmptyStateAction(
+                  buttonLabel: tr('featured_empty_action'),
+                  buttonClick: () {
+                    _searchController.clear();
+                    _searchIconState = true;
+                    hideKeyboardForce(context);
+                    setState(() =>
+                      _filter = _filter
+                        ..clear()
+                        ..search = '',
+                    );
+                    _categoryRefreshEvent();
+                    _pagingController.refresh();
+                  },
+                ),
+              ),
+              firstPageErrorIndicatorBuilder: (_) => WooErrorStateWidget(() {
                 _categoryRefreshEvent();
                 _pagingController.refresh();
               }),

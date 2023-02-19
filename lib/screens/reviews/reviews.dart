@@ -8,6 +8,7 @@ import 'package:wooapp/datasource/product_review_data_source.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/product_rewiew.dart';
 import 'package:wooapp/screens/reviews/review_add.dart';
+import 'package:wooapp/widget/widget_empty_state.dart';
 import 'package:wooapp/widget/widget_review_item.dart';
 
 class ReviewsScreen extends StatefulWidget {
@@ -20,10 +21,10 @@ class ReviewsScreen extends StatefulWidget {
 }
 
 class _ReviewsScreenState extends State<ReviewsScreen> {
-
-  final ProductReviewDataSource _ds = locator<ProductReviewDataSource>();
-
-  final PagingController<int, ProductReview> _pagingController = PagingController(firstPageKey: 1);
+  final ProductReviewDataSource _ds =
+      locator<ProductReviewDataSource>();
+  final PagingController<int, ProductReview> _pagingController =
+      PagingController(firstPageKey: 1);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -47,8 +48,17 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<ProductReview>(
             itemBuilder: (context, item, index) => ReviewItemWidget(item),
+            noItemsFoundIndicatorBuilder: (_) => WooEmptyStateWidget(
+              mainAxisAlignment: MainAxisAlignment.center,
+              animation: WooEmptyStateAnimation.review,
+              keyTitle: 'product_review_empty_title',
+              keySubTitle: 'product_review_empty_subtitle',
+              // action: WooEmptyStateAction(
+              //   buttonLabel: tr('orders_empty_action'),
+              //   buttonClick: () => Navigator.pop(context, true),
+              // ),
+            ),
           ),
-          // scrollDirection: Axis.vertical,
         ),
       ),
     ),

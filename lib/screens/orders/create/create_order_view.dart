@@ -21,7 +21,7 @@ import 'package:wooapp/screens/orders/create/widgets/create_order_widgets.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:wooapp/widget/widget_custom_spacer.dart';
 import 'package:wooapp/widget/widget_dialog.dart';
-import 'package:wooapp/widget/widget_retry.dart';
+import 'package:wooapp/widget/widget_error_state.dart';
 
 import 'model/create_order_model.dart';
 
@@ -128,7 +128,7 @@ class CreateOrderView extends StatelessWidget {
   );
 
   Widget _errorState(BuildContext context) => Container(
-    child: ErrorRetryWidget(() => context.read<CreateOrderCubit>().getItems()),
+    child: WooErrorStateWidget(() => context.read<CreateOrderCubit>().getItems()),
   );
 
   Widget _contentState(

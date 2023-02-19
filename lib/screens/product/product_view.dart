@@ -22,7 +22,7 @@ import 'package:wooapp/widget/widget_catalog_products.dart';
 import 'package:wooapp/widget/widget_price_product.dart';
 import 'package:wooapp/widget/widget_product_actions.dart';
 import 'package:wooapp/widget/widget_product_info.dart';
-import 'package:wooapp/widget/widget_retry.dart';
+import 'package:wooapp/widget/widget_error_state.dart';
 import 'package:wooapp/widget/widget_text_expanded.dart';
 import 'package:wooapp/widget/widget_woo_section.dart';
 
@@ -259,7 +259,7 @@ class ProductView extends StatelessWidget {
   Widget _errorState(BuildContext context) => Scaffold(
         appBar: _appBar(),
         body: SafeArea(
-          child: ErrorRetryWidget(
+          child: WooErrorStateWidget(
             () => context.read<ProductCubit>().getProduct(),
           ),
         ),

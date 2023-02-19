@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wooapp/datasource/wish_list_data_source.dart';
 import 'package:wooapp/locator.dart';
@@ -14,7 +16,8 @@ class WishListCubit extends Cubit<WishListState> {
     if (state is! ContentWishListState) return;
     var entry = (state as ContentWishListState).wishlist[index];
     var newList = (state as ContentWishListState).wishlist..removeAt(index);
-    emit(ContentWishListState(newList));
+    if (newList.isEmpty) emit(EmptyWishListState());
+    else emit(ContentWishListState(newList));
     _ds.removeProductByItemId(entry.first.itemId.toString());
   }
 
@@ -25,7 +28,11 @@ class WishListCubit extends Cubit<WishListState> {
 
   void _load() {
     _ds.getWishListWithProducts().then((value) {
-      emit(ContentWishListState(value));
+      if (value.isEmpty) emit(EmptyWishListState());
+      else emit(ContentWishListState(value));
+    }).catchError((error, stackTrace) {
+      Completer().completeError(error, stackTrace);
+      emit(ErrorWishListState());
     });
   }
 }

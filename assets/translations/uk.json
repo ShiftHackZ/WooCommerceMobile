@@ -178,5 +178,16 @@
   "error_state_title": "Щось пішло не так",
   "error_state_subtitle": "Ми працюємо над усуненням помилки.\nБудь-ласка, спробуйте ще раз.",
   "error_state_retry": "Перезавантажити",
-  "error_user_not_exist": "Користувача з таким ім'ям не існує.\nБудь-ласка, перевірте ім'я користувача!"
+  "error_user_not_exist": "Користувача з таким ім'ям не існує.\nБудь-ласка, перевірте ім'я користувача!",
+  "empty_state_title": "Тут нічого немає \uD83D\uDE48",
+  "empty_state_subtitle": "Наразі тут порожньо",
+  "featured_empty_title": "Ми нічого не знайшли \uD83D\uDE48",
+  "featured_empty_subtitle": "Спробуйте змінити фільтри чи пошукову фразу",
+  "featured_empty_action": "Скинути фільтри",
+  "wish_list_empty_subtitle": "Почніть покупки, та додавайте товари до списку бажань",
+  "orders_empty_title": "Ви ще нічого не замовляли",
+  "orders_empty_subtitle": "Можливо зараз саме час зробити своє перше замовдення",
+  "orders_empty_action": "Замовити",
+  "product_review_empty_title": "Відгуків поки що немає",
+  "product_review_empty_subtitle": "Будьте першим, хто залишить відгук про товар, ваша думка важлива для нас"
 }
