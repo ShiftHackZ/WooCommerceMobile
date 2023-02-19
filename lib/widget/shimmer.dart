@@ -434,26 +434,49 @@ class ProfileShimmer extends StatelessWidget {
           leading: Icon(Icons.person),
           backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
-        backgroundColor: WooAppTheme.colorToolbarBackground,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: SafeArea(
           child: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    color: WooAppTheme.colorToolbarBackground,
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 16),
-                      child: Column(
-                        children: [
-                          Center(
-                            child: CircleAvatar(
-                              backgroundColor: Colors.blueGrey,
-                              radius: 40,
-                              child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(40)),
+            child: Stack(
+              children: [
+                Container(
+                  height: 228,
+                  color: WooAppTheme.colorToolbarBackground,
+                ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        color: WooAppTheme.colorToolbarBackground,
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 16),
+                          child: Column(
+                            children: [
+                              Center(
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.blueGrey,
+                                  radius: 40,
+                                  child: ClipRRect(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(40)),
+                                    child: Shimmer(
+                                      duration: Duration(seconds: 1),
+                                      enabled: true,
+                                      direction: ShimmerDirection.fromLTRB(),
+                                      color: WooAppTheme.colorShimmerForeground,
+                                      child: Container(
+                                        color:
+                                            WooAppTheme.colorShimmerBackground,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 6),
+                              Container(
+                                width: 200,
+                                height: 16,
                                 child: Shimmer(
                                   duration: Duration(seconds: 1),
                                   enabled: true,
@@ -464,104 +487,38 @@ class ProfileShimmer extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                          SizedBox(height: 6),
-                          Container(
-                            width: 200,
-                            height: 16,
-                            child: Shimmer(
-                              duration: Duration(seconds: 1),
-                              enabled: true,
-                              direction: ShimmerDirection.fromLTRB(),
-                              color: WooAppTheme.colorShimmerForeground,
-                              child: Container(
-                                color: WooAppTheme.colorShimmerBackground,
+                              SizedBox(height: 6),
+                              Container(
+                                width: 200,
+                                height: 16,
+                                child: Shimmer(
+                                  duration: Duration(seconds: 1),
+                                  enabled: true,
+                                  direction: ShimmerDirection.fromLTRB(),
+                                  color: WooAppTheme.colorShimmerForeground,
+                                  child: Container(
+                                    color: WooAppTheme.colorShimmerBackground,
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                          SizedBox(height: 6),
-                          Container(
-                            width: 200,
-                            height: 16,
-                            child: Shimmer(
-                              duration: Duration(seconds: 1),
-                              enabled: true,
-                              direction: ShimmerDirection.fromLTRB(),
-                              color: WooAppTheme.colorShimmerForeground,
-                              child: Container(
-                                color: WooAppTheme.colorShimmerBackground,
-                              ),
-                            ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: WooAppTheme.colorCommonBackground,
+                          borderRadius: BorderRadius.only(
+                            topLeft: const Radius.circular(20.0),
+                            topRight: const Radius.circular(20.0),
                           ),
-                        ],
+                        ),
+                        child: Column(
+                          children: sections,
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: WooAppTheme.colorCommonBackground,
-                      borderRadius: BorderRadius.only(
-                        topLeft: const Radius.circular(20.0),
-                        topRight: const Radius.circular(20.0),
-                      ),
-                    ),
-                    child: Column(
-                      children: sections,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-
-  Widget _shimmerSection() => Padding(
-        padding: EdgeInsets.only(left: 8, right: 8),
-        child: Card(
-          color: Colors.white70,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 4),
-            child: Row(
-              children: [
-                SizedBox(width: 8),
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                  ),
-                  child: Shimmer(
-                    duration: Duration(seconds: 1),
-                    enabled: true,
-                    direction: ShimmerDirection.fromLTRB(),
-                    color: WooAppTheme.colorShimmerForeground,
-                    child: Container(
-                      color: WooAppTheme.colorShimmerBackground,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: Container(
-                    width: 450,
-                    height: 17,
-                    child: Shimmer(
-                      duration: Duration(seconds: 1),
-                      enabled: true,
-                      direction: ShimmerDirection.fromLTRB(),
-                      color: WooAppTheme.colorShimmerForeground,
-                      child: Container(
-                        color: WooAppTheme.colorShimmerBackground,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 12),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  color: Colors.grey,
                 ),
               ],
             ),

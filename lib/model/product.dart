@@ -1,4 +1,5 @@
 import 'package:wooapp/model/attribute.dart';
+import 'package:wooapp/model/category.dart';
 import 'package:wooapp/model/dimensions.dart';
 import 'package:wooapp/model/woo_image.dart';
 
@@ -21,6 +22,7 @@ class Product {
   Dimensions dimensions;
   List<WooImage> images;
   List<ProductAttribute> attributes;
+  List<Category> categories;
 
   bool get isVariable => type == 'variable';
   bool get hasDescription => description.isNotEmpty;
@@ -42,8 +44,9 @@ class Product {
       sku = json['sku'] ?? '',
       rating = double.tryParse(json['average_rating']) ?? 0.0,
       dimensions = Dimensions.fromJson(json['dimensions']),
-      images = (json['images'] as List).map((item) => WooImage.fromJson(item)).toList(),
-      attributes = (json['attributes'] as List).map((item) => ProductAttribute.fromJson(item)).toList();
+      images = (json['images'] as List?)?.map((i) => WooImage.fromJson(i)).toList() ?? [],
+      attributes = (json['attributes'] as List?)?.map((a) => ProductAttribute.fromJson(a)).toList() ?? [],
+      categories = (json['categories'] as List?)?.map((c) => Category.fromJson(c)).toList() ?? [];
 }
 
 class CategoryProduct {

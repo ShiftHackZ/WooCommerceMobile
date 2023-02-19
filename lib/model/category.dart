@@ -13,10 +13,10 @@ class Category {
       : id = json['id'],
         name = json['name'],
         slug = json['slug'],
-        parent = json['parent'],
-        description = json['description'],
+        parent = json['parent'] ?? -1,
+        description = json['description'] ?? '',
         image = (json['image'] != null)
             ? WooImage.fromJson(json['image']).src
             : '',
-        count = json['count'];
+        count = json['count'] ?? 0;
 }

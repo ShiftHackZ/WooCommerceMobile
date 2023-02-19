@@ -69,21 +69,22 @@ class _CategoryScreenState extends State<CategoryScreen> {
             color: WooAppTheme.colorToolbarForeground,
           ),
           actions: [
-            if (widget.categoryDesc.isNotEmpty) IconButton(
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => CategoryInfoScreen(
-                    widget.categoryTitle,
-                    widget.categoryDesc,
-                    widget.categoryImage,
+            if (widget.categoryDesc.isNotEmpty)
+              IconButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CategoryInfoScreen(
+                      widget.categoryTitle,
+                      widget.categoryDesc,
+                      widget.categoryImage,
+                    ),
                   ),
                 ),
+                icon: Icon(
+                  Icons.info,
+                  color: WooAppTheme.colorToolbarForeground,
+                ),
               ),
-              icon: Icon(
-                Icons.info,
-                color: WooAppTheme.colorToolbarForeground,
-              ),
-            ),
             IconButton(
               onPressed: () {
                 _scaffoldKey.currentState!.openEndDrawer();

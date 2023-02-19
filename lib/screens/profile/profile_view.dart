@@ -111,101 +111,109 @@ class ProfileView extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: WooAppTheme.colorToolbarBackground,
+        backgroundColor: WooAppTheme.colorCommonBackground,
         body: SafeArea(
           child: Container(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    color: WooAppTheme.colorToolbarBackground,
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 16),
-                      child: Column(
-                        children: [
-                          Center(
-                            child: CircleAvatar(
-                              backgroundColor: Colors.blueGrey,
-                              radius: 40,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(40),
-                                ),
-                                child: InkWell(
-                                  onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => GalleryScreen(
-                                        [
-                                          profile.avatar,
-                                        ],
-                                      ),
+            child: Stack(
+              children: [
+                Container(
+                  height: 228,
+                  color: WooAppTheme.colorToolbarBackground,
+                ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        color: WooAppTheme.colorToolbarBackground,
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 16),
+                          child: Column(
+                            children: [
+                              Center(
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.blueGrey,
+                                  radius: 40,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(40),
                                     ),
-                                  ),
-                                  child: CachedNetworkImage(
-                                    imageUrl: profile.avatar,
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          image: imageProvider,
-                                          fit: BoxFit.cover,
+                                    child: InkWell(
+                                      onTap: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (_) => GalleryScreen(
+                                            [
+                                              profile.avatar,
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    placeholder: (context, url) => Shimmer(
-                                      duration: Duration(seconds: 1),
-                                      enabled: true,
-                                      direction: ShimmerDirection.fromLTRB(),
-                                      color: WooAppTheme.colorShimmerForeground,
-                                      child: Container(
-                                        color:
+                                      child: CachedNetworkImage(
+                                        imageUrl: profile.avatar,
+                                        imageBuilder: (context, imageProvider) =>
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                        placeholder: (context, url) => Shimmer(
+                                          duration: Duration(seconds: 1),
+                                          enabled: true,
+                                          direction: ShimmerDirection.fromLTRB(),
+                                          color: WooAppTheme.colorShimmerForeground,
+                                          child: Container(
+                                            color:
                                             WooAppTheme.colorShimmerBackground,
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Center(child: Icon(Icons.error)),
                                       ),
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                        Center(child: Icon(Icons.error)),
                                   ),
                                 ),
                               ),
-                            ),
+                              SizedBox(height: 6),
+                              Text(
+                                '${profile.username}',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  color: WooAppTheme.colorToolbarForeground,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                              SizedBox(height: 6),
+                              Text(
+                                '${profile.firstName} ${profile.lastName}',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: WooAppTheme.colorToolbarForeground,
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(height: 6),
-                          Text(
-                            '${profile.username}',
-                            style: TextStyle(
-                              fontSize: 24,
-                              color: WooAppTheme.colorToolbarForeground,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                          SizedBox(height: 6),
-                          Text(
-                            '${profile.firstName} ${profile.lastName}',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: WooAppTheme.colorToolbarForeground,
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: WooAppTheme.colorCommonBackground,
-                      borderRadius: BorderRadius.only(
-                        topLeft: const Radius.circular(20.0),
-                        topRight: const Radius.circular(20.0),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: WooAppTheme.colorCommonBackground,
+                          borderRadius: BorderRadius.only(
+                            topLeft: const Radius.circular(20.0),
+                            topRight: const Radius.circular(20.0),
+                          ),
+                        ),
+                        child: Column(
+                          children: _profileSections(context),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      children: _profileSections(context),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -289,7 +297,7 @@ class ProfileView extends StatelessWidget {
           action: () {},
         ),*/
         // SizedBox(height: 8),
-        WooSection(
+        if (WooAppConfig.featureShopMap) WooSection(
           icon: FaIcon(
             FontAwesomeIcons.map,
             color: WooAppTheme.colorCommonSectionForeground,

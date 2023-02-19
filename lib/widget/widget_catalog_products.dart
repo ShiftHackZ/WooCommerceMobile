@@ -24,12 +24,23 @@ class ContentCatalogState extends CatalogProductState {
 class EmptyCatalogState extends CatalogProductState {}
 
 class CatalogProductCubit extends Cubit<CatalogProductState> {
+  final int categoryId;
+  final List<int> excludedProductsIds;
+
   final CatalogDataSource _ds = locator<CatalogDataSource>();
 
-  CatalogProductCubit() : super(EmptyCatalogState());
+  CatalogProductCubit(
+    this.categoryId, {
+    this.excludedProductsIds = const [],
+  }) : super(EmptyCatalogState());
 
-  void getProducts(int categoryId) {
-    _ds.getCatalogProducts(categoryId).then((products) {
+  void getProducts() {
+    _ds
+        .getCatalogProducts(
+      categoryId,
+      excludedProductIds: excludedProductsIds,
+    )
+        .then((products) {
       emit(ContentCatalogState(products));
     }).catchError((error) {
       emit(EmptyCatalogState());
@@ -39,122 +50,188 @@ class CatalogProductCubit extends Cubit<CatalogProductState> {
 
 class CatalogProductsWidget extends StatelessWidget {
   final int categoryId;
+  final double height;
+  final double itemPaddingHorizontal;
+  final List<int> excludedProductsIds;
+  final bool shrinkOnEmpty;
+  final Widget headerWidget;
 
-  CatalogProductsWidget(this.categoryId);
+  CatalogProductsWidget(
+    this.categoryId, {
+    this.height = 166.0,
+    this.itemPaddingHorizontal = 0.0,
+    this.excludedProductsIds = const [],
+    this.shrinkOnEmpty = false,
+    this.headerWidget = const SizedBox.shrink(),
+  });
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-    create: (_) => CatalogProductCubit(),
-    child: CatalogProductsWidgetView(categoryId),
-  );
-
+        create: (_) => CatalogProductCubit(
+          categoryId,
+          excludedProductsIds: excludedProductsIds,
+        ),
+        child: CatalogProductsWidgetView(
+          height: height,
+          itemPaddingHorizontal: itemPaddingHorizontal,
+          shrinkOnEmpty: shrinkOnEmpty,
+          headerWidget: headerWidget,
+        ),
+      );
 }
 
 class CatalogProductsWidgetView extends StatelessWidget {
-  final int categoryId;
+  final double height;
+  final double itemPaddingHorizontal;
+  final bool shrinkOnEmpty;
+  final Widget headerWidget;
 
-  CatalogProductsWidgetView(this.categoryId);
+  CatalogProductsWidgetView({
+    this.height = 166.0,
+    this.itemPaddingHorizontal = 0.0,
+    this.shrinkOnEmpty = false,
+    this.headerWidget = const SizedBox.shrink(),
+  });
 
   @override
   Widget build(BuildContext context) => StatefulWrapper(
-      onInit: () {
-        context.read<CatalogProductCubit>().getProducts(categoryId);
-      },
-      child: Container(
-        child: BlocListener<CatalogProductCubit, CatalogProductState>(
-          listener: (context, state) {},
-          child: BlocBuilder<CatalogProductCubit, CatalogProductState>(
-            builder: (context, state) {
-              switch (state.runtimeType) {
-                case ContentCatalogState:
-                  return _buildContent(context, (state as  ContentCatalogState).products);
-                default:
-                  return _buildEmpty();
-              }
-            },
+        onInit: () => context.read<CatalogProductCubit>().getProducts(),
+        child: Container(
+          child: BlocListener<CatalogProductCubit, CatalogProductState>(
+            listener: (context, state) {},
+            child: BlocBuilder<CatalogProductCubit, CatalogProductState>(
+              builder: (context, state) {
+                switch (state.runtimeType) {
+                  case ContentCatalogState:
+                    return _buildContent(
+                      context,
+                      (state as ContentCatalogState).products,
+                    );
+                  default:
+                    return _buildEmpty();
+                }
+              },
+            ),
           ),
         ),
-      )
-  );
+      );
 
-  Widget _buildEmpty() => Container(
-    height: 150,
-    child: ListView.builder(
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      itemCount: 10,
-      itemBuilder: (context, index) => _buildShimmerItem(context)
-    ),
-  );
+  Widget _buildEmpty() {
+    if (shrinkOnEmpty) return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        headerWidget,
+        Container(
+          height: height,
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: 10,
+            itemBuilder: (context, index) => Padding(
+              padding: index == 0 || index == 9
+                  ? EdgeInsets.only(
+                      left: index == 0 ? itemPaddingHorizontal : 0,
+                      right: index == 9 ? itemPaddingHorizontal : 0,
+                    )
+                  : EdgeInsets.zero,
+              child: _buildShimmerItem(context),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
-  Widget _buildContent(BuildContext context, List<Product> products) => Container(
-    height: 150,
-    child: ListView.builder(
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      itemCount: products.length,
-      physics: BouncingScrollPhysics(),
-      itemBuilder: (context, index) => ProductGridSlidingWidget(product: products[index])
-    ),
-  );
+  Widget _buildContent(BuildContext context, List<Product> products) {
+    if (shrinkOnEmpty && products.isEmpty) return Container();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        headerWidget,
+        Container(
+          height: height,
+          child: ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: products.length,
+            physics: BouncingScrollPhysics(),
+            itemBuilder: (context, index) => Padding(
+              padding: index == 0 || index == products.length - 1
+                  ? EdgeInsets.only(
+                      left: index == 0 ? itemPaddingHorizontal : 0,
+                      right: index == products.length - 1
+                          ? itemPaddingHorizontal
+                          : 0,
+                    )
+                  : EdgeInsets.zero,
+              child: ProductGridSlidingWidget(product: products[index]),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _buildShimmerItem(BuildContext context) => Container(
-    width: (MediaQuery.of(context).size.width / 2) + 32,
-    height: 150,
-    child: Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 100,
-            child: Shimmer(
-              duration: Duration(seconds: 1),
-              enabled: true,
-              direction: ShimmerDirection.fromLTRB(),
-              color: WooAppTheme.colorShimmerForeground,
-              child: Container(
-                color: WooAppTheme.colorShimmerBackground,
-              ),
-            ),
+        width: (MediaQuery.of(context).size.width / 2) + 32,
+        height: 150,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 10, left: 8, right: 4),
-            child: Container(
-              width: 200,
-              height: 14,
-              child: Shimmer(
-                duration: Duration(seconds: 1),
-                enabled: true,
-                direction: ShimmerDirection.fromLTRB(),
-                color: WooAppTheme.colorShimmerForeground,
-                child: Container(
-                  color: WooAppTheme.colorShimmerBackground,
+          clipBehavior: Clip.antiAlias,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 100,
+                child: Shimmer(
+                  duration: Duration(seconds: 1),
+                  enabled: true,
+                  direction: ShimmerDirection.fromLTRB(),
+                  color: WooAppTheme.colorShimmerForeground,
+                  child: Container(
+                    color: WooAppTheme.colorShimmerBackground,
+                  ),
                 ),
               ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 4, left: 8, right: 4),
-            child: Container(
-              width: 200,
-              height: 14,
-              child: Shimmer(
-                duration: Duration(seconds: 1),
-                enabled: true,
-                direction: ShimmerDirection.fromLTRB(),
-                color: WooAppTheme.colorShimmerForeground,
+              Padding(
+                padding: EdgeInsets.only(top: 10, left: 8, right: 4),
                 child: Container(
-                  color: WooAppTheme.colorShimmerBackground,
+                  width: 200,
+                  height: 14,
+                  child: Shimmer(
+                    duration: Duration(seconds: 1),
+                    enabled: true,
+                    direction: ShimmerDirection.fromLTRB(),
+                    color: WooAppTheme.colorShimmerForeground,
+                    child: Container(
+                      color: WooAppTheme.colorShimmerBackground,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Padding(
+                padding: EdgeInsets.only(top: 4, left: 8, right: 4),
+                child: Container(
+                  width: 200,
+                  height: 14,
+                  child: Shimmer(
+                    duration: Duration(seconds: 1),
+                    enabled: true,
+                    direction: ShimmerDirection.fromLTRB(),
+                    color: WooAppTheme.colorShimmerForeground,
+                    child: Container(
+                      color: WooAppTheme.colorShimmerBackground,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 }
