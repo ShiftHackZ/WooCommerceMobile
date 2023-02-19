@@ -4,6 +4,8 @@
 
 Flutter mobile WooCommerce application for your customers.
 
+Convert your working WooComerce online store into full-featured mobile application, that allow customers to look for products, add them to cart, make orders, and more.
+
 ## Server requirements
 
 `//ToDo: add requirements`
