@@ -7,4 +7,5 @@ class WooAppConfig {
   static const bool featureCart = true;
   static const bool featureProfile = true;
   static const bool featureWishList = true;
+  static const bool featureShopMap = false;
 }

@@ -18,6 +18,7 @@ import 'package:wooapp/widget/shimmer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wooapp/widget/widget_add_to_cart.dart';
 import 'package:wooapp/widget/widget_attributes.dart';
+import 'package:wooapp/widget/widget_catalog_products.dart';
 import 'package:wooapp/widget/widget_price_product.dart';
 import 'package:wooapp/widget/widget_product_actions.dart';
 import 'package:wooapp/widget/widget_product_info.dart';
@@ -171,6 +172,24 @@ class ProductView extends StatelessWidget {
                 ),
               Divider(),
               ViewedProductsScreen(() {}),
+
+
+              if (product.categories.isNotEmpty)
+                CatalogProductsWidget(
+                  product.categories[0].id,
+                  height: 166,
+                  itemPaddingHorizontal: 12,
+                  excludedProductsIds: [product.id],
+                  shrinkOnEmpty: true,
+                  headerWidget: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Divider(),
+                      WooSectionHeading(tr('product_from_same_category')),
+                    ],
+                  ),
+                ),
+
               SizedBox(height: 16),
             ],
           ),

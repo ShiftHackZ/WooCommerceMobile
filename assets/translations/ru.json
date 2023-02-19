@@ -89,6 +89,7 @@
   "filter_price": "Цена",
   "product_description": "Описание",
   "product_characteristics": "Характеристики товара",
+  "product_from_same_category": "Рекомендуемые товары",
   "product_property_id": "Идентификатор",
   "product_property_name": "Наименование",
   "product_property_price": "Цена",

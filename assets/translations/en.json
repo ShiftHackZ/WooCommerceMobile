@@ -89,6 +89,7 @@
   "filter_price": "Price",
   "product_description": "Description",
   "product_characteristics": "Product properties",
+  "product_from_same_category": "Related products",
   "product_property_id": "Unique ID",
   "product_property_name": "Name",
   "product_property_price": "Price",
