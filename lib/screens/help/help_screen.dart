@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/widget/widget_woo_section.dart';
 
@@ -21,24 +22,28 @@ class HelpScreen extends StatelessWidget {
           elevation: 0,
         ),
         backgroundColor: WooAppTheme.colorToolbarBackground,
-        body: SafeArea(
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: WooAppTheme.colorCommonBackground,
-                    borderRadius: BorderRadius.only(
-                      topLeft: const Radius.circular(20.0),
-                      topRight: const Radius.circular(20.0),
+        body: SafeArea(//help_anim.json
+          child: Stack(
+            children: [
+              Lottie.asset('assets/help_anim.json'),
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: WooAppTheme.colorCommonBackground,
+                        borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(20.0),
+                          topRight: const Radius.circular(20.0),
+                        ),
+                      ),
+                      child: _buildHelpSections(),
                     ),
-                  ),
-                  child: _buildHelpSections(),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       );
