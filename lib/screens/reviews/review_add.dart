@@ -172,8 +172,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
         context: context,
         builder: (ctx) => WooDialog(
           title: tr('error_state_oops'),
-          text:
-              'There was some issue while posting your review. Please, try again.',
+          text: tr('review_submit_error'),
         ),
       );
     });

@@ -191,6 +191,6 @@
   "product_review_empty_title": "No reviews yet",
   "product_review_empty_subtitle": "Be the first to leave a review about the product, your opinion is important to us",
   "thank_you": "Thank you!",
-  "review_submit_success": "Your review submitted successfully.",
+  "review_submit_success": "Your review submitted successfully. It will be published after verification by a moderator.",
   "review_submit_error": "There was some issue while posting your review. Please, try again."
 }
