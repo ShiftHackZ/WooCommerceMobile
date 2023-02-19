@@ -24,12 +24,7 @@ class RecentProductItem extends StatelessWidget {
         Future.delayed(Duration(milliseconds: 200), () {
           refreshCallback();
         });
-        print('back, context = $context');
       });
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => ProductScreen(product.id))
-      // );
     },
     child: Card(
       shape: RoundedRectangleBorder(

@@ -434,7 +434,7 @@ class ProfileShimmer extends StatelessWidget {
           leading: Icon(Icons.person),
           backgroundColor: WooAppTheme.colorToolbarBackground,
         ),
-        backgroundColor: WooAppTheme.colorCommonBackground,
+        backgroundColor: WooAppTheme.colorToolbarBackground,
         body: SafeArea(
           child: Container(
             child: SingleChildScrollView(
@@ -498,7 +498,18 @@ class ProfileShimmer extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ...sections,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: WooAppTheme.colorCommonBackground,
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(20.0),
+                        topRight: const Radius.circular(20.0),
+                      ),
+                    ),
+                    child: Column(
+                      children: sections,
+                    ),
+                  ),
                 ],
               ),
             ),

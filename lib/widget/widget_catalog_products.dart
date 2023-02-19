@@ -11,6 +11,7 @@ import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/product/product_screen.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:wooapp/widget/widget_price.dart';
+import 'package:wooapp/widget/widget_product_grid_slider.dart';
 
 abstract class CatalogProductState {}
 
@@ -93,7 +94,7 @@ class CatalogProductsWidgetView extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: products.length,
       physics: BouncingScrollPhysics(),
-      itemBuilder: (context, index) => _buildItem(context, products[index])
+      itemBuilder: (context, index) => ProductGridSlidingWidget(product: products[index])
     ),
   );
 
@@ -153,95 +154,6 @@ class CatalogProductsWidgetView extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    ),
-  );
-
-  Widget _buildItem(BuildContext context, Product product) => Container(
-    width: (MediaQuery.of(context).size.width / 2) + 32,
-    height: 150,
-    child: InkWell(
-      onTap: () {
-        hideKeyboardForce(context);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProductScreen(product.id)),
-        );
-      },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        color: WooAppTheme.colorCardProductBackground,
-        clipBehavior: Clip.antiAlias,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 100,
-              child: CachedNetworkImage(
-                imageUrl: product.images.length != 0 ? product.images[0].src : '',
-                imageBuilder: (context, imageProvider) => Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                placeholder: (context, url) => Shimmer(
-                  duration: Duration(seconds: 1),
-                  enabled: true,
-                  direction: ShimmerDirection.fromLTRB(),
-                  color: WooAppTheme.colorShimmerForeground,
-                  child: Container(
-                    color: WooAppTheme.colorShimmerBackground,
-                  ),
-                ),
-                errorWidget: (context, url, error) => Center(
-                  child: Icon(Icons.error),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10, left: 8, right: 4),
-              child: Text(
-                product.name,
-                maxLines: 1,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: WooAppTheme.colorCardProductText,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 4, left: 8, right: 4),
-              child: Row(
-                children: [
-                  PriceWidget.withProduct(product),
-                  Spacer(),
-                  RatingBarIndicator(
-                    rating: product.rating,
-                    itemBuilder: (context, index) => Icon(
-                      Icons.star,
-                      color: WooAppTheme.colorRatingActive,
-                    ),
-                    unratedColor: WooAppTheme.colorRatingNonActive,
-                    itemCount: 5,
-                    itemSize: 12,
-                    direction: Axis.horizontal,
-                  ),
-                  Text(' ${product.rating.toString()}',
-                    style: TextStyle(
-                      color: WooAppTheme.colorRatingText,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     ),
   );

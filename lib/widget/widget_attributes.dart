@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/attribute.dart';
 
 class AttributesWidget extends StatelessWidget {
@@ -9,7 +10,13 @@ class AttributesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Table(
-    border: TableBorder(horizontalInside: BorderSide(width: 1, color: Colors.black38, style: BorderStyle.solid)),
+    border: TableBorder(
+      horizontalInside: BorderSide(
+        width: 1,
+        color: WooAppTheme.colorCommonBackground,
+        style: BorderStyle.solid,
+      ),
+    ),
     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
     children: _buildRows(),
   );
@@ -25,7 +32,11 @@ class AttributesWidget extends StatelessWidget {
   }
 
   TableRow _buildRow(ProductAttribute attribute, bool isEven) => TableRow(
-    decoration: BoxDecoration(color: isEven ? Colors.white : Color(0xF000000)),
+    decoration: BoxDecoration(
+        color: isEven
+            ? WooAppTheme.colorCommonBackground
+            : WooAppTheme.colorCommonSectionBackground.withOpacity(0.4),
+    ),
     children: [
       FittedBox(
         fit: BoxFit.contain,
@@ -37,7 +48,8 @@ class AttributesWidget extends StatelessWidget {
             attribute.name,
             textAlign: TextAlign.start,
             style: TextStyle(
-              fontSize: 3.9
+              fontSize: 3.9,
+              color: WooAppTheme.colorSecondaryForeground,
             ),
           ),
         ),
@@ -53,7 +65,8 @@ class AttributesWidget extends StatelessWidget {
             textAlign: TextAlign.start,
             style: TextStyle(
               fontSize: 4.4,
-              fontWeight: FontWeight.w600
+              fontWeight: FontWeight.w600,
+              color: WooAppTheme.colorCommonText,
             )
           ),
         ),

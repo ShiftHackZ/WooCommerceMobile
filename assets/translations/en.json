@@ -1,7 +1,7 @@
 {
   "lang": "English",
   "app_name": "WooApp",
-  "recently_viewed": "Recently you have looked at:",
+  "recently_viewed": "Recently you have looked at",
   "tab_home": "Home",
   "tab_catalog": "Catalog",
   "tab_search": "Search",
@@ -87,6 +87,8 @@
   "filter_on_sale": "On sale",
   "filter_stock": "Availability",
   "filter_price": "Price",
+  "product_description": "Description",
+  "product_characteristics": "Product properties",
   "product_property_id": "Unique ID",
   "product_property_name": "Name",
   "product_property_price": "Price",

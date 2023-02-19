@@ -57,7 +57,7 @@ void showWooScrollableBottomSheet(
               maxChildSize: 0.85,
               builder: (_, controller) => Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: WooAppTheme.colorCommonBackground,
                   borderRadius: BorderRadius.only(
                     topLeft: const Radius.circular(20.0),
                     topRight: const Radius.circular(20.0),

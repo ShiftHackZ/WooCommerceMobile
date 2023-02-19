@@ -6,7 +6,9 @@ import 'package:wooapp/database/entity/product.dart';
 import 'package:wooapp/screens/viewed/viewed_products_cubit.dart';
 import 'package:wooapp/screens/viewed/viewed_products_state.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
+import 'package:wooapp/widget/widget_product_grid_slider.dart';
 import 'package:wooapp/widget/widget_product_recent.dart';
+import 'package:wooapp/widget/widget_woo_section.dart';
 
 class ViewedProductsScreen extends StatelessWidget {
   final VoidCallback refreshCallback;
@@ -32,11 +34,7 @@ class ViewedProductsWidget extends StatelessWidget {
       },
       child: Container(
         child: BlocListener<ViewedProductsCubit, ViewedProductsState>(
-          listener: (context, state) {
-            switch (state.runtimeType) {
-              //ToDo ...
-            }
-          },
+          listener: (context, state) {},
           child: BlocBuilder<ViewedProductsCubit, ViewedProductsState>(
             builder: (context, state) {
               switch (state.runtimeType) {
@@ -53,34 +51,44 @@ class ViewedProductsWidget extends StatelessWidget {
 
   Widget _buildEmpty() => SizedBox.shrink();
 
-  Widget _buildContent(BuildContext context, List<ViewedProduct> products) => Container(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 12, bottom: 8),
-          child: Text(
-            'recently_viewed',
-            textAlign: TextAlign.left,
-            style: TextStyle(
-                fontSize: 19,
-                fontWeight: FontWeight.w600
+  // Widget _buildContent(BuildContext context, List<ViewedProduct> products) => Container(
+  //   height: 150,
+  //   child: ListView.builder(
+  //       shrinkWrap: true,
+  //       scrollDirection: Axis.horizontal,
+  //       itemCount: products.length,
+  //       physics: BouncingScrollPhysics(),
+  //       itemBuilder: (context, index) => ProductGridSlidingWidget(viewedProduct: products[index])
+  //   ),
+  // );
+  Widget _buildContent(BuildContext context, List<ViewedProduct> products) =>
+      Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            WooSectionHeading(tr('recently_viewed')),
+            Container(
+              height: 166,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: products.length,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (context, index) => Padding(
+                  padding: index == 0 || index == products.length - 1
+                      ? EdgeInsets.only(
+                          left: index == 0 ? 12 : 0,
+                          right: index == products.length - 1 ? 12 : 0,
+                        )
+                      : EdgeInsets.zero,
+                  child: ProductGridSlidingWidget(
+                    viewedProduct: products[index],
+                  ),
+                ),
+              ),
             ),
-          ).tr(),
+          ],
         ),
-        GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: MediaQuery.of(context).size.width / (MediaQuery.of(context).size.height / 1.3),
-              crossAxisCount: 3
-              ,
-            ),
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: products.length,
-            itemBuilder: (context, index) => RecentProductItem(products[index], refreshCallback)
-        ),
-      ],
-    )
-  );
+      );
 }

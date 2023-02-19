@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:wooapp/config/theme.dart';
 
+class WooSectionHeading extends StatelessWidget {
+  final String text;
+
+  WooSectionHeading(this.text);
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    child: Text(
+      text,
+      style: TextStyle(
+        color: WooAppTheme.colorPrimaryBackground,
+        fontWeight: FontWeight.w500,
+        fontSize: 17,
+      ),
+    ),
+  );
+}
+
 class WooSection extends StatelessWidget {
   final Widget icon;
   final String text;

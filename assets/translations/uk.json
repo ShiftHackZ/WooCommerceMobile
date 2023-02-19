@@ -1,7 +1,7 @@
 {
   "lang": "Українська",
   "app_name": "WooApp",
-  "recently_viewed": "Нещодавно вас зацікавило:",
+  "recently_viewed": "Нещодавно вас зацікавило",
   "tab_home": "Товари",
   "tab_catalog": "Каталог",
   "tab_search": "Пошук",
@@ -87,6 +87,8 @@
   "filter_on_sale": "Акції та розпродажі",
   "filter_stock": "Наявність",
   "filter_price": "Ціна",
+  "product_description": "Опис",
+  "product_characteristics": "Характеристики товару",
   "product_property_id": "Ідентифікатор",
   "product_property_name": "Найменування",
   "product_property_price": "Ціна",
