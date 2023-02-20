@@ -41,12 +41,10 @@ class _WooVersionWidgetState extends State<WooVersionWidget> {
           _buildAppDetails(),
           SizedBox(height: 6),
           GestureDetector(
-            onTap: () {
-              launchUrl(
-                Uri.parse(_copyrightWebSite),
-                mode: LaunchMode.externalApplication,
-              );
-            },
+            onTap: () => launchUrl(
+              Uri.parse(_copyrightWebSite),
+              mode: LaunchMode.externalApplication,
+            ),
             child: Text(
               _appCopyright,
               style: TextStyle(
