@@ -322,7 +322,8 @@ class ProfileView extends StatelessWidget {
             color: WooAppTheme.colorCommonSectionForeground,
           ),
           text: tr('help'),
-          action: () => Navigator.of(context)
+          action: () => Navigator
+              .of(context)
               .push(MaterialPageRoute(builder: (_) => HelpScreen())),
         ),
         SizedBox(height: 8),

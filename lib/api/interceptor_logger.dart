@@ -2,40 +2,60 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class PrinterInterceptor extends Interceptor {
+  static const tag = '[HTTP] ';
 
   @override
   Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    if (kDebugMode) print('''-------------------> HTTP REQUEST
-Method: ${options.method}
-Headers: ${options.headers}
-Path: ${options.baseUrl}${options.path}
-Query parameters: ${options.queryParameters}
-Data: ${options.data}
-Content type: ${options.contentType}
--------------------> END HTTP REQUEST''');
+    if (kDebugMode) {
+      var log = '';
+      log += '$tag------------------->\n';
+      log += '$tag[${options.method}] ${options.baseUrl}${options.path}\n';
+      if (options.headers.isNotEmpty) {
+        log += '$tag${options.headers}\n';
+      }
+      if (options.queryParameters.isNotEmpty) {
+        log += '$tag${options.queryParameters}\n';
+      }
+      if (options.data != null) {
+        log += '$tag${options.data}\n';
+      }
+      log += '$tag------------------->\n';
+      print(log);
+    }
     return super.onRequest(options, handler);
   }
 
   @override
   Future onResponse(Response response, ResponseInterceptorHandler handler) async {
-    if (kDebugMode) print('''<------------------- HTTP RESPONSE
-Status code: ${response.statusCode}
-Headers: ${response.headers}
-Response data: ${response.data}
-Path: ${response.realUri}
-<------------------- END HTTP RESPONSE''');
+    if (kDebugMode) {
+      var log = '';
+      log += '$tag<-------------------\n';
+      log += '$tag[${response.statusCode}] ${response.realUri}\n';
+      if (response.data != null) {
+        log += '$tag${response.data}\n';
+      }
+      log += '$tag<-------------------\n';
+      print(log);
+    }
     super.onResponse(response, handler);
   }
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    if (kDebugMode) print('''<------------------- HTTP ERROR
-Headers: ${err.response?.headers.map ?? {}}
-Response: ${err.response}
-Error type: ${err.type}
-Error message: ${err.message}
-Path: ${err.response?.realUri}
-<------------------- END HTTP ERROR''');
+    if (kDebugMode) {
+      var log = '';
+      log += '$tag<-------------------\n';
+      log += '$tag[${err.response?.statusCode}] ${err.response?.realUri}\n';
+      if (err.response?.headers != null
+          && err.response?.headers.isEmpty == false) {
+        log += '$tag${err.response?.headers}\n';
+      }
+      if (err.response?.data != null) {
+        log += '$tag${err.response?.data}\n';
+      }
+      log += '$tag<-------------------\n';
+      print(log);
+    }
     super.onError(err, handler);
   }
 }
