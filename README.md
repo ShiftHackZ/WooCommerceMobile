@@ -10,7 +10,12 @@ Convert your working WooComerce online store into full-featured mobile applicati
 
 ## Server requirements
 
-`//ToDo: add requirements`
+- Working and fully functional [WordPress](https://wordpress.org/) website.
+- Installed and enabled [WooCommerce](https://woocommerce.com/) plugin.
+- Installed and enabled [WooApp](https://woo.moroz.cc) plugin.
+- Installed and enabled [WP REST User](https://www.commoninja.com/discover/wordpress/plugin/wp-rest-user) plugin.
+- Installed and enabled [CoCart](https://docs.cocart.xyz/#introduction) plugin.
+- (Optional) Installed and enabled [TI Wishlist](https://wordpress.org/plugins/ti-woocommerce-wishlist/) plugin.
 
 ## Build instructions
 
@@ -60,7 +65,7 @@ Any contributions to the translations are welcome.
 
 This license of the software is opensource, but contains some restrictions. 
 
-- The software is provided `as is` and may contain some issues.
+- The software is provided as is and may contain some issues.
 - Commercial usage of this app and any fork that is based on this app is not allowed without author permission.
 - Distribution of this app and any fork that is based on this app to any public store (like Google Play, App Store, F-Droid) is not allowed without author permission.
 - Every fork that is based on this app should contain original copyright UI section.
