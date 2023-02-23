@@ -30,8 +30,12 @@ import 'package:wooapp/widget/widget_woo_version.dart';
 
 class ProfileView extends StatelessWidget {
   final VoidCallback shoppingCallback;
+  final VoidCallback settingsChangedCallback;
 
-  ProfileView({required this.shoppingCallback});
+  ProfileView({
+    required this.shoppingCallback,
+    required this.settingsChangedCallback,
+  });
 
   @override
   Widget build(BuildContext context) => StatefulWrapper(
@@ -265,6 +269,7 @@ class ProfileView extends StatelessWidget {
           ).then((value) {
             if (value == true) {
               context.read<ProfileCubit>().getProfile();
+              settingsChangedCallback();
             }
             print('back, context = $context');
           }),

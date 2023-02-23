@@ -17,10 +17,12 @@ class ProductActionsWidget extends StatefulWidget {
 
   final WishListDataSource _ds = locator<WishListDataSource>();
   final Function() changeCallback;
+  final bool displayWish;
 
   ProductActionsWidget({
     required this.product,
     required this.changeCallback,
+    this.displayWish = false,
   });
 
   @override
@@ -33,21 +35,23 @@ class _ProductActionsWidgetState extends State<ProductActionsWidget> {
 
   @override
   void initState() {
-    setState(() {
-      _wishListOperationExecution = true;
-    });
-    widget._ds
-        .isInWishListByProductId(widget.product.id)
-        .then((value) {
+    if (widget.displayWish) {
       setState(() {
-        _wishListOperationExecution = false;
-        _wishListPresent = value;
+        _wishListOperationExecution = true;
       });
-    }).onError((error, stackTrace) {
-      setState(() {
-        _wishListOperationExecution = false;
+      widget._ds
+          .isInWishListByProductId(widget.product.id)
+          .then((value) {
+        setState(() {
+          _wishListOperationExecution = false;
+          _wishListPresent = value;
+        });
+      }).onError((error, stackTrace) {
+        setState(() {
+          _wishListOperationExecution = false;
+        });
       });
-    });
+    }
     super.initState();
   }
 
@@ -56,7 +60,7 @@ class _ProductActionsWidgetState extends State<ProductActionsWidget> {
         children: [
           ProductStockWidget(widget.product),
           Spacer(),
-          if (WooAppConfig.featureWishList) _buildIcon(
+          if (WooAppConfig.featureWishList && widget.displayWish) _buildIcon(
             FaIcon(
               _wishListPresent
                   ? FontAwesomeIcons.solidHeart

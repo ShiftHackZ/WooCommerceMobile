@@ -106,6 +106,7 @@
   "cart_empty_subtitle": "Самое время сделать выбор!",
   "cart_empty_action": "За покупками!",
   "settings_language": "Язык",
+  "settings_list_style": "Стиль списков",
   "settings_password": "Сменить пароль",
   "catalog_view_all": "Показать все",
   "catalog_total": "Всего товаров",
@@ -195,5 +196,7 @@
   "review_submit_error": "При отправке вашего отзыва возникла ошибка. Пожалуйста, попробуйте чуть позже.",
   "splash_status_communicating": "Соединение с сервером ...",
   "splash_status_cache": "Инициализация кеша ...",
-  "splash_status_run": "Запускаем приложение \uD83C\uDF89"
+  "splash_status_run": "Запускаем приложение \uD83C\uDF89",
+  "list_style_grid": "Сеткой",
+  "list_style_default": "Списком"
 }

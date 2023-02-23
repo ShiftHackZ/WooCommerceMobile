@@ -106,6 +106,7 @@
   "cart_empty_subtitle": "Саме час зробити вибір!",
   "cart_empty_action": "За покупками!",
   "settings_language": "Мова",
+  "settings_list_style": "Стиль списків",
   "settings_password": "Змінити пароль",
   "catalog_view_all": "Показати все",
   "catalog_total": "Всього товарів",
@@ -195,5 +196,7 @@
   "review_submit_error": "Під час відправки вашого відгуку виникла помилка. Будь-ласка, спробуйте ще раз пізніше.",
   "splash_status_communicating": "Завантаження данних ...",
   "splash_status_cache": "Ініціалізація кешу ...",
-  "splash_status_run": "Запускаємо додаток \uD83C\uDF89"
+  "splash_status_run": "Запускаємо додаток \uD83C\uDF89",
+  "list_style_grid": "Сіткою",
+  "list_style_default": "Списком"
 }

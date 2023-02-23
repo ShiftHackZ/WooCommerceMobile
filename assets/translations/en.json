@@ -106,6 +106,7 @@
   "cart_empty_subtitle": "It's time to make a choice!",
   "cart_empty_action": "Go shopping!",
   "settings_language": "Language",
+  "settings_list_style": "Lists style",
   "settings_password": "Change password",
   "catalog_view_all": "View all",
   "catalog_total": "Total items",
@@ -195,5 +196,7 @@
   "review_submit_error": "There was some issue while posting your review. Please, try again.",
   "splash_status_communicating": "Communicating with server ...",
   "splash_status_cache": "Initializing cache ...",
-  "splash_status_run": "Starting app \uD83C\uDF89"
+  "splash_status_run": "Starting app \uD83C\uDF89",
+  "list_style_grid": "Grid",
+  "list_style_default": "List"
 }

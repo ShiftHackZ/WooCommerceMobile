@@ -1,7 +1,7 @@
 name: wooapp
 description: WooCommerce customer mobile application.
 publish_to: 'none'
-version: 0.0.1+1
+version: 0.9.0+1
 
 environment:
   sdk: ">=2.18.1 <3.7.0"
