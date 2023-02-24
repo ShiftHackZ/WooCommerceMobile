@@ -1,5 +1,5 @@
 class WillPopController {
-  bool value;
+  dynamic value;
 
-  WillPopController({this.value = false});
+  WillPopController({this.value = ''});
 }

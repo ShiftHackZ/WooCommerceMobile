@@ -24,6 +24,14 @@ class ContentWishListState extends WishListState {
   });
 }
 
-class ErrorWishListState extends WishListState {
+class ErrorWishListState extends WishListState {}
 
+class WishListExitPayload {
+  bool changedDisplayMode;
+  bool routeMainPage;
+
+  WishListExitPayload(
+    this.changedDisplayMode,
+    this.routeMainPage,
+  );
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wooapp/config/theme.dart';
+import 'package:wooapp/core/pop_controller.dart';
 import 'package:wooapp/model/product.dart';
 import 'package:wooapp/screens/product/product_screen.dart';
 import 'package:wooapp/screens/wishlist/wishlist_cubit.dart';
@@ -12,44 +13,52 @@ import 'package:wooapp/widget/widget_empty_state.dart';
 import 'package:wooapp/widget/widget_error_state.dart';
 import 'package:wooapp/widget/widget_product_feed.dart';
 import 'package:wooapp/widget/widget_product_grid.dart';
-import 'package:wooapp/widget/widget_woo_section.dart';
 
 class WishListView extends StatelessWidget {
+  final _willPopController = WillPopController(
+    value: WishListExitPayload(false, false),
+  );
+
   @override
-  Widget build(BuildContext context) =>
-      BlocListener<WishListCubit, WishListState>(
-        listener: (context, state) {},
-        child: BlocBuilder<WishListCubit, WishListState>(
-          builder: (context, state) {
-            bool? displayGrid;
-            Widget stateWidget;
-            switch (state.runtimeType) {
-              case ContentWishListState:
-                displayGrid = (state as ContentWishListState).displayGrid;
-                stateWidget = _contentState(context, state);
-                break;
-              case EmptyWishListState:
-                stateWidget = _emptyState(context);
-                break;
-              case ErrorWishListState:
-                stateWidget = _errorState(context);
-                break;
-              case LoadingWishListState:
-                stateWidget = _loadingState(
-                  context,
-                  (state as LoadingWishListState).displayGrid,
-                );
-                break;
-              default:
-                stateWidget = Container(); //_loadingState(context);
-            }
-            return _screenWrapper(
-              context,
-              stateWidget,
-              displayGrid: displayGrid,
-            );
-          },
+  Widget build(BuildContext context) => WillPopScope(
+        child: BlocListener<WishListCubit, WishListState>(
+          listener: (context, state) {},
+          child: BlocBuilder<WishListCubit, WishListState>(
+            builder: (context, state) {
+              bool? displayGrid;
+              Widget stateWidget;
+              switch (state.runtimeType) {
+                case ContentWishListState:
+                  displayGrid = (state as ContentWishListState).displayGrid;
+                  stateWidget = _contentState(context, state);
+                  break;
+                case EmptyWishListState:
+                  stateWidget = _emptyState(context);
+                  break;
+                case ErrorWishListState:
+                  stateWidget = _errorState(context);
+                  break;
+                case LoadingWishListState:
+                  stateWidget = _loadingState(
+                    context,
+                    (state as LoadingWishListState).displayGrid,
+                  );
+                  break;
+                default:
+                  stateWidget = Container(); //_loadingState(context);
+              }
+              return _screenWrapper(
+                context,
+                stateWidget,
+                displayGrid: displayGrid,
+              );
+            },
+          ),
         ),
+        onWillPop: () {
+          Navigator.pop(context, _willPopController.value);
+          return Future(() => false);
+        },
       );
 
   Widget _screenWrapper(
@@ -72,8 +81,11 @@ class WishListView extends StatelessWidget {
           actions: [
             if (displayGrid != null)
               IconButton(
-                onPressed: () =>
-                    context.read<WishListCubit>().toggleDisplayMode(),
+                onPressed: () {
+                  var exit = (_willPopController.value as WishListExitPayload);
+                  _willPopController.value = WishListExitPayload(true, exit.routeMainPage);
+                  context.read<WishListCubit>().toggleDisplayMode();
+                },
                 icon: Icon(
                   displayGrid
                       ? Icons.grid_view_rounded
@@ -96,23 +108,28 @@ class WishListView extends StatelessWidget {
         keySubTitle: 'wish_list_empty_subtitle',
         action: WooEmptyStateAction(
           buttonLabel: tr('cart_empty_action'),
-          buttonClick: () => Navigator.pop(context, true),
+          buttonClick: () {
+            var exit = (_willPopController.value as WishListExitPayload);
+            _willPopController.value = WishListExitPayload(exit.changedDisplayMode, true);
+            Navigator.pop(context, _willPopController.value);
+          },
           icon: FontAwesomeIcons.basketShopping,
         ),
       );
 
   Widget _contentState(BuildContext context, ContentWishListState state) {
-    if (state.displayGrid) return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
-      itemCount: state.wishlist.length,
-      itemBuilder: (ctx, i) => _buildGridProductItem(
-        context,
-        i,
-        state.wishlist[i].second,
-      ),
-    );
+    if (state.displayGrid)
+      return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+        ),
+        itemCount: state.wishlist.length,
+        itemBuilder: (ctx, i) => _buildGridProductItem(
+          context,
+          i,
+          state.wishlist[i].second,
+        ),
+      );
     return ListView.builder(
       itemCount: state.wishlist.length,
       itemBuilder: (ctx, i) => _buildFeedProductItem(

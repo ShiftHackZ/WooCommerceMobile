@@ -119,11 +119,11 @@ class WooEmptyStateWidget extends StatelessWidget {
   String _bindAnimation() {
     switch (animation) {
       case WooEmptyStateAnimation.wishlist:
-        return 'assets/empty_state_wishlist.json';
+        return 'assets/animations/empty_state_wishlist.json';
       case WooEmptyStateAnimation.review:
-        return 'assets/empty_review.json';
+        return 'assets/animations/empty_review.json';
       default:
-        return 'assets/empty_state.json';
+        return 'assets/animations/empty_state.json';
     }
   }
 }

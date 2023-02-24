@@ -27,7 +27,7 @@ class NoAuthScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 32),
                   child: Lottie.asset(
-                    'assets/noauth.json',
+                    'assets/animations/noauth.json',
                     repeat: false,
                   ),
                 ),

@@ -78,7 +78,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
   );
 
   Widget _loadingState() => Center(
-    child: Lottie.asset('assets/checkout_loader.json'),
+    child: Lottie.asset('assets/animations/checkout_loader.json'),
   );
 
   @override
