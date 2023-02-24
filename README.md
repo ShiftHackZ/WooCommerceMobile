@@ -8,9 +8,9 @@ Flutter mobile WooCommerce application for your customers.
 
 Convert your working WooComerce online store into full-featured mobile application, that allow customers to look for products, add them to cart, make orders, and more.
 
-## Features
+## Application functionality
 
-### Home screen
+### 1. Featured products 
 
 Presents to the user all the products and categories that are listed in your WooCommerce website.
 
@@ -20,11 +20,11 @@ Presents to the user all the products and categories that are listed in your Woo
 - Supports two different lists UI:
   - Grid list display
   - Feed list display (like Instagram) 
-- Allows to filter products by:
+- Filtering products by:
   - Highest or lowest price
   - Featured or on sale
   - Available now or by back order
-- Allows to sort products by:
+- Sorting products by:
   - Rating
   - Popularity
   - Date (ASC/DESC)
@@ -32,6 +32,19 @@ Presents to the user all the products and categories that are listed in your Woo
   - Alphabet (ASC/DESC)
 
 ![Header](.github/assets/woo_feature_home_screen.png)
+
+### 2. Catalog 
+
+Presents to the user all the categories with corresponding products for each category.
+
+- Paginated lazy load of categories.
+- Paginated lazy load of products for each of category.
+- Dynamic UI coloring for category image and name (choosing color depending on image to match contrast).
+- Sorting categories by alphabet (ASC/DESC).
+- Viewing separate screen with paginated products list of particular category.
+- Filtering products list of particular category by terms.
+
+![Header](.github/assets/woo_feature_catalog.png)
 
 ## Server requirements
 
