@@ -65,6 +65,30 @@ Powered by [CoCart](https://docs.cocart.xyz/#introduction) plugin APIs.
 
 ![Header](.github/assets/woo_feature_cart.png)
 
+### 4. Product
+
+Presents all the information about particular product from the store.
+
+- Contains information about the product:
+  - Images
+  - Name
+  - Price
+  - Rating
+  - Availability status
+  - Description
+  - Properties / terms
+- Supported CTA actions:
+  - Open zoomable galley with all the product images.
+  - Add / Remove from **Wish List**
+  - Opening **Product Reviews**
+  - Sharing product link
+  - Open any of the Viewed / Category related product
+  - Add to cart, or checkout if already added
+- Carousel with recently viewed products
+- Carousel with related category products
+
+![Header](.github/assets/woo_feature_product.png)
+
 ## Server requirements
 
 - Working and fully functional [WordPress](https://wordpress.org/) website.
