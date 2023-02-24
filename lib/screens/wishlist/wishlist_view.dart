@@ -13,7 +13,48 @@ import 'package:wooapp/widget/widget_product_grid.dart';
 
 class WishListView extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) =>
+      BlocListener<WishListCubit, WishListState>(
+        listener: (context, state) {},
+        child: BlocBuilder<WishListCubit, WishListState>(
+          builder: (context, state) {
+            bool? displayGrid;
+            Widget stateWidget;
+            switch (state.runtimeType) {
+              case ContentWishListState:
+                displayGrid = (state as ContentWishListState).displayGrid;
+                stateWidget = _contentState(context, state);
+                break;
+              case EmptyWishListState:
+                stateWidget = _emptyState(context);
+                break;
+              case ErrorWishListState:
+                stateWidget = _errorState(context);
+                break;
+              case LoadingWishListState:
+                stateWidget = _loadingState(
+                  context,
+                  (state as LoadingWishListState).displayGrid,
+                );
+                break;
+              default:
+                stateWidget = Container(); //_loadingState(context);
+            }
+            return _screenWrapper(
+              context,
+              stateWidget,
+              displayGrid: displayGrid,
+            );
+          },
+        ),
+      );
+
+  Widget _screenWrapper(
+    BuildContext context,
+    Widget widget, {
+    bool? displayGrid,
+  }) =>
+      Scaffold(
         appBar: AppBar(
           leading: BackButton(
             color: WooAppTheme.colorToolbarForeground,
@@ -25,25 +66,21 @@ class WishListView extends StatelessWidget {
             ),
           ).tr(),
           backgroundColor: WooAppTheme.colorToolbarBackground,
+          actions: [
+            if (displayGrid != null)
+              IconButton(
+                onPressed: () =>
+                    context.read<WishListCubit>().toggleDisplayMode(),
+                icon: Icon(
+                  displayGrid
+                      ? Icons.grid_view_rounded
+                      : Icons.view_agenda_rounded,
+                  color: WooAppTheme.colorToolbarForeground,
+                ),
+              ),
+          ],
         ),
-        backgroundColor: WooAppTheme.colorCommonBackground,
-        body: BlocListener<WishListCubit, WishListState>(
-          listener: (context, state) {},
-          child: BlocBuilder<WishListCubit, WishListState>(
-            builder: (context, state) {
-              switch (state.runtimeType) {
-                case ContentWishListState:
-                  return _contentState(context, state as ContentWishListState);
-                case EmptyWishListState:
-                  return _emptyState(context);
-                case ErrorWishListState:
-                  return _errorState(context);
-                default:
-                  return _loadingState(context);
-              }
-            },
-          ),
-        ),
+        body: widget,
       );
 
   Widget _errorState(BuildContext context) => WooErrorStateWidget(() {
@@ -113,5 +150,8 @@ class WishListView extends StatelessWidget {
         ],
       );
 
-  Widget _loadingState(BuildContext context) => FeaturedShimmer(true);
+  Widget _loadingState(BuildContext context, bool displayGrid) {
+    if (displayGrid) return FeaturedShimmer(true);
+    return Container();
+  }
 }

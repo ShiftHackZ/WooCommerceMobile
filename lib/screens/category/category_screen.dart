@@ -50,9 +50,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   void initState() {
-    _preferences
-        .getGridDisplayEnabled()
-        .then((value) => setState(() => _displayGrid = value));
+    // ToDo [Feed]: disabling feed list mode due to lack of fields from category API.
+    // _preferences
+    //     .getGridDisplayEnabled()
+    //     .then((value) => setState(() => _displayGrid = value));
 
     _pagingController
         .addPageRequestListener((pageKey) => _fetchProducts(pageKey));
@@ -82,18 +83,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
             color: WooAppTheme.colorToolbarForeground,
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                _preferences.setGridDisplayEnabled(!_displayGrid);
-                setState(() => _displayGrid = !_displayGrid);
-              },
-              icon: Icon(
-                _displayGrid
-                    ? Icons.grid_view_rounded
-                    : Icons.view_agenda_rounded,
-                color: WooAppTheme.colorToolbarForeground,
-              ),
-            ),
+            // ToDo [Feed]: disabling feed list mode due to lack of fields from category API.
+            // IconButton(
+            //   onPressed: () {
+            //     _preferences.setGridDisplayEnabled(!_displayGrid);
+            //     setState(() => _displayGrid = !_displayGrid);
+            //   },
+            //   icon: Icon(
+            //     _displayGrid
+            //         ? Icons.grid_view_rounded
+            //         : Icons.view_agenda_rounded,
+            //     color: WooAppTheme.colorToolbarForeground,
+            //   ),
+            // ),
             if (widget.categoryDesc.isNotEmpty)
               IconButton(
                 onPressed: () => Navigator.of(context).push(
