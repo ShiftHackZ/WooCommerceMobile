@@ -8,6 +8,87 @@ Flutter mobile WooCommerce application for your customers.
 
 Convert your working WooComerce online store into full-featured mobile application, that allow customers to look for products, add them to cart, make orders, and more.
 
+## Application functionality
+
+### 1. Featured products 
+
+Presents to the user all the products and categories that are listed in your WooCommerce website.
+
+- Paginated lazy load of products (default page size is 10).
+- Displays all available categories with corresponding image.
+- Search by keywords query.
+- Supports two different lists UI:
+  - Grid list display
+  - Feed list display (like Instagram) 
+- Filtering products by:
+  - Highest or lowest price
+  - Featured or on sale
+  - Available now or by back order
+- Sorting products by:
+  - Rating
+  - Popularity
+  - Date (ASC/DESC)
+  - Price (ASC/DESC)
+  - Alphabet (ASC/DESC)
+
+![Header](.github/assets/woo_feature_home_screen.png)
+
+### 2. Catalog 
+
+Presents to the user all the categories with corresponding products for each category.
+
+- Paginated lazy load of categories.
+- Paginated lazy load of products for each of category.
+- Dynamic UI coloring for category image and name (choosing color depending on image to match contrast).
+- Sorting categories by alphabet (ASC/DESC).
+- Viewing separate screen with paginated products list of particular category.
+- Filtering products list of particular category by terms.
+
+![Header](.github/assets/woo_feature_catalog.png)
+
+### 3. Cart
+
+Allows to have a cart of some products, which allows to create and store a list of products that user is about to order.
+
+Cart functionality works only for authorized users. If you try to interact with cart functionality on any screen, app will ask user to login or register.
+
+- Displays the list of products that were added by user.
+- If no products were added, displays the empty state, with button that routes user to **Fetured products screen**.
+- For empty state displays the carousel with recently viewed products (if any).
+- Deletion of product from the cart.
+- Edit product quantity, and recalculate the product price.
+- Routes user to **Order checkout screen**.
+- Supports adding physical generic product.
+- Supports adding physical variable product and will display variations that user needs to select.
+
+Powered by [CoCart](https://docs.cocart.xyz/#introduction) plugin APIs.
+
+![Header](.github/assets/woo_feature_cart.png)
+
+### 4. Product
+
+Presents all the information about particular product from the store.
+
+- Contains information about the product:
+  - Images
+  - Name
+  - Price
+  - Rating
+  - Availability status
+  - Description
+  - Properties / terms
+- Supported CTA actions:
+  - Open zoomable galley with all the product images.
+  - Add / Remove from **Wish List**
+  - Opening **Product Reviews**
+  - Sharing product link
+  - Open any of the Viewed / Category related product
+  - Add to cart, or checkout if already added
+- Carousel with recently viewed products
+- Carousel with related category products
+
+![Header](.github/assets/woo_feature_product.png)
+
 ## Server requirements
 
 - Working and fully functional [WordPress](https://wordpress.org/) website.
