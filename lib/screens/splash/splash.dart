@@ -20,21 +20,11 @@ class _SplashState extends State<SplashScreen> {
   final AppDb _db = locator<AppDb>();
 
   String _status = '';
-
-  startTimer() async {
-    var _duration = Duration(seconds: 1);
-    return Timer(_duration, navigationPage);
-  }
-
-  Future navigationPage() async {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
-  }
-
+  
   @override
   void initState() {
     super.initState();
-    preFetch();
+    _preFetch();
   }
 
   @override
@@ -46,8 +36,14 @@ class _SplashState extends State<SplashScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Spacer(),
-              Lottie.asset('assets/splash.json'),
-              SizedBox(height: 20),
+              SizedBox(height: 80),
+              Image.asset(
+                'assets/images/woo_app_icon.png',
+                width: 200,
+              ),
+              Spacer(),
+              Lottie.asset('assets/animations/splash.json'),
+              Spacer(),
               Text(
                 'app_name',
                 style: TextStyle(
@@ -56,7 +52,7 @@ class _SplashState extends State<SplashScreen> {
                   fontWeight: FontWeight.w300,
                 ),
               ).tr(),
-              Spacer(),
+              SizedBox(height: 40),
               Text(
                 _status,
                 style: TextStyle(
@@ -70,7 +66,7 @@ class _SplashState extends State<SplashScreen> {
         ),
       );
 
-  void preFetch() async {
+  void _preFetch() async {
     try {
       setState(() {
         _status = tr('splash_status_communicating');
@@ -91,7 +87,19 @@ class _SplashState extends State<SplashScreen> {
         _status = '';
       });
     } finally {
-      startTimer();
+      _startTimer();
     }
   }
+
+  _startTimer() async {
+    var _duration = Duration(seconds: 1);
+    return Timer(_duration, _navigateMainAppFlow);
+  }
+
+  _navigateMainAppFlow() => Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => HomeScreen(),
+    ),
+  );
 }

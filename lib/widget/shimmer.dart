@@ -179,6 +179,91 @@ class ProductScreenShimmer extends StatelessWidget {
       );
 }
 
+class ProductFeedItemShimmer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 280,
+            child: shimmer(),
+          ),
+          Padding(padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 150,
+                      height: 22,
+                      child: shimmer(),
+                    ),
+                    Spacer(),
+                    Container(
+                      width: 90,
+                      height: 14,
+                      child: shimmer(),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Container(
+                  width: 250,
+                  height: 22,
+                  child: shimmer(),
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      margin: EdgeInsets.zero,
+                      clipBehavior: Clip.antiAlias,
+                      child: Container(
+                        width: 100,
+                        height: 36,
+                        child: shimmer(),
+                      ),
+                    ),
+                    Spacer(),
+                    CircleAvatar(
+                      backgroundColor: WooAppTheme.colorShimmerBackground,
+                      radius: 20,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: shimmer(),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    CircleAvatar(
+                      backgroundColor: WooAppTheme.colorShimmerBackground,
+                      radius: 20,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: shimmer(),
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    CircleAvatar(
+                      backgroundColor: WooAppTheme.colorShimmerBackground,
+                      radius: 20,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: shimmer(),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      );
+}
+
 class CartListShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Column(

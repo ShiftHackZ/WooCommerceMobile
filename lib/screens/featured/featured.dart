@@ -10,21 +10,30 @@ import 'package:wooapp/extensions/extensions_context.dart';
 import 'package:wooapp/locator.dart';
 import 'package:wooapp/model/category.dart';
 import 'package:wooapp/model/product.dart';
+import 'package:wooapp/preferences/preferences_manager.dart';
 import 'package:wooapp/screens/featured/featured_filter.dart';
+import 'package:wooapp/screens/product/product_screen.dart';
 import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/widget_category.dart';
 import 'package:wooapp/widget/widget_empty_state.dart';
 import 'package:wooapp/widget/widget_filter.dart';
 import 'package:wooapp/widget/widget_icon_notification.dart';
+import 'package:wooapp/widget/widget_product_feed.dart';
 import 'package:wooapp/widget/widget_product_grid.dart';
 import 'package:wooapp/widget/widget_error_state.dart';
 import 'package:wooapp/widget/widget_sort.dart';
+import 'package:wooapp/screens/featured/featured_sort.dart';
 
-import 'featured_sort.dart';
-
+//region FEATURED SCREEN WIDGETS
 class FeaturedScreen extends StatelessWidget {
+  final GlobalKey<_FeaturedListState> _keyList = GlobalKey();
+  
   @override
-  Widget build(BuildContext context) => FeaturedListView();
+  Widget build(BuildContext context) => FeaturedListView(key: _keyList);
+
+  void applyListSettings() {
+    _keyList.currentState?.applyListSettings();
+  }
 }
 
 class FeaturedCategoriesView extends StatefulWidget implements PreferredSizeWidget {
@@ -41,13 +50,19 @@ class FeaturedCategoriesView extends StatefulWidget implements PreferredSizeWidg
 }
 
 class FeaturedListView extends StatefulWidget {
+  FeaturedListView({super.key});
+  
   @override
   State<StatefulWidget> createState() => _FeaturedListState();
 }
+//endregion
 
+//region FEATURED STATES
 class _FeaturedListState extends State<FeaturedListView> {
   final ProductsHomeDataSource _ds =
       locator<ProductsHomeDataSource>();
+  final PreferencesManager _preferences =
+      locator<PreferencesManager>();
   final PagingController<int, Product> _pagingController =
       PagingController(firstPageKey: 1);
 
@@ -58,16 +73,18 @@ class _FeaturedListState extends State<FeaturedListView> {
   TextEditingController _searchController = TextEditingController();
 
   double _priceMax = 10000.0;
+  bool _displayGrid = true;
   bool _searchIconState = true;
   Timer? _debounce;
 
   @override
   void initState() {
-    super.initState();
+    applyListSettings();
     _pagingController.addPageRequestListener((pageKey) => _fetchProducts(pageKey));
     _ds.getMostExpensiveProduct().then((max) {
       _priceMax = max;
     });
+    super.initState();
   }
 
   @override
@@ -82,9 +99,8 @@ class _FeaturedListState extends State<FeaturedListView> {
     appBar: AppBar(
       backgroundColor: WooAppTheme.colorToolbarBackground,
       title: Container(
-        padding: EdgeInsets.only(left: 8, top: 0),
+        padding: EdgeInsets.only(left: 8),
         decoration: BoxDecoration(
-          //color: Color(0xFF50AAF1),
           color: WooAppTheme.colorFeaturedSearchBackground,
           border: Border.all(
             color: WooAppTheme.colorFeaturedSearchBorder,
@@ -140,6 +156,18 @@ class _FeaturedListState extends State<FeaturedListView> {
       ),
       actions: [
         IconButton(
+          onPressed: () {
+            _preferences.setGridDisplayEnabled(!_displayGrid);
+            setState(() => _displayGrid = !_displayGrid);
+          },
+          icon: Icon(
+            _displayGrid
+                ? Icons.grid_view_rounded
+                : Icons.view_agenda_rounded,
+            color: WooAppTheme.colorToolbarForeground,
+          ),
+        ),
+        IconButton(
           onPressed: () => showWooBottomSheet(
             context,
             SortingWidget(_sort, SortingType.home, (newSort) {
@@ -171,11 +199,11 @@ class _FeaturedListState extends State<FeaturedListView> {
             );
           },
           icon: NotificationIcon(
-            Icon(
+            icon: Icon(
               Icons.filter_alt_rounded,
               color: WooAppTheme.colorToolbarForeground,
             ),
-            _filter.isApplied()
+            showDot: _filter.isApplied(),
           ),
         ),
       ],
@@ -204,12 +232,36 @@ class _FeaturedListState extends State<FeaturedListView> {
             showNewPageErrorIndicatorAsGridChild: false,
             showNoMoreItemsIndicatorAsGridChild: false,
             builderDelegate: PagedChildBuilderDelegate<Product>(
-              itemBuilder: (context, item, index) => ProductGridItem(
-                product: item,
-                detailRouteCallback: (_) {},
-              ),
-              firstPageProgressIndicatorBuilder: (_) => FeaturedShimmer(true),
-              newPageProgressIndicatorBuilder: (_) => FeaturedShimmer(false),
+              itemBuilder: (context, item, index) => _displayGrid
+                  ? ProductGridItem(
+                      product: item,
+                      detailRouteCallback: (_) {},
+                    )
+                  : ProductFeedWidget(
+                      product: item,
+                      onProductAction: () {},
+                      onImageClicked: (_) {
+                        hideKeyboardForce(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ProductScreen(item.id),
+                          ),
+                        );
+                      },
+                    ),
+              firstPageProgressIndicatorBuilder: (_) => _displayGrid
+                  ? FeaturedShimmer(true)
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ProductFeedItemShimmer(),
+                        ProductFeedItemShimmer(),
+                      ],
+                    ),
+              newPageProgressIndicatorBuilder: (_) => _displayGrid
+                  ? FeaturedShimmer(false)
+                  : ProductFeedItemShimmer(),
               noItemsFoundIndicatorBuilder: (_) => WooEmptyStateWidget(
                 keyTitle: 'featured_empty_title',
                 keySubTitle: 'featured_empty_subtitle',
@@ -236,15 +288,26 @@ class _FeaturedListState extends State<FeaturedListView> {
               newPageErrorIndicatorBuilder: (_) => CircularProgressIndicator()
             ),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: MediaQuery.of(context).size.width /
-                  ((MediaQuery.of(context).size.height / 2) + 10),
-              crossAxisCount: 2,
+              childAspectRatio: _aspect(context),
+              crossAxisCount: _displayGrid ? 2 : 1,
             ),
           ),
         ],
       ),
     )
   );
+  
+  void applyListSettings() {
+    _preferences
+        .getGridDisplayEnabled()
+        .then((value) => setState(() => _displayGrid = value));
+  }
+
+  double _aspect(BuildContext context) {
+    if (!_displayGrid) return 0.89;
+    return MediaQuery.of(context).size.width /
+        ((MediaQuery.of(context).size.height / 2) + 10);
+  }
 
   Future<void> _fetchProducts(int page) async {
     try {
@@ -274,17 +337,18 @@ class _FeaturedCategoriesViewState extends State<FeaturedCategoriesView> {
 
   @override
   Widget build(BuildContext context) => SizedBox(
-    height: 120,
-    child: PagedListView(
-      pagingController: _pagingController,
-      builderDelegate: PagedChildBuilderDelegate<Category>(
-        itemBuilder: (context, item, index) => FeaturedCategoryWidget(item),
-        firstPageProgressIndicatorBuilder: (_) => FeaturedCategoriesShimmer(),
-        firstPageErrorIndicatorBuilder: (_) => Container(),
-      ),
-      scrollDirection: Axis.horizontal,
-    ),
-  );
+        height: 120,
+        child: PagedListView(
+          pagingController: _pagingController,
+          builderDelegate: PagedChildBuilderDelegate<Category>(
+            itemBuilder: (_, item, i) => FeaturedCategoryWidget(item),
+            firstPageProgressIndicatorBuilder: (_) =>
+                FeaturedCategoriesShimmer(),
+            firstPageErrorIndicatorBuilder: (_) => Container(),
+          ),
+          scrollDirection: Axis.horizontal,
+        ),
+      );
 
   @override
   void initState() {
@@ -302,9 +366,7 @@ class _FeaturedCategoriesViewState extends State<FeaturedCategoriesView> {
 
   Future<void> _fetchCategories(int page) async {
     try {
-      final items = await _ds.getCategories(page).catchError((error, stackTrace) {
-        print(error.toString());
-      });
+      final items = await _ds.getCategories(page);
       final isLast = items.length < WooAppConfig.paginationLimit;
       if (isLast) {
         _pagingController.appendLastPage(items);
@@ -317,3 +379,4 @@ class _FeaturedCategoriesViewState extends State<FeaturedCategoriesView> {
     }
   }
 }
+//endregion

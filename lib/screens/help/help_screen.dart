@@ -28,7 +28,7 @@ class HelpScreen extends StatelessWidget {
           child: Stack(
             children: [
               Lottie.asset(
-                'assets/help_anim.json',
+                'assets/animations/help_anim.json',
                 width: MediaQuery.of(context).size.width * 1.0,
                 height: MediaQuery.of(context).size.height * 0.4,
               ),

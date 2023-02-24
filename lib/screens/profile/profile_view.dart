@@ -22,6 +22,7 @@ import 'package:wooapp/screens/profile/profile_state.dart';
 import 'package:wooapp/screens/profile/shipping/shipping_edit_screen.dart';
 import 'package:wooapp/screens/settings/settings.dart';
 import 'package:wooapp/screens/wishlist/wishlist_screen.dart';
+import 'package:wooapp/screens/wishlist/wishlist_state.dart';
 import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/stateful_wrapper.dart';
 import 'package:wooapp/widget/widget_error_state.dart';
@@ -30,8 +31,12 @@ import 'package:wooapp/widget/widget_woo_version.dart';
 
 class ProfileView extends StatelessWidget {
   final VoidCallback shoppingCallback;
+  final VoidCallback settingsChangedCallback;
 
-  ProfileView({required this.shoppingCallback});
+  ProfileView({
+    required this.shoppingCallback,
+    required this.settingsChangedCallback,
+  });
 
   @override
   Widget build(BuildContext context) => StatefulWrapper(
@@ -265,6 +270,7 @@ class ProfileView extends StatelessWidget {
           ).then((value) {
             if (value == true) {
               context.read<ProfileCubit>().getProfile();
+              settingsChangedCallback();
             }
             print('back, context = $context');
           }),
@@ -279,7 +285,10 @@ class ProfileView extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (_) => WishListScreen()),
           ).then((result) {
-            if (result == true) shoppingCallback();
+            if (result is WishListExitPayload) {
+              if (result.changedDisplayMode) settingsChangedCallback();
+              if (result.routeMainPage) shoppingCallback();
+            }
           }),
         ),
         WooSection(

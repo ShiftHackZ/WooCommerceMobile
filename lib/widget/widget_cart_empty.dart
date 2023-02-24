@@ -17,7 +17,7 @@ class EmptyCartWidget extends StatelessWidget {
             Center(
               child: Container(
                 width: 300,
-                child: Lottie.asset('assets/cart_empty.json'),
+                child: Lottie.asset('assets/animations/cart_empty.json'),
               ),
             ),
             SizedBox(height: 20),

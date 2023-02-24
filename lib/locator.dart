@@ -17,6 +17,7 @@ import 'package:wooapp/datasource/catalog_data_source.dart';
 import 'package:wooapp/datasource/shipping_method_data_source.dart';
 import 'package:wooapp/datasource/shopmap_data_source.dart';
 import 'package:wooapp/datasource/wish_list_data_source.dart';
+import 'package:wooapp/preferences/preferences_manager.dart';
 
 final GetIt locator = GetIt.instance;
 
@@ -46,6 +47,7 @@ void registerDataSources() async {
 void registerManagers() async {
   locator
     ..registerSingleton<AppDb>(AppDb())
+    ..registerSingleton<PreferencesManager>(PreferencesManagerImpl())
     ..registerSingleton<WooApiClient>(WooApiClient())
     ..registerSingleton<WpApiClient>(WpApiClient())
     ..registerSingleton<CoCartApiClient>(CoCartApiClient());

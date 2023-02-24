@@ -46,6 +46,14 @@ class HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _onSettingsChanged() {
+    if (!WooAppConfig.featureHomepage) return;
+    var featuredIndex = _tabs.indexWhere((t) => t is FeaturedScreen);
+    if (featuredIndex != -1) {
+      (_tabs[featuredIndex] as FeaturedScreen).applyListSettings();
+    }
+  }
+
   @override
   void initState() {
     _bottomItems = [
@@ -82,6 +90,7 @@ class HomeScreenState extends State<HomeScreen> {
       if (WooAppConfig.featureProfile)
         ProfileScreen(
           shoppingCallback: () => _openStore(),
+          settingsChangedCallback: () => _onSettingsChanged(),
         ),
     ];
     super.initState();

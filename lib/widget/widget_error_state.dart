@@ -19,7 +19,7 @@ class WooErrorStateWidget extends StatelessWidget {
                 width: 180,
                 height: 180,
                 child: Lottie.asset(
-                  'assets/error_retry.json',
+                  'assets/animations/error_retry.json',
                   repeat: false,
                 ),
               ),
