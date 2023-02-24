@@ -46,6 +46,25 @@ Presents to the user all the categories with corresponding products for each cat
 
 ![Header](.github/assets/woo_feature_catalog.png)
 
+### 3. Cart
+
+Allows to have a cart of some products, which allows to create and store a list of products that user is about to order.
+
+Cart functionality works only for authorized users. If you try to interact with cart functionality on any screen, app will ask user to login or register.
+
+- Displays the list of products that were added by user.
+- If no products were added, displays the empty state, with button that routes user to **Fetured products screen**.
+- For empty state displays the carousel with recently viewed products (if any).
+- Deletion of product from the cart.
+- Edit product quantity, and recalculate the product price.
+- Routes user to **Order checkout screen**.
+- Supports adding physical generic product.
+- Supports adding physical variable product and will display variations that user needs to select.
+
+Powered by [CoCart](https://docs.cocart.xyz/#introduction) plugin APIs.
+
+![Header](.github/assets/woo_feature_cart.png)
+
 ## Server requirements
 
 - Working and fully functional [WordPress](https://wordpress.org/) website.
