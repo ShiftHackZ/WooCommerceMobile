@@ -4,12 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:wooapp/config/theme.dart';
 import 'package:wooapp/model/product.dart';
+import 'package:wooapp/screens/product/product_screen.dart';
 import 'package:wooapp/screens/wishlist/wishlist_cubit.dart';
 import 'package:wooapp/screens/wishlist/wishlist_state.dart';
 import 'package:wooapp/widget/shimmer.dart';
 import 'package:wooapp/widget/widget_empty_state.dart';
 import 'package:wooapp/widget/widget_error_state.dart';
+import 'package:wooapp/widget/widget_product_feed.dart';
 import 'package:wooapp/widget/widget_product_grid.dart';
+import 'package:wooapp/widget/widget_woo_section.dart';
 
 class WishListView extends StatelessWidget {
   @override
@@ -98,20 +101,72 @@ class WishListView extends StatelessWidget {
         ),
       );
 
-  Widget _contentState(BuildContext context, ContentWishListState state) =>
-      GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-        ),
-        itemCount: state.wishlist.length,
-        itemBuilder: (ctx, i) => _buildProductItem(
-          context,
-          i,
-          state.wishlist[i].second,
-        ),
+  Widget _contentState(BuildContext context, ContentWishListState state) {
+    if (state.displayGrid) return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemCount: state.wishlist.length,
+      itemBuilder: (ctx, i) => _buildGridProductItem(
+        context,
+        i,
+        state.wishlist[i].second,
+      ),
+    );
+    return ListView.builder(
+      itemCount: state.wishlist.length,
+      itemBuilder: (ctx, i) => _buildFeedProductItem(
+        context,
+        i,
+        state.wishlist[i].second,
+      ),
+    );
+  }
+
+  Widget _buildFeedProductItem(
+    BuildContext context,
+    int index,
+    Product product,
+  ) =>
+      Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          ProductFeedWidget(
+            product: product,
+            onProductAction: () {},
+            onImageClicked: (_) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ProductScreen(product.id),
+                ),
+              );
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: 8,
+              right: 107,
+            ),
+            child: InkWell(
+              onTap: () => context.read<WishListCubit>().removeItem(index),
+              child: CircleAvatar(
+                backgroundColor: WooAppTheme.colorDangerActionBackground,
+                radius: 19,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                  child: Icon(
+                    Icons.delete_outline,
+                    color: WooAppTheme.colorDangerActionForeground,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       );
 
-  Widget _buildProductItem(
+  Widget _buildGridProductItem(
     BuildContext context,
     int index,
     Product product,
@@ -152,6 +207,14 @@ class WishListView extends StatelessWidget {
 
   Widget _loadingState(BuildContext context, bool displayGrid) {
     if (displayGrid) return FeaturedShimmer(true);
-    return Container();
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ProductFeedItemShimmer(),
+          ProductFeedItemShimmer(),
+        ],
+      ),
+    );
   }
 }
