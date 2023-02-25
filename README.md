@@ -44,6 +44,8 @@ Presents to the user all the categories with corresponding products for each cat
 - Viewing separate screen with paginated products list of particular category.
 - Filtering products list of particular category by terms.
 
+Powered by [WooApp](https://github.com/ShiftHackZ/WooCommerceMobilePlugin) plugin APIs.
+
 ![Header](.github/assets/woo_feature_catalog.png)
 
 ### 3. Cart
@@ -93,7 +95,7 @@ Presents all the information about particular product from the store.
 
 - Working and fully functional [WordPress](https://wordpress.org/) website.
 - Installed and enabled [WooCommerce](https://woocommerce.com/) plugin.
-- Installed and enabled [WooApp](https://woo.moroz.cc) plugin.
+- Installed and enabled [WooApp](https://github.com/ShiftHackZ/WooCommerceMobilePlugin/) plugin.
 - Installed and enabled [WP REST User](https://www.commoninja.com/discover/wordpress/plugin/wp-rest-user) plugin.
 - Installed and enabled [CoCart](https://docs.cocart.xyz/#introduction) plugin.
 - (Optional) Installed and enabled [TI Wishlist](https://wordpress.org/plugins/ti-woocommerce-wishlist/) plugin.
